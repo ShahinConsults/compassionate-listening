@@ -269,9 +269,9 @@
       <!-- Sub-navigation inside Elder View when a chat or booking exists -->
       <div id="elder-subnav" class="hidden mb-6 flex flex-wrap items-center justify-between gap-3 bg-white border border-cream-300 rounded-2xl p-4 shadow-sm">
         <div class="flex items-center gap-3">
-          <span class="w-3 h-3 rounded-full bg-emerald-600 inline-block" aria-hidden="true"></span>
-          <p class="font-semibold text-sanctuary-charcoal">
-            You have an active family room ready
+          <span id="elder-subnav-dot" class="w-3 h-3 rounded-full bg-amber-500 inline-block" aria-hidden="true"></span>
+          <p id="elder-subnav-text" class="font-semibold text-sanctuary-charcoal">
+            Your family request is active
           </p>
         </div>
         <div class="flex flex-wrap gap-3">
@@ -288,7 +288,7 @@
             class="touch-target px-5 py-2.5 rounded-xl font-bold bg-sanctuary-teal text-white hover:bg-sanctuary-tealDark transition-colors inline-flex items-center gap-2"
           >
             <i data-lucide="message-circle-heart" class="w-5 h-5" aria-hidden="true"></i>
-            <span>Return to My Chat Room</span>
+            <span id="btn-resume-chat-label">View Request Status</span>
           </button>
         </div>
       </div>
@@ -307,7 +307,7 @@
                 Whenever you feel like talking, we are here to listen.
               </h2>
               <p class="text-sanctuary-slate text-lg">
-                Pick a peaceful day and time below, tell us what is on your heart, and step straight into your quiet family chat room. No phone calls or video — just unhurried written words.
+                Pick a peaceful day and time below, tell us what is on your heart, and send your request straight to Mom. Once Mom confirms your time, you will step into your private family chat room together.
               </p>
             </div>
           </div>
@@ -477,57 +477,88 @@
             </fieldset>
           </div>
 
+          <!-- Network Error Alert (only shown if cloud request fails) -->
+          <div
+            id="booking-network-error"
+            hidden
+            role="alert"
+            class="bg-red-50 border-2 border-red-300 text-red-900 rounded-2xl p-5 flex items-start gap-3"
+          >
+            <i data-lucide="wifi-off" class="w-6 h-6 text-red-700 shrink-0 mt-0.5" aria-hidden="true"></i>
+            <div>
+              <p class="font-bold">Could not reach Mom's phone just now</p>
+              <p id="booking-network-error-text" class="mt-1">Please check your internet connection and tap Send Request again.</p>
+            </div>
+          </div>
+
           <!-- Submit Button -->
           <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4 bg-sanctuary-tealSoft/70 border-2 border-sanctuary-teal/25 rounded-3xl p-6">
             <div>
               <p class="font-bold text-sanctuary-tealDark text-lg">Ready whenever you are</p>
-              <p class="text-sanctuary-slate">Your spot will be saved right away for our family.</p>
+              <p class="text-sanctuary-slate">Your request will go straight to Mom's phone so she can confirm your time.</p>
             </div>
             <button
               id="btn-confirm-booking"
               type="submit"
-              class="touch-target min-h-[60px] px-8 py-4 rounded-2xl bg-sanctuary-teal text-white font-extrabold text-lg shadow-md hover:bg-sanctuary-tealDark transition-colors inline-flex items-center justify-center gap-3 shrink-0"
+              class="touch-target min-h-[60px] px-8 py-4 rounded-2xl bg-sanctuary-teal text-white font-extrabold text-lg shadow-md hover:bg-sanctuary-tealDark disabled:opacity-60 transition-colors inline-flex items-center justify-center gap-3 shrink-0"
             >
               <i data-lucide="calendar-check" class="w-6 h-6" aria-hidden="true"></i>
-              <span>Save My Time &amp; Prepare Room</span>
+              <span id="btn-confirm-booking-label">Send Request to Mom</span>
             </button>
           </div>
         </form>
       </div>
 
-      <!-- STEP 1.5: INSTANT BOOKING CONFIRMATION -->
-      <div id="confirmation-panel" hidden class="bg-white border-2 border-sanctuary-teal/30 rounded-3xl p-6 sm:p-10 shadow-sm space-y-7 fade-slide-in">
-        <div class="flex flex-col sm:flex-row sm:items-center gap-4">
-          <div class="w-16 h-16 rounded-2xl bg-sanctuary-tealSoft text-sanctuary-teal flex items-center justify-center shrink-0">
-            <i data-lucide="check-circle-2" class="w-9 h-9" aria-hidden="true"></i>
+      <!-- STEP 1.5: LIVE WAITING / MOM'S CONFIRMATION PANEL -->
+      <div id="confirmation-panel" hidden class="bg-white border-2 border-sanctuary-goldBorder rounded-3xl p-6 sm:p-10 shadow-sm space-y-7 fade-slide-in">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div class="flex flex-col sm:flex-row sm:items-center gap-4">
+            <div id="confirm-icon-box" class="w-16 h-16 rounded-2xl bg-sanctuary-goldSoft text-sanctuary-gold flex items-center justify-center shrink-0">
+              <i id="confirm-icon" data-lucide="clock" class="w-9 h-9" aria-hidden="true"></i>
+            </div>
+            <div>
+              <p id="confirm-eyebrow" class="text-sanctuary-gold font-bold uppercase tracking-wide text-sm">Request Sent to Mom</p>
+              <h2 id="confirm-heading" tabindex="-1" class="text-2xl sm:text-3xl font-extrabold text-sanctuary-charcoal">
+                Waiting for Mom to confirm your time...
+              </h2>
+            </div>
           </div>
-          <div>
-            <p class="text-sanctuary-teal font-bold uppercase tracking-wide text-sm">Booking Confirmed</p>
-            <h2 id="confirm-heading" tabindex="-1" class="text-2xl sm:text-3xl font-extrabold text-sanctuary-charcoal">
-              Your quiet listening time is saved!
-            </h2>
-          </div>
+
+          <span id="elder-booking-sync-pill" class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-sm font-bold bg-emerald-50 border border-emerald-200 text-emerald-800 self-start sm:self-center">
+            <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" aria-hidden="true"></span>
+            <span>Connected Live</span>
+          </span>
         </div>
 
         <div id="confirm-summary-card" class="bg-cream-50 border border-cream-300 rounded-2xl p-5 sm:p-6 grid grid-cols-1 sm:grid-cols-2 gap-5">
           <!-- Populated safely via DOM methods -->
         </div>
 
-        <div class="bg-sanctuary-goldSoft/70 border border-sanctuary-goldBorder rounded-2xl p-5 flex items-start gap-3">
-          <i data-lucide="message-square-heart" class="w-6 h-6 text-sanctuary-gold shrink-0 mt-0.5" aria-hidden="true"></i>
-          <p class="text-sanctuary-charcoal">
-            <strong>No waiting needed:</strong> Your private text room is open right now if you want to leave a note or begin sharing right away.
-          </p>
+        <div id="confirm-status-box" class="bg-sanctuary-goldSoft/80 border-2 border-sanctuary-goldBorder rounded-2xl p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div class="flex items-start gap-3">
+            <i id="confirm-status-icon" data-lucide="bell-ring" class="w-6 h-6 text-sanctuary-gold shrink-0 mt-0.5" aria-hidden="true"></i>
+            <p id="confirm-status-text" class="text-sanctuary-charcoal font-medium">
+              <strong>Your request is on Mom's Host Desk now.</strong> Please keep this page open — as soon as Mom confirms your time, this screen will update automatically so you can enter your private chat together.
+            </p>
+          </div>
+          <button
+            id="btn-check-confirm-status"
+            type="button"
+            class="touch-target px-4 py-2.5 rounded-xl border-2 border-sanctuary-goldBorder bg-white text-sanctuary-charcoal font-bold hover:bg-cream-100 transition-colors shrink-0"
+          >
+            Check Status Now
+          </button>
         </div>
 
         <div class="flex flex-col sm:flex-row gap-4 pt-2">
           <button
             id="btn-enter-chat-now"
             type="button"
+            hidden
             class="touch-target min-h-[60px] flex-1 px-8 py-4 rounded-2xl bg-sanctuary-teal text-white font-extrabold text-lg shadow-md hover:bg-sanctuary-tealDark transition-colors inline-flex items-center justify-center gap-3"
           >
             <i data-lucide="door-open" class="w-6 h-6" aria-hidden="true"></i>
-            <span>Enter Private Chat Room</span>
+            <span>Enter Private Chat with Mom</span>
           </button>
           <button
             id="btn-book-another"
@@ -552,6 +583,10 @@
             </span>
             <span id="chat-pref-badge" class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-sm font-bold bg-sanctuary-goldSoft border border-sanctuary-goldBorder text-sanctuary-gold">
               <!-- Populated by JS -->
+            </span>
+            <span id="chat-sync-pill" class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-sm font-bold bg-emerald-50 border border-emerald-200 text-emerald-800">
+              <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" aria-hidden="true"></span>
+              <span>Live Sync</span>
             </span>
           </div>
           <h2 id="chat-room-heading" tabindex="-1" class="text-2xl font-extrabold text-sanctuary-charcoal">
@@ -579,13 +614,9 @@
         <!-- Warm Reminder Strip -->
         <div class="bg-cream-100 border-b border-cream-300 px-5 py-3 flex flex-wrap items-center justify-between gap-2 text-sm sm:text-base text-sanctuary-slate">
           <span class="inline-flex items-center gap-2">
-            <i data-lucide="coffee" class="w-5 h-5 text-sanctuary-teal" aria-hidden="true"></i>
-            <span>Take all the time you need. Everything here stays privately saved on this family device.</span>
+            <i data-lucide="heart-handshake" class="w-5 h-5 text-sanctuary-teal" aria-hidden="true"></i>
+            <span>Direct live conversation between you and Mom. Tap <strong>Speak</strong> or write below — your real words go straight to each other.</span>
           </span>
-          <label id="auto-reply-toggle-wrap" class="inline-flex items-center gap-2 cursor-pointer font-semibold text-sanctuary-charcoal">
-            <input id="auto-reply-toggle" type="checkbox" checked class="w-5 h-5 accent-[#1f6f68] rounded">
-            <span>Gentle warm reply helper</span>
-          </label>
         </div>
 
         <!-- Messages Log -->
@@ -599,10 +630,9 @@
           <!-- Populated safely by JS -->
         </div>
 
-        <!-- Typing / Reading Indicator -->
-        <div id="typing-indicator" hidden class="px-6 py-2.5 bg-cream-50 border-t border-cream-200 text-sanctuary-teal font-semibold flex items-center gap-2">
-          <i data-lucide="heart" class="w-4 h-4 animate-pulse" aria-hidden="true"></i>
-          <span>Mom is reading with care and writing back...</span>
+        <!-- Chat Send Error Banner -->
+        <div id="chat-send-error" hidden role="alert" class="px-5 py-3 bg-red-50 border-t border-red-200 text-red-900 font-semibold text-sm sm:text-base">
+          Could not deliver that message right now. Please check your internet and tap Send again.
         </div>
 
         <!-- Quick-Share / Quick-Response Prompts -->
@@ -724,25 +754,37 @@
     <section id="host-view" hidden aria-labelledby="host-view-heading" class="space-y-6 fade-slide-in">
       <div class="bg-white border border-cream-300 rounded-3xl p-6 sm:p-8 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div class="space-y-1.5">
-          <p class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-sanctuary-tealSoft text-sanctuary-tealDark font-bold text-sm">
-            <i data-lucide="heart-handshake" class="w-4 h-4" aria-hidden="true"></i>
-            <span>Family Listener Desk</span>
-          </p>
+          <div class="flex flex-wrap items-center gap-2.5">
+            <p class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-sanctuary-tealSoft text-sanctuary-tealDark font-bold text-sm">
+              <i data-lucide="heart-handshake" class="w-4 h-4" aria-hidden="true"></i>
+              <span>Family Listener Desk</span>
+            </p>
+            <span id="host-sync-pill" class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-sm font-bold bg-emerald-50 border border-emerald-200 text-emerald-800">
+              <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" aria-hidden="true"></span>
+              <span>Listening Live</span>
+            </span>
+          </div>
           <h2 id="host-view-heading" tabindex="-1" class="text-2xl sm:text-3xl font-extrabold text-sanctuary-charcoal">
             Mom's Family Host Desk
           </h2>
           <p class="text-sanctuary-slate text-lg">
-            See everyone in the family who booked time to share, check how they wish to be heard, and step into their chat room to listen.
+            Incoming family requests appear here in real time. Tap Confirm to accept a slot, then join their private chat room to speak directly together.
           </p>
         </div>
 
         <button
-          id="btn-reset-demo"
+          id="btn-sync-now"
           type="button"
-          class="touch-target px-4 py-2.5 rounded-xl border-2 border-cream-300 bg-cream-50 text-sanctuary-slate font-semibold hover:border-sanctuary-teal hover:text-sanctuary-charcoal transition-colors shrink-0 self-start md:self-center"
+          class="touch-target px-5 py-2.5 rounded-xl border-2 border-sanctuary-teal bg-sanctuary-tealSoft text-sanctuary-tealDark font-bold hover:bg-sanctuary-teal hover:text-white transition-colors inline-flex items-center gap-2 shrink-0 self-start md:self-center"
         >
-          Restore Sample Family List
+          <i data-lucide="refresh-cw" class="w-5 h-5" aria-hidden="true"></i>
+          <span>Refresh Inbox</span>
         </button>
+      </div>
+
+      <!-- Live Incoming Booking Alert Banner -->
+      <div id="host-live-alert" hidden class="space-y-3" role="region" aria-live="assertive" aria-label="New incoming booking requests">
+        <!-- Populated safely by JS when pending requests exist -->
       </div>
 
       <!-- Sessions List -->
@@ -763,7 +805,11 @@
     (() => {
       'use strict';
 
-      const STORAGE_KEY = 'compassionate_listening_sanctuary_v1';
+      const STORAGE_KEY = 'compassionate_listening_sanctuary_v2';
+      const NTFY_BASE_HTTP = 'https://ntfy.sh';
+      const NTFY_BASE_WS = 'wss://ntfy.sh';
+      const BOOKING_TOPIC = 'compassionate_family_bookings_v2';
+      const CHAT_TOPIC_PREFIX = 'compassionate_family_chat_';
 
       const TIME_GROUPS = [
         {
@@ -838,69 +884,22 @@
 
       const UPCOMING_DAYS = getUpcomingDays();
 
-      function formatClock(dateObj = new Date()) {
-        return dateObj.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' });
+      function formatClock(dateInput = Date.now()) {
+        const d = dateInput instanceof Date ? dateInput : new Date(dateInput);
+        return d.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' });
+      }
+
+      function createId(prefix) {
+        const rand = Math.random().toString(36).slice(2, 8);
+        return `${prefix}-${Date.now()}-${rand}`;
       }
 
       function createDefaultData() {
-        const todayIso = UPCOMING_DAYS[0].iso;
-        const tomorrowIso = UPCOMING_DAYS[1].iso;
-
         return {
           activeSessionId: null,
           textExtraLarge: false,
-          autoReplyHelper: true,
-          sessions: [
-            {
-              id: 'sample-grandfather',
-              elderName: 'Grandfather',
-              dateIso: todayIso,
-              dateLabel: UPCOMING_DAYS[0].displayLabel,
-              timeSlot: '4:00 PM',
-              topic: 'Childhood memories',
-              heartNote: 'Remembering summer evenings on the verandah with everyone.',
-              preference: 'listen-only',
-              status: 'waiting',
-              createdAt: Date.now() - 3600 * 1000,
-              messages: [
-                {
-                  id: 'm-1',
-                  sender: 'mom',
-                  senderLabel: 'Mom (Listening)',
-                  text: 'Welcome to our quiet family room, Grandfather. Take all the time you need—I am right here listening with love.',
-                  time: '3:58 PM'
-                },
-                {
-                  id: 'm-2',
-                  sender: 'elder',
-                  senderLabel: 'Grandfather',
-                  text: 'I was just remembering the old days when we used to sit outside after sunset and tell stories.',
-                  time: '4:01 PM'
-                }
-              ]
-            },
-            {
-              id: 'sample-grandmother',
-              elderName: 'Grandmother',
-              dateIso: tomorrowIso,
-              dateLabel: UPCOMING_DAYS[1].displayLabel,
-              timeSlot: '10:00 AM',
-              topic: 'Family stories',
-              heartNote: 'Wanted to share an old family recipe story and hear your thoughts.',
-              preference: 'gentle-thoughts',
-              status: 'upcoming',
-              createdAt: Date.now() - 1800 * 1000,
-              messages: [
-                {
-                  id: 'm-3',
-                  sender: 'mom',
-                  senderLabel: 'Mom (Listening)',
-                  text: 'Dear Grandmother, I have saved our morning time for tomorrow. Whenever you want to write a thought, I will be happy to read it.',
-                  time: '10:00 AM'
-                }
-              ]
-            }
-          ]
+          voiceLang: null,
+          sessions: []
         };
       }
 
@@ -932,12 +931,185 @@
         }
       }
 
+      // Soft chime via Web Audio API (no external audio assets required)
+      let sharedAudioCtx = null;
+      function playGentleChime(kind = 'booking') {
+        try {
+          const AudioCtx = window.AudioContext || window.webkitAudioContext;
+          if (!AudioCtx) return;
+          if (!sharedAudioCtx) {
+            sharedAudioCtx = new AudioCtx();
+          }
+          if (sharedAudioCtx.state === 'suspended') {
+            sharedAudioCtx.resume().catch(() => {});
+          }
+          const now = sharedAudioCtx.currentTime;
+          const notes = kind === 'confirmed'
+            ? [523.25, 659.25, 783.99]
+            : kind === 'chat'
+            ? [587.33, 783.99]
+            : [440, 554.37, 659.25];
+
+          notes.forEach((freq, idx) => {
+            const osc = sharedAudioCtx.createOscillator();
+            const gain = sharedAudioCtx.createGain();
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(freq, now + idx * 0.11);
+            gain.gain.setValueAtTime(0.001, now + idx * 0.11);
+            gain.gain.exponentialRampToValueAtTime(0.08, now + idx * 0.11 + 0.03);
+            gain.gain.exponentialRampToValueAtTime(0.0001, now + idx * 0.11 + 0.45);
+            osc.connect(gain);
+            gain.connect(sharedAudioCtx.destination);
+            osc.start(now + idx * 0.11);
+            osc.stop(now + idx * 0.11 + 0.48);
+          });
+        } catch (_err) {
+          // Audio blocked before gesture — fail silently
+        }
+      }
+
+      // ==================== REAL-TIME CLOUD SYNC (NTFY.SH PUB/SUB) ====================
+      async function ntfyPublish(topic, payload) {
+        const res = await fetch(`${NTFY_BASE_HTTP}/${encodeURIComponent(topic)}`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'text/plain;charset=UTF-8' },
+          body: JSON.stringify(payload)
+        });
+        if (!res.ok) {
+          throw new Error(`HTTP ${res.status}`);
+        }
+        return res.json();
+      }
+
+      async function ntfyPollTopic(topic, onPayload, since = 'all') {
+        const res = await fetch(
+          `${NTFY_BASE_HTTP}/${encodeURIComponent(topic)}/json?poll=1&since=${encodeURIComponent(since)}`,
+          { cache: 'no-store' }
+        );
+        if (!res.ok) {
+          throw new Error(`Poll HTTP ${res.status}`);
+        }
+        const text = await res.text();
+        const lines = text.split('\n');
+        for (let i = 0; i < lines.length; i++) {
+          const line = lines[i].trim();
+          if (!line) continue;
+          try {
+            const envelope = JSON.parse(line);
+            if (envelope && envelope.event === 'message' && typeof envelope.message === 'string') {
+              const inner = JSON.parse(envelope.message);
+              onPayload(inner, envelope, { isInitialPoll: true });
+            }
+          } catch (_err) {
+            // Ignore keepalive or non-JSON entries
+          }
+        }
+      }
+
+      function ntfySubscribe(topic, onPayload, onStatus) {
+        let closed = false;
+        let ws = null;
+        let reconnectTimer = null;
+        let backoffMs = 2000;
+
+        function setStatus(status) {
+          if (onStatus) onStatus(status);
+        }
+
+        function connectWs() {
+          if (closed) return;
+          try {
+            if (ws) {
+              try {
+                ws.onopen = null;
+                ws.onmessage = null;
+                ws.onerror = null;
+                ws.onclose = null;
+                ws.close();
+              } catch (_e) {}
+            }
+            ws = new WebSocket(`${NTFY_BASE_WS}/${encodeURIComponent(topic)}/ws?since=30s`);
+            ws.onopen = () => {
+              backoffMs = 2000;
+              setStatus('live');
+            };
+            ws.onmessage = (event) => {
+              if (!event || typeof event.data !== 'string') return;
+              try {
+                const envelope = JSON.parse(event.data);
+                if (envelope && envelope.event === 'message' && typeof envelope.message === 'string') {
+                  const inner = JSON.parse(envelope.message);
+                  onPayload(inner, envelope, { isInitialPoll: false });
+                }
+              } catch (_err) {
+                // Ignore keepalive / open frames
+              }
+            };
+            ws.onerror = () => {
+              setStatus('reconnecting');
+            };
+            ws.onclose = () => {
+              if (closed) return;
+              setStatus('reconnecting');
+              if (reconnectTimer) clearTimeout(reconnectTimer);
+              reconnectTimer = window.setTimeout(() => {
+                backoffMs = Math.min(backoffMs * 1.5, 15000);
+                ntfyPollTopic(topic, onPayload, '10m').catch(() => {});
+                connectWs();
+              }, backoffMs);
+            };
+          } catch (_err) {
+            setStatus('reconnecting');
+          }
+        }
+
+        // Initial poll then open live WebSocket
+        ntfyPollTopic(topic, onPayload, 'all')
+          .catch(() => setStatus('reconnecting'))
+          .finally(() => {
+            if (!closed) connectWs();
+          });
+
+        return {
+          refresh() {
+            return ntfyPollTopic(topic, onPayload, 'all').then(() => {
+              if (!ws || ws.readyState !== WebSocket.OPEN) {
+                connectWs();
+              }
+            });
+          },
+          close() {
+            closed = true;
+            if (reconnectTimer) clearTimeout(reconnectTimer);
+            if (ws) {
+              try {
+                ws.onopen = null;
+                ws.onmessage = null;
+                ws.onerror = null;
+                ws.onclose = null;
+                ws.close();
+              } catch (_e) {}
+              ws = null;
+            }
+          }
+        };
+      }
+
       let state = loadState();
-      let currentView = 'elder'; // 'elder' | 'host'
+      const urlParams = new URLSearchParams(window.location.search);
+      let currentView =
+        urlParams.get('role') === 'mom' || window.location.hash === '#host'
+          ? 'host'
+          : 'elder'; // 'elder' | 'host'
       let elderScreen = 'booking'; // 'booking' | 'confirmation' | 'chat'
-      let chatOpenedFrom = 'elder'; // 'elder' | 'host'
+      let chatOpenedFrom = currentView === 'host' ? 'host' : 'elder';
       let activeChatSessionId = state.activeSessionId;
-      let pendingReplyTimer = null;
+
+      const confirmedBookingIds = new Set();
+      const bookingStatusTimestamps = new Map();
+      const localActionIds = new Set();
+      let activeChatSub = null;
+      let bookingSub = null;
 
       // DOM elements
       const liveStatus = document.getElementById('live-status');
@@ -949,13 +1121,20 @@
 
       const elderViewEl = document.getElementById('elder-view');
       const elderSubnavEl = document.getElementById('elder-subnav');
+      const elderSubnavDot = document.getElementById('elder-subnav-dot');
+      const elderSubnavText = document.getElementById('elder-subnav-text');
       const btnGoBooking = document.getElementById('btn-go-booking');
       const btnResumeChat = document.getElementById('btn-resume-chat');
+      const btnResumeChatLabel = document.getElementById('btn-resume-chat-label');
 
       const bookingPanel = document.getElementById('booking-panel');
       const bookingForm = document.getElementById('booking-form');
       const formErrorSummary = document.getElementById('form-error-summary');
       const formErrorText = document.getElementById('form-error-text');
+      const bookingNetworkError = document.getElementById('booking-network-error');
+      const bookingNetworkErrorText = document.getElementById('booking-network-error-text');
+      const btnConfirmBooking = document.getElementById('btn-confirm-booking');
+      const btnConfirmBookingLabel = document.getElementById('btn-confirm-booking-label');
       const datePickerGrid = document.getElementById('date-picker-grid');
       const timeSlotsContainer = document.getElementById('time-slots-container');
       const elderNameInput = document.getElementById('elder-name');
@@ -964,22 +1143,29 @@
       const heartNoteInput = document.getElementById('heart-note');
 
       const confirmationPanel = document.getElementById('confirmation-panel');
+      const confirmIconBox = document.getElementById('confirm-icon-box');
+      const confirmIcon = document.getElementById('confirm-icon');
+      const confirmEyebrow = document.getElementById('confirm-eyebrow');
       const confirmHeading = document.getElementById('confirm-heading');
       const confirmSummaryCard = document.getElementById('confirm-summary-card');
+      const confirmStatusBox = document.getElementById('confirm-status-box');
+      const confirmStatusIcon = document.getElementById('confirm-status-icon');
+      const confirmStatusText = document.getElementById('confirm-status-text');
+      const btnCheckConfirmStatus = document.getElementById('btn-check-confirm-status');
+      const elderBookingSyncPill = document.getElementById('elder-booking-sync-pill');
       const btnEnterChatNow = document.getElementById('btn-enter-chat-now');
       const btnBookAnother = document.getElementById('btn-book-another');
 
       const chatPanel = document.getElementById('chat-panel');
       const chatRolePill = document.getElementById('chat-role-pill');
       const chatPrefBadge = document.getElementById('chat-pref-badge');
+      const chatSyncPill = document.getElementById('chat-sync-pill');
       const chatRoomHeading = document.getElementById('chat-room-heading');
       const chatRoomMeta = document.getElementById('chat-room-meta');
       const btnChatBack = document.getElementById('btn-chat-back');
       const btnChatBackLabel = document.getElementById('btn-chat-back-label');
-      const autoReplyToggleWrap = document.getElementById('auto-reply-toggle-wrap');
-      const autoReplyToggle = document.getElementById('auto-reply-toggle');
       const chatMessagesEl = document.getElementById('chat-messages');
-      const typingIndicator = document.getElementById('typing-indicator');
+      const chatSendError = document.getElementById('chat-send-error');
       const quickPromptsHeading = document.getElementById('quick-prompts-heading');
       const quickPromptsList = document.getElementById('quick-prompts-list');
       const chatForm = document.getElementById('chat-form');
@@ -999,8 +1185,10 @@
 
       const hostViewEl = document.getElementById('host-view');
       const hostViewHeading = document.getElementById('host-view-heading');
+      const hostSyncPill = document.getElementById('host-sync-pill');
+      const hostLiveAlert = document.getElementById('host-live-alert');
       const hostSessionsList = document.getElementById('host-sessions-list');
-      const btnResetDemo = document.getElementById('btn-reset-demo');
+      const btnSyncNow = document.getElementById('btn-sync-now');
 
       function announce(msg) {
         liveStatus.textContent = '';
@@ -1420,15 +1608,46 @@
         return state.sessions.find((s) => s.id === id) || null;
       }
 
+      function updateSyncPill(pillEl, status, liveText = 'Connected Live') {
+        if (!pillEl) return;
+        const dot = pillEl.querySelector('span:first-child');
+        const label = pillEl.querySelector('span:last-child');
+        if (status === 'live') {
+          pillEl.className = 'inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-sm font-bold bg-emerald-50 border border-emerald-200 text-emerald-800';
+          if (dot) dot.className = 'w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse';
+          if (label) label.textContent = liveText;
+        } else {
+          pillEl.className = 'inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-sm font-bold bg-amber-50 border border-amber-200 text-amber-800';
+          if (dot) dot.className = 'w-2.5 h-2.5 rounded-full bg-amber-500 animate-pulse';
+          if (label) label.textContent = 'Connecting...';
+        }
+      }
+
       function updateHostBadge() {
-        const openCount = state.sessions.filter((s) => s.status !== 'completed').length;
-        hostCountBadge.textContent = String(openCount);
+        const pendingCount = state.sessions.filter((s) => s.status === 'pending').length;
+        const activeCount = state.sessions.filter((s) => s.status !== 'completed').length;
+        hostCountBadge.textContent = String(pendingCount > 0 ? pendingCount : activeCount);
       }
 
       function updateElderSubnav() {
         const activeSession = getSessionById(activeChatSessionId);
         const showSubnav = Boolean(activeSession) && currentView === 'elder' && elderScreen !== 'chat';
         elderSubnavEl.classList.toggle('hidden', !showSubnav);
+        if (!activeSession) return;
+
+        if (activeSession.status === 'confirmed' || activeSession.status === 'waiting') {
+          elderSubnavDot.className = 'w-3 h-3 rounded-full bg-emerald-600 inline-block';
+          elderSubnavText.textContent = "🎉 Mom has confirmed your time! Your private room is ready.";
+          btnResumeChatLabel.textContent = 'Enter Private Chat with Mom';
+        } else if (activeSession.status === 'completed') {
+          elderSubnavDot.className = 'w-3 h-3 rounded-full bg-stone-400 inline-block';
+          elderSubnavText.textContent = 'Your recent family session is saved below.';
+          btnResumeChatLabel.textContent = 'View Past Chat';
+        } else {
+          elderSubnavDot.className = 'w-3 h-3 rounded-full bg-amber-500 animate-pulse inline-block';
+          elderSubnavText.textContent = "⏳ Waiting for Mom to confirm your requested time...";
+          btnResumeChatLabel.textContent = 'View Request Status';
+        }
       }
 
       function updateViewVisibility() {
@@ -1484,10 +1703,11 @@
       function renderConfirmationCard(session) {
         confirmSummaryCard.innerHTML = '';
         const pref = getPreferenceInfo(session.preference);
+        const isConfirmed = session.status === 'confirmed' || session.status === 'waiting' || session.status === 'completed';
 
         const rows = [
           { label: 'Sharing Name', value: session.elderName },
-          { label: 'Reserved Date & Time', value: `${session.dateLabel} at ${session.timeSlot}` },
+          { label: 'Requested Date & Time', value: `${session.dateLabel} at ${session.timeSlot}` },
           { label: 'What Is on Your Heart', value: session.heartNote ? `${session.topic} — "${session.heartNote}"` : session.topic },
           { label: 'Listening Preference', value: `${pref.emoji} ${pref.shortLabel}` }
         ];
@@ -1508,6 +1728,101 @@
           box.appendChild(val);
           confirmSummaryCard.appendChild(box);
         });
+
+        if (isConfirmed) {
+          confirmationPanel.className = 'bg-white border-2 border-sanctuary-teal/40 rounded-3xl p-6 sm:p-10 shadow-sm space-y-7 fade-slide-in';
+          confirmIconBox.className = 'w-16 h-16 rounded-2xl bg-sanctuary-tealSoft text-sanctuary-teal flex items-center justify-center shrink-0';
+          confirmIcon.setAttribute('data-lucide', 'check-circle-2');
+          confirmEyebrow.className = 'text-sanctuary-teal font-bold uppercase tracking-wide text-sm';
+          confirmEyebrow.textContent = 'Confirmed by Mom';
+          confirmHeading.textContent = '🎉 Mom has confirmed your time! Tap below to enter private chat with Mom.';
+
+          confirmStatusBox.className = 'bg-emerald-50 border-2 border-emerald-200 rounded-2xl p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4';
+          confirmStatusIcon.setAttribute('data-lucide', 'message-square-heart');
+          confirmStatusIcon.className = 'w-6 h-6 text-emerald-700 shrink-0 mt-0.5';
+          confirmStatusText.innerHTML = '';
+          const strong = document.createElement('strong');
+          strong.textContent = 'Mom accepted your slot and is ready to listen. ';
+          const rest = document.createElement('span');
+          rest.textContent = 'Tap "Enter Private Chat with Mom" below to begin talking directly together.';
+          confirmStatusText.appendChild(strong);
+          confirmStatusText.appendChild(rest);
+          btnCheckConfirmStatus.hidden = true;
+          btnEnterChatNow.hidden = false;
+        } else {
+          confirmationPanel.className = 'bg-white border-2 border-sanctuary-goldBorder rounded-3xl p-6 sm:p-10 shadow-sm space-y-7 fade-slide-in';
+          confirmIconBox.className = 'w-16 h-16 rounded-2xl bg-sanctuary-goldSoft text-sanctuary-gold flex items-center justify-center shrink-0';
+          confirmIcon.setAttribute('data-lucide', 'clock');
+          confirmEyebrow.className = 'text-sanctuary-gold font-bold uppercase tracking-wide text-sm';
+          confirmEyebrow.textContent = 'Request Sent to Mom';
+          confirmHeading.textContent = 'Waiting for Mom to confirm your time...';
+
+          confirmStatusBox.className = 'bg-sanctuary-goldSoft/80 border-2 border-sanctuary-goldBorder rounded-2xl p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4';
+          confirmStatusIcon.setAttribute('data-lucide', 'bell-ring');
+          confirmStatusIcon.className = 'w-6 h-6 text-sanctuary-gold shrink-0 mt-0.5';
+          confirmStatusText.innerHTML = '';
+          const strong = document.createElement('strong');
+          strong.textContent = "Your request is on Mom's Host Desk now. ";
+          const rest = document.createElement('span');
+          rest.textContent = 'Please keep this page open — as soon as Mom taps Confirm, this screen will update automatically so you can enter private chat together.';
+          confirmStatusText.appendChild(strong);
+          confirmStatusText.appendChild(rest);
+          btnCheckConfirmStatus.hidden = false;
+          btnEnterChatNow.hidden = true;
+        }
+
+        if (window.lucide) lucide.createIcons();
+      }
+
+      function closeActiveChatSubscription() {
+        if (activeChatSub) {
+          activeChatSub.close();
+          activeChatSub = null;
+        }
+      }
+
+      function handleIncomingChatPayload(sessionId, payload, envelope, meta) {
+        if (!payload || typeof payload.text !== 'string') return;
+        if (payload.sender !== 'elder' && payload.sender !== 'mom') return;
+        const session = getSessionById(sessionId);
+        if (!session) return;
+
+        const msgId = payload.msgId || (envelope && envelope.id) || createId('msg');
+        if (session.messages.some((m) => m.id === msgId)) {
+          return;
+        }
+
+        const msgTs = payload.timestamp || (envelope && envelope.time ? envelope.time * 1000 : Date.now());
+        const incomingMsg = {
+          id: msgId,
+          sender: payload.sender,
+          senderLabel: payload.sender === 'mom' ? 'Mom (Listening)' : (payload.elderName || session.elderName),
+          text: payload.text,
+          timestamp: msgTs,
+          time: formatClock(msgTs)
+        };
+
+        session.messages.push(incomingMsg);
+        session.messages.sort((a, b) => (a.timestamp || 0) - (b.timestamp || 0));
+        saveState();
+
+        const isViewingThisRoom =
+          !chatPanel.hidden && activeChatSessionId === sessionId;
+
+        if (isViewingThisRoom) {
+          renderChatMessages(session, chatOpenedFrom === 'host');
+        } else if (currentView === 'host') {
+          renderHostDesk();
+        }
+
+        if (!meta.isInitialPoll && !localActionIds.has(msgId)) {
+          const viewerIsHost = chatOpenedFrom === 'host' && currentView === 'host';
+          const fromOtherSide = viewerIsHost ? payload.sender === 'elder' : payload.sender === 'mom';
+          if (fromOtherSide || !isViewingThisRoom) {
+            playGentleChime('chat');
+            announce(`New message from ${incomingMsg.senderLabel}: ${incomingMsg.text}`);
+          }
+        }
       }
 
       function openChatRoom(sessionId, openedFrom) {
@@ -1516,12 +1831,7 @@
 
         stopVoiceRecognition(true);
         hideVoiceAlert();
-
-        if (pendingReplyTimer) {
-          clearTimeout(pendingReplyTimer);
-          pendingReplyTimer = null;
-        }
-        typingIndicator.hidden = true;
+        chatSendError.hidden = true;
 
         activeChatSessionId = session.id;
         state.activeSessionId = session.id;
@@ -1547,24 +1857,31 @@
         chatPrefBadge.textContent = pref.hostBadge;
 
         chatRolePill.querySelector('span').textContent = isHost
-          ? "Mom's Listener View • Pure Text Only"
-          : 'Private Family Room • Text Only';
+          ? "Mom's Listener View • Live Text & Voice"
+          : 'Private Family Room • Live Text & Voice';
 
         btnChatBackLabel.textContent = isHost ? "Back to Mom's Host Desk" : 'Back to Calendar';
-        autoReplyToggleWrap.classList.toggle('hidden', isHost);
-        autoReplyToggle.checked = Boolean(state.autoReplyHelper);
 
         chatInputLabel.textContent = isHost
-          ? `Write a warm, listening reply to ${session.elderName}`
-          : 'Write whatever is on your heart';
+          ? `Write or speak a warm reply to ${session.elderName}`
+          : 'Write or speak whatever is on your heart';
         chatInput.placeholder = isHost
-          ? 'Type a caring response...'
-          : 'Write slowly and comfortably — we are listening...';
+          ? 'Type or tap Speak to reply directly...'
+          : 'Write slowly or tap Speak — your real words go straight to Mom...';
 
         renderQuickPrompts(isHost);
         renderChatMessages(session, isHost);
         updateViewVisibility();
         if (window.lucide) lucide.createIcons();
+
+        // Subscribe to live ntfy.sh room chat channel
+        closeActiveChatSubscription();
+        updateSyncPill(chatSyncPill, 'reconnecting');
+        activeChatSub = ntfySubscribe(
+          `${CHAT_TOPIC_PREFIX}${session.id}`,
+          (payload, envelope, meta) => handleIncomingChatPayload(session.id, payload, envelope, meta),
+          (status) => updateSyncPill(chatSyncPill, status, 'Live Sync')
+        );
 
         window.setTimeout(() => {
           chatRoomHeading.focus();
@@ -1599,10 +1916,21 @@
         chatMessagesEl.innerHTML = '';
 
         if (!session.messages || session.messages.length === 0) {
-          const empty = document.createElement('p');
-          empty.className = 'text-center text-sanctuary-slate py-8';
-          empty.textContent = 'This quiet room is ready. Write the first message whenever you wish.';
-          chatMessagesEl.appendChild(empty);
+          const emptyBox = document.createElement('div');
+          emptyBox.className = 'text-center py-8 space-y-2 max-w-lg mx-auto';
+          const title = document.createElement('p');
+          title.className = 'text-lg font-bold text-sanctuary-charcoal';
+          title.textContent = isHostPerspective
+            ? `Waiting for ${session.elderName} to share, or send a warm hello below.`
+            : 'This private room is open! Write or tap Speak below to talk directly with Mom.';
+          const sub = document.createElement('p');
+          sub.className = 'text-sanctuary-slate text-base';
+          sub.textContent = session.heartNote
+            ? `Topic shared when booking (${session.topic}): "${session.heartNote}"`
+            : `Topic: ${session.topic}`;
+          emptyBox.appendChild(title);
+          emptyBox.appendChild(sub);
+          chatMessagesEl.appendChild(emptyBox);
           return;
         }
 
@@ -1649,26 +1977,71 @@
         chatMessagesEl.scrollTop = chatMessagesEl.scrollHeight;
       }
 
-      function pickWarmSimulatedReply(session) {
-        const elderMsgCount = session.messages.filter((m) => m.sender === 'elder').length;
-        if (session.preference === 'listen-only') {
-          const pureListeningPool = [
-            `I am right here listening, ${session.elderName}. Please take all the time you want to tell me more.`,
-            'Thank you for trusting me with what is on your heart. Your feelings are completely understood and cherished.',
-            'I hear every word with so much love. Keep sharing whenever the next thought comes to you.'
-          ];
-          return pureListeningPool[(elderMsgCount - 1) % pureListeningPool.length];
+      async function confirmBookingSlot(session) {
+        if (!session) return;
+        localActionIds.add(session.id);
+        confirmedBookingIds.add(session.id);
+        session.status = 'confirmed';
+        saveState();
+        renderHostDesk();
+        announce(`Confirmed ${session.elderName}'s time slot (${session.timeSlot}).`);
+
+        try {
+          await ntfyPublish(BOOKING_TOPIC, {
+            type: 'BOOKING_CONFIRMED',
+            id: session.id,
+            timestamp: Date.now()
+          });
+        } catch (_err) {
+          announce('Confirmation saved locally, but cloud notification had a hiccup. Please tap Refresh Inbox.');
         }
-        const gentleThoughtsPool = [
-          `That sounds like such a precious part of your heart, ${session.elderName}. Looking back on moments like that brings so much warmth to our whole family.`,
-          'Thank you for sharing this so openly. Even on quiet days, remembering how deeply you are loved by our family can bring a gentle comfort.',
-          'What a meaningful story—I would love to keep hearing more about what made that moment special to you.'
-        ];
-        return gentleThoughtsPool[(elderMsgCount - 1) % gentleThoughtsPool.length];
+      }
+
+      function renderHostLiveAlerts() {
+        hostLiveAlert.innerHTML = '';
+        const pendingSessions = state.sessions
+          .filter((s) => s.status === 'pending')
+          .sort((a, b) => b.createdAt - a.createdAt);
+
+        if (pendingSessions.length === 0) {
+          hostLiveAlert.hidden = true;
+          return;
+        }
+
+        hostLiveAlert.hidden = false;
+        pendingSessions.forEach((session) => {
+          const banner = document.createElement('div');
+          banner.className = 'bg-sanctuary-goldSoft border-2 border-sanctuary-gold rounded-3xl p-5 sm:p-6 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4 fade-slide-in';
+
+          const info = document.createElement('div');
+          info.className = 'space-y-1';
+
+          const headline = document.createElement('p');
+          headline.className = 'text-lg sm:text-xl font-extrabold text-sanctuary-charcoal';
+          headline.textContent = `🔔 New Booking Request from ${session.elderName} for ${session.timeSlot}`;
+
+          const details = document.createElement('p');
+          details.className = 'text-sanctuary-slate font-medium';
+          details.textContent = `${session.dateLabel} • Topic: ${session.topic}${session.heartNote ? ` • "${session.heartNote}"` : ''}`;
+
+          info.appendChild(headline);
+          info.appendChild(details);
+
+          const confirmBtn = document.createElement('button');
+          confirmBtn.type = 'button';
+          confirmBtn.className = 'touch-target min-h-[54px] px-6 py-3 rounded-2xl bg-emerald-700 text-white font-extrabold hover:bg-emerald-800 transition-colors shadow-sm shrink-0';
+          confirmBtn.textContent = '✅ Confirm & Accept Slot';
+          confirmBtn.addEventListener('click', () => confirmBookingSlot(session));
+
+          banner.appendChild(info);
+          banner.appendChild(confirmBtn);
+          hostLiveAlert.appendChild(banner);
+        });
       }
 
       function renderHostDesk() {
         hostSessionsList.innerHTML = '';
+        renderHostLiveAlerts();
         updateHostBadge();
 
         if (state.sessions.length === 0) {
@@ -1676,10 +2049,10 @@
           emptyCard.className = 'bg-white border border-cream-300 rounded-3xl p-8 text-center space-y-3';
           const p = document.createElement('p');
           p.className = 'text-xl font-bold text-sanctuary-charcoal';
-          p.textContent = 'No family listening sessions are booked yet.';
+          p.textContent = 'No family booking requests yet.';
           const sub = document.createElement('p');
           sub.className = 'text-sanctuary-slate';
-          sub.textContent = 'Switch to Elder View to book a session, or tap "Restore Sample Family List" above.';
+          sub.textContent = 'When a family member books a time on their phone, their request will appear here in real time.';
           emptyCard.appendChild(p);
           emptyCard.appendChild(sub);
           hostSessionsList.appendChild(emptyCard);
@@ -1687,8 +2060,9 @@
         }
 
         const sorted = [...state.sessions].sort((a, b) => {
-          if (a.status === 'completed' && b.status !== 'completed') return 1;
-          if (a.status !== 'completed' && b.status === 'completed') return -1;
+          const rank = (s) => (s.status === 'pending' ? 0 : s.status === 'completed' ? 2 : 1);
+          const diff = rank(a) - rank(b);
+          if (diff !== 0) return diff;
           return b.createdAt - a.createdAt;
         });
 
@@ -1697,12 +2071,17 @@
           const lastMsg = session.messages && session.messages.length > 0
             ? session.messages[session.messages.length - 1]
             : null;
+          const isPending = session.status === 'pending';
           const isCompleted = session.status === 'completed';
           const elderNeedsReply = lastMsg && lastMsg.sender === 'elder' && !isCompleted;
 
           const card = document.createElement('article');
           card.className = `bg-white border-2 rounded-3xl p-6 shadow-sm transition-all ${
-            elderNeedsReply ? 'border-sanctuary-teal' : 'border-cream-300'
+            isPending
+              ? 'border-sanctuary-gold'
+              : elderNeedsReply
+              ? 'border-sanctuary-teal'
+              : 'border-cream-300'
           } ${isCompleted ? 'opacity-80' : ''}`;
 
           const topRow = document.createElement('div');
@@ -1728,16 +2107,26 @@
           prefPill.textContent = pref.hostBadge;
           badgeRow.appendChild(prefPill);
 
-          if (elderNeedsReply) {
+          if (isPending) {
+            const pendingPill = document.createElement('span');
+            pendingPill.className = 'inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-amber-100 text-amber-900 font-extrabold text-sm';
+            pendingPill.textContent = '⏳ Needs Your Confirmation';
+            badgeRow.appendChild(pendingPill);
+          } else if (elderNeedsReply) {
             const waitingPill = document.createElement('span');
             waitingPill.className = 'inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-emerald-100 text-emerald-900 font-extrabold text-sm';
-            waitingPill.textContent = 'Waiting for your warm reply';
+            waitingPill.textContent = '💬 New message waiting';
             badgeRow.appendChild(waitingPill);
           } else if (isCompleted) {
             const donePill = document.createElement('span');
             donePill.className = 'inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-stone-200 text-stone-700 font-bold text-sm';
             donePill.textContent = 'Held in Heart (Completed)';
             badgeRow.appendChild(donePill);
+          } else {
+            const confirmedPill = document.createElement('span');
+            confirmedPill.className = 'inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-emerald-100 text-emerald-900 font-bold text-sm';
+            confirmedPill.textContent = '✅ Confirmed';
+            badgeRow.appendChild(confirmedPill);
           }
 
           const titleEl = document.createElement('h3');
@@ -1770,35 +2159,53 @@
           const actions = document.createElement('div');
           actions.className = 'flex flex-col sm:flex-row lg:flex-col gap-3 shrink-0';
 
-          const enterBtn = document.createElement('button');
-          enterBtn.type = 'button';
-          enterBtn.className =
-            'touch-target px-6 py-3.5 rounded-2xl bg-sanctuary-teal text-white font-extrabold hover:bg-sanctuary-tealDark transition-colors inline-flex items-center justify-center gap-2.5 shadow-sm';
-          enterBtn.innerHTML = '';
-          const icon = document.createElement('i');
-          icon.setAttribute('data-lucide', 'message-circle-heart');
-          icon.className = 'w-5 h-5';
-          icon.setAttribute('aria-hidden', 'true');
-          const btnSpan = document.createElement('span');
-          btnSpan.textContent = 'Open Chat to Listen';
-          enterBtn.appendChild(icon);
-          enterBtn.appendChild(btnSpan);
-          enterBtn.addEventListener('click', () => openChatRoom(session.id, 'host'));
+          if (isPending) {
+            const acceptBtn = document.createElement('button');
+            acceptBtn.type = 'button';
+            acceptBtn.className =
+              'touch-target px-6 py-3.5 rounded-2xl bg-emerald-700 text-white font-extrabold hover:bg-emerald-800 transition-colors inline-flex items-center justify-center gap-2 shadow-sm';
+            acceptBtn.textContent = '✅ Confirm & Accept Slot';
+            acceptBtn.addEventListener('click', () => confirmBookingSlot(session));
+            actions.appendChild(acceptBtn);
+          } else {
+            const enterBtn = document.createElement('button');
+            enterBtn.type = 'button';
+            enterBtn.className =
+              'touch-target px-6 py-3.5 rounded-2xl bg-sanctuary-teal text-white font-extrabold hover:bg-sanctuary-tealDark transition-colors inline-flex items-center justify-center gap-2.5 shadow-sm';
+            const icon = document.createElement('i');
+            icon.setAttribute('data-lucide', 'message-circle-heart');
+            icon.className = 'w-5 h-5';
+            icon.setAttribute('aria-hidden', 'true');
+            const btnSpan = document.createElement('span');
+            btnSpan.textContent = 'Open Chat to Listen';
+            enterBtn.appendChild(icon);
+            enterBtn.appendChild(btnSpan);
+            enterBtn.addEventListener('click', () => openChatRoom(session.id, 'host'));
 
-          const toggleCompleteBtn = document.createElement('button');
-          toggleCompleteBtn.type = 'button';
-          toggleCompleteBtn.className =
-            'touch-target px-5 py-2.5 rounded-2xl border-2 border-cream-300 bg-cream-50 text-sanctuary-charcoal font-bold hover:border-sanctuary-teal transition-colors';
-          toggleCompleteBtn.textContent = isCompleted ? 'Reopen Session' : 'Mark Completed';
-          toggleCompleteBtn.addEventListener('click', () => {
-            session.status = isCompleted ? 'waiting' : 'completed';
-            saveState();
-            renderHostDesk();
-            announce(isCompleted ? `${session.elderName}'s room reopened.` : `${session.elderName}'s listening time marked complete.`);
-          });
+            const toggleCompleteBtn = document.createElement('button');
+            toggleCompleteBtn.type = 'button';
+            toggleCompleteBtn.className =
+              'touch-target px-5 py-2.5 rounded-2xl border-2 border-cream-300 bg-cream-50 text-sanctuary-charcoal font-bold hover:border-sanctuary-teal transition-colors';
+            toggleCompleteBtn.textContent = isCompleted ? 'Reopen Session' : 'Mark Completed';
+            toggleCompleteBtn.addEventListener('click', () => {
+              const nextStatus = isCompleted ? 'confirmed' : 'completed';
+              const ts = Date.now();
+              session.status = nextStatus;
+              bookingStatusTimestamps.set(session.id, ts);
+              saveState();
+              renderHostDesk();
+              announce(isCompleted ? `${session.elderName}'s room reopened.` : `${session.elderName}'s listening time marked complete.`);
+              ntfyPublish(BOOKING_TOPIC, {
+                type: 'BOOKING_STATUS',
+                id: session.id,
+                status: nextStatus,
+                timestamp: ts
+              }).catch(() => {});
+            });
 
-          actions.appendChild(enterBtn);
-          actions.appendChild(toggleCompleteBtn);
+            actions.appendChild(enterBtn);
+            actions.appendChild(toggleCompleteBtn);
+          }
 
           topRow.appendChild(left);
           topRow.appendChild(actions);
@@ -1807,6 +2214,85 @@
         });
 
         if (window.lucide) lucide.createIcons();
+      }
+
+      // Handle live booking events from ntfy.sh
+      function handleBookingEvent(payload, envelope, meta) {
+        if (!payload || !payload.type || !payload.id) return;
+
+        if (payload.type === 'BOOKING_REQUEST') {
+          let existing = getSessionById(payload.id);
+          if (!existing) {
+            const initialStatus = confirmedBookingIds.has(payload.id) ? 'confirmed' : 'pending';
+            existing = {
+              id: payload.id,
+              elderName: payload.elderName || 'Family Member',
+              dateIso: payload.date || '',
+              dateLabel: payload.dateLabel || payload.date || 'Scheduled Day',
+              timeSlot: payload.time || '',
+              topic: payload.topic || 'Sharing my heart',
+              heartNote: payload.note || '',
+              preference: payload.preference || 'listen-only',
+              status: initialStatus,
+              createdAt: payload.timestamp || Date.now(),
+              messages: []
+            };
+            state.sessions.unshift(existing);
+            saveState();
+
+            if (!meta.isInitialPoll && !localActionIds.has(payload.id)) {
+              playGentleChime('booking');
+              announce(`New booking request from ${existing.elderName} for ${existing.timeSlot}.`);
+            }
+          }
+          updateHostBadge();
+          if (currentView === 'host' && chatPanel.hidden) {
+            renderHostDesk();
+          }
+        } else if (payload.type === 'BOOKING_CONFIRMED') {
+          confirmedBookingIds.add(payload.id);
+          const session = getSessionById(payload.id);
+          const wasConfirmed = session && session.status === 'confirmed';
+          if (session && session.status !== 'completed') {
+            session.status = 'confirmed';
+            saveState();
+          }
+
+          if (
+            !meta.isInitialPoll &&
+            !localActionIds.has(payload.id) &&
+            !wasConfirmed &&
+            activeChatSessionId === payload.id
+          ) {
+            playGentleChime('confirmed');
+            announce('Mom has confirmed your time! You can enter private chat now.');
+          }
+
+          if (currentView === 'elder' && elderScreen === 'confirmation' && activeChatSessionId === payload.id && session) {
+            renderConfirmationCard(session);
+          }
+          updateElderSubnav();
+          updateHostBadge();
+          if (currentView === 'host' && chatPanel.hidden) {
+            renderHostDesk();
+          }
+        } else if (payload.type === 'BOOKING_STATUS') {
+          const ts = payload.timestamp || 0;
+          const prevTs = bookingStatusTimestamps.get(payload.id) || 0;
+          if (ts >= prevTs) {
+            bookingStatusTimestamps.set(payload.id, ts);
+            const session = getSessionById(payload.id);
+            if (session && (payload.status === 'completed' || payload.status === 'confirmed')) {
+              session.status = payload.status;
+              saveState();
+              updateElderSubnav();
+              updateHostBadge();
+              if (currentView === 'host' && chatPanel.hidden) {
+                renderHostDesk();
+              }
+            }
+          }
+        }
       }
 
       // Event Listeners
@@ -1825,16 +2311,24 @@
         if (elderScreen === 'chat') {
           openChatRoom(activeChatSessionId, 'elder');
         } else {
+          closeActiveChatSubscription();
+          if (elderScreen === 'confirmation') {
+            const activeSession = getSessionById(activeChatSessionId);
+            if (activeSession) renderConfirmationCard(activeSession);
+            else elderScreen = 'booking';
+          }
           updateViewVisibility();
         }
       });
 
       btnHostView.addEventListener('click', () => {
         stopVoiceRecognition(true);
+        closeActiveChatSubscription();
         currentView = 'host';
         chatPanel.hidden = true;
         renderHostDesk();
         updateViewVisibility();
+        if (bookingSub) bookingSub.refresh().catch(() => {});
         window.setTimeout(() => hostViewHeading.focus(), 50);
       });
 
@@ -1844,8 +2338,28 @@
       });
 
       btnResumeChat.addEventListener('click', () => {
-        if (activeChatSessionId) {
-          openChatRoom(activeChatSessionId, 'elder');
+        const activeSession = getSessionById(activeChatSessionId);
+        if (!activeSession) return;
+        if (activeSession.status === 'pending') {
+          renderConfirmationCard(activeSession);
+          elderScreen = 'confirmation';
+          updateViewVisibility();
+          if (bookingSub) bookingSub.refresh().catch(() => {});
+        } else {
+          openChatRoom(activeSession.id, 'elder');
+        }
+      });
+
+      btnCheckConfirmStatus.addEventListener('click', () => {
+        if (bookingSub) {
+          btnCheckConfirmStatus.textContent = 'Checking...';
+          bookingSub.refresh()
+            .catch(() => {})
+            .finally(() => {
+              btnCheckConfirmStatus.textContent = 'Check Status Now';
+              const activeSession = getSessionById(activeChatSessionId);
+              if (activeSession) renderConfirmationCard(activeSession);
+            });
         }
       });
 
@@ -1875,8 +2389,9 @@
         }
       });
 
-      bookingForm.addEventListener('submit', (event) => {
+      bookingForm.addEventListener('submit', async (event) => {
         event.preventDefault();
+        bookingNetworkError.hidden = true;
 
         const elderName = elderNameInput.value.trim();
         if (!elderName) {
@@ -1897,48 +2412,61 @@
         const preference =
           bookingForm.querySelector('input[name="listeningPreference"]:checked')?.value || 'listen-only';
 
-        const newSession = {
-          id: `session-${Date.now()}`,
+        const bookingId = createId('room');
+        const createdAt = Date.now();
+        localActionIds.add(bookingId);
+
+        const bookingPayload = {
+          type: 'BOOKING_REQUEST',
+          id: bookingId,
           elderName,
-          dateIso: dayObj.iso,
+          date: dayObj.iso,
           dateLabel: dayObj.displayLabel,
-          timeSlot,
+          time: timeSlot,
           topic,
-          heartNote,
           preference,
-          status: 'waiting',
-          createdAt: Date.now(),
-          messages: [
-            {
-              id: `msg-${Date.now()}-welcome`,
-              sender: 'mom',
-              senderLabel: 'Mom (Listening)',
-              text: `Welcome to our quiet family sanctuary, ${elderName}. Whenever you are ready, take a peaceful breath and share whatever is on your heart. I am listening.`,
-              time: formatClock()
-            }
-          ]
+          note: heartNote,
+          timestamp: createdAt
         };
 
-        if (heartNote) {
-          newSession.messages.push({
-            id: `msg-${Date.now()}-note`,
-            sender: 'elder',
-            senderLabel: elderName,
-            text: `What is on my mind (${topic}): ${heartNote}`,
-            time: formatClock()
-          });
+        btnConfirmBooking.disabled = true;
+        btnConfirmBookingLabel.textContent = 'Sending to Mom...';
+
+        try {
+          await ntfyPublish(BOOKING_TOPIC, bookingPayload);
+
+          const newSession = {
+            id: bookingId,
+            elderName,
+            dateIso: dayObj.iso,
+            dateLabel: dayObj.displayLabel,
+            timeSlot,
+            topic,
+            heartNote,
+            preference,
+            status: 'pending',
+            createdAt,
+            messages: []
+          };
+
+          state.sessions.unshift(newSession);
+          state.activeSessionId = newSession.id;
+          activeChatSessionId = newSession.id;
+          saveState();
+
+          renderConfirmationCard(newSession);
+          elderScreen = 'confirmation';
+          updateViewVisibility();
+          announce(`Request sent to Mom for ${newSession.dateLabel} at ${newSession.timeSlot}. Waiting for Mom to confirm.`);
+          window.setTimeout(() => confirmHeading.focus(), 50);
+        } catch (_err) {
+          bookingNetworkErrorText.textContent = 'Could not send your request right now. Please check your internet connection and tap Send Request again.';
+          bookingNetworkError.hidden = false;
+          announce('Could not send request. Please check your internet connection.');
+        } finally {
+          btnConfirmBooking.disabled = false;
+          btnConfirmBookingLabel.textContent = 'Send Request to Mom';
         }
-
-        state.sessions.unshift(newSession);
-        state.activeSessionId = newSession.id;
-        activeChatSessionId = newSession.id;
-        saveState();
-
-        renderConfirmationCard(newSession);
-        elderScreen = 'confirmation';
-        updateViewVisibility();
-        announce(`Your listening time on ${newSession.dateLabel} at ${newSession.timeSlot} is confirmed.`);
-        window.setTimeout(() => confirmHeading.focus(), 50);
       });
 
       btnEnterChatNow.addEventListener('click', () => {
@@ -1960,11 +2488,7 @@
       btnChatBack.addEventListener('click', () => {
         stopVoiceRecognition(true);
         hideVoiceAlert();
-        if (pendingReplyTimer) {
-          clearTimeout(pendingReplyTimer);
-          pendingReplyTimer = null;
-        }
-        typingIndicator.hidden = true;
+        closeActiveChatSubscription();
 
         if (chatOpenedFrom === 'host') {
           chatPanel.hidden = true;
@@ -1976,11 +2500,6 @@
           currentView = 'elder';
           updateViewVisibility();
         }
-      });
-
-      autoReplyToggle.addEventListener('change', () => {
-        state.autoReplyHelper = autoReplyToggle.checked;
-        saveState();
       });
 
       // IME-safe Enter-to-submit for chat textarea (Safari keyCode 229 fallback included)
@@ -2024,9 +2543,11 @@
         }
       });
 
-      chatForm.addEventListener('submit', (event) => {
+      chatForm.addEventListener('submit', async (event) => {
         event.preventDefault();
         stopVoiceRecognition(true);
+        chatSendError.hidden = true;
+
         const text = chatInput.value.trim();
         if (!text) {
           chatInput.focus();
@@ -2037,68 +2558,87 @@
         if (!session) return;
 
         const isHost = chatOpenedFrom === 'host';
+        const msgId = createId('msg');
+        const ts = Date.now();
+        localActionIds.add(msgId);
+
         const newMsg = {
-          id: `msg-${Date.now()}`,
+          id: msgId,
           sender: isHost ? 'mom' : 'elder',
           senderLabel: isHost ? 'Mom (Listening)' : session.elderName,
           text,
-          time: formatClock()
+          timestamp: ts,
+          time: formatClock(ts)
         };
 
         session.messages.push(newMsg);
         if (session.status === 'completed') {
-          session.status = 'waiting';
+          session.status = 'confirmed';
         }
         saveState();
 
         chatInput.value = '';
         renderChatMessages(session, isHost);
-        announce('Message sent.');
+        announce('Sending message...');
 
-        // Simulated gentle listener reply when in Elder View & helper toggle is enabled
-        if (!isHost && state.autoReplyHelper) {
-          if (pendingReplyTimer) clearTimeout(pendingReplyTimer);
-          typingIndicator.hidden = false;
-          pendingReplyTimer = window.setTimeout(() => {
-            const currentSession = getSessionById(session.id);
-            if (!currentSession) return;
-            const replyText = pickWarmSimulatedReply(currentSession);
-            currentSession.messages.push({
-              id: `msg-${Date.now()}-reply`,
-              sender: 'mom',
-              senderLabel: 'Mom (Listening)',
-              text: replyText,
-              time: formatClock()
-            });
-            saveState();
-            typingIndicator.hidden = true;
-            if (!chatPanel.hidden && activeChatSessionId === currentSession.id && chatOpenedFrom === 'elder') {
-              renderChatMessages(currentSession, false);
-              announce('Mom replied in the chat room.');
-            }
-          }, 1150);
+        const cloudPayload = isHost
+          ? { msgId, sender: 'mom', text, timestamp: ts }
+          : { msgId, sender: 'elder', elderName: session.elderName, text, timestamp: ts };
+
+        try {
+          await ntfyPublish(`${CHAT_TOPIC_PREFIX}${session.id}`, cloudPayload);
+          announce('Message delivered.');
+        } catch (_err) {
+          chatSendError.hidden = false;
+          announce('Message could not be delivered over the internet right now.');
         }
       });
 
-      btnResetDemo.addEventListener('click', () => {
-        const fresh = createDefaultData();
-        state.sessions = fresh.sessions;
-        state.activeSessionId = null;
-        activeChatSessionId = null;
-        saveState();
-        renderHostDesk();
-        updateHostBadge();
-        announce('Sample family list restored.');
+      btnSyncNow.addEventListener('click', () => {
+        if (!bookingSub) return;
+        const span = btnSyncNow.querySelector('span');
+        if (span) span.textContent = 'Refreshing...';
+        bookingSub.refresh()
+          .catch(() => {})
+          .finally(() => {
+            if (span) span.textContent = 'Refresh Inbox';
+            renderHostDesk();
+            announce('Family inbox refreshed.');
+          });
       });
 
-      // Initialize UI
+      document.addEventListener('visibilitychange', () => {
+        if (document.visibilityState === 'visible') {
+          if (bookingSub) bookingSub.refresh().catch(() => {});
+          if (activeChatSub) activeChatSub.refresh().catch(() => {});
+        }
+      });
+
+      // Initialize UI & Live Cloud Sync
       applyTextSize();
       applyVoiceLangLabel();
       renderCalendarOptions();
       renderTimeSlots();
       renderTopics();
+
+      // If Elder already has an active pending/confirmed session saved on this phone, surface its status nicely
+      const initialActive = getSessionById(activeChatSessionId);
+      if (currentView === 'elder' && initialActive && initialActive.status === 'pending') {
+        renderConfirmationCard(initialActive);
+        elderScreen = 'confirmation';
+      }
+
       renderHostDesk();
       updateViewVisibility();
+
+      bookingSub = ntfySubscribe(
+        BOOKING_TOPIC,
+        handleBookingEvent,
+        (status) => {
+          updateSyncPill(hostSyncPill, status, 'Listening Live');
+          updateSyncPill(elderBookingSyncPill, status, 'Connected Live');
+        }
+      );
 
       if (window.lucide) {
         lucide.createIcons();
