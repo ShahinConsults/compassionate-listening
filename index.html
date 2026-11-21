@@ -199,7 +199,7 @@
     <div class="max-w-3xl mx-auto px-3 sm:px-5 h-14 flex items-center justify-between gap-2">
       <div class="flex items-center gap-2 min-w-0">
         <span class="w-9 h-9 rounded-full bg-sanctuary-teal text-white flex items-center justify-center font-extrabold text-base shrink-0" aria-hidden="true">💖</span>
-        <span class="font-extrabold text-sanctuary-charcoal text-base sm:text-lg truncate">Family Chat</span>
+        <span id="header-brand-title" class="font-extrabold text-sanctuary-charcoal text-base sm:text-lg truncate">Family Chat</span>
       </div>
 
       <div class="flex items-center gap-1.5 shrink-0">
@@ -213,29 +213,6 @@
         >
           Aa
         </button>
-
-        <nav aria-label="View Switcher" class="inline-flex p-1 rounded-xl bg-cream-200 border border-cream-300">
-          <button
-            id="btn-elder-view"
-            type="button"
-            aria-pressed="true"
-            class="min-h-[38px] px-3 py-1 rounded-lg font-bold text-sm transition-all bg-sanctuary-teal text-white shadow-sm"
-          >
-            Elder
-          </button>
-          <button
-            id="btn-host-view"
-            type="button"
-            aria-pressed="false"
-            class="min-h-[38px] px-3 py-1 rounded-lg font-bold text-sm transition-all text-sanctuary-charcoal inline-flex items-center gap-1.5"
-          >
-            <span>Mom's Desk</span>
-            <span
-              id="host-count-badge"
-              class="inline-flex items-center justify-center min-w-[1.25rem] h-5 px-1.5 rounded-full text-xs font-extrabold bg-sanctuary-gold text-white"
-            >0</span>
-          </button>
-        </nav>
       </div>
     </div>
   </header>
@@ -278,6 +255,15 @@
         <h1 id="elder-view-heading" class="text-xl sm:text-2xl font-extrabold text-sanctuary-charcoal px-1">
           Talk with Mom
         </h1>
+
+        <div
+          id="reschedule-rebook-banner"
+          hidden
+          role="status"
+          class="bg-sanctuary-goldSoft border-2 border-sanctuary-goldBorder text-sanctuary-charcoal rounded-2xl p-3.5 text-sm font-bold"
+        >
+          No problem! Choose another day &amp; time below for Mom.
+        </div>
 
         <form id="booking-form" novalidate class="space-y-4">
           <div
@@ -526,6 +512,36 @@
           <!-- Populated safely by JS -->
         </div>
 
+        <!-- RESCHEDULE PROPOSAL ACTIONS (Shown when Mom suggests another time) -->
+        <div id="reschedule-proposal-box" hidden class="max-w-md mx-auto space-y-3 pt-1">
+          <div id="reschedule-mom-note-card" hidden class="bg-sanctuary-goldSoft/60 border border-sanctuary-goldBorder rounded-2xl p-3.5 text-left text-sm font-semibold text-sanctuary-charcoal">
+          </div>
+
+          <input
+            id="reschedule-elder-note"
+            type="text"
+            placeholder="Optional short note for Mom if picking another time..."
+            class="w-full min-h-[46px] px-3.5 py-2 rounded-xl border border-cream-300 bg-cream-50 text-sm text-sanctuary-charcoal placeholder:text-sanctuary-slate/70 focus:bg-white focus:border-sanctuary-teal"
+          >
+
+          <div class="flex flex-col sm:flex-row gap-2.5">
+            <button
+              id="btn-reschedule-accept"
+              type="button"
+              class="min-h-[54px] flex-1 px-5 py-3 rounded-2xl bg-emerald-700 text-white font-extrabold text-base shadow-md hover:bg-emerald-800 transition-colors"
+            >
+              ✅ Yes, That Works!
+            </button>
+            <button
+              id="btn-reschedule-decline"
+              type="button"
+              class="min-h-[54px] flex-1 px-5 py-3 rounded-2xl border-2 border-cream-300 bg-white text-sanctuary-charcoal font-extrabold text-base hover:border-sanctuary-teal transition-colors"
+            >
+              ❌ No, Pick Another Time
+            </button>
+          </div>
+        </div>
+
         <div class="flex items-center justify-center gap-2">
           <span id="elder-booking-sync-pill" class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-emerald-50 border border-emerald-200 text-emerald-800">
             <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" aria-hidden="true"></span>
@@ -533,29 +549,43 @@
           </span>
         </div>
 
-        <div class="flex flex-col sm:flex-row gap-3 max-w-md mx-auto pt-1">
-          <button
-            id="btn-enter-chat-now"
-            type="button"
-            hidden
-            class="min-h-[54px] flex-1 px-6 py-3 rounded-2xl bg-sanctuary-teal text-white font-extrabold shadow-md hover:bg-sanctuary-tealDark transition-colors"
-          >
-            Enter Chat with Mom
-          </button>
-          <button
-            id="btn-check-confirm-status"
-            type="button"
-            class="min-h-[48px] flex-1 px-4 py-2.5 rounded-xl border border-cream-300 bg-cream-50 text-sanctuary-charcoal font-bold text-sm"
-          >
-            Check Again
-          </button>
-          <button
-            id="btn-book-another"
-            type="button"
-            class="min-h-[48px] px-4 py-2.5 rounded-xl border border-cream-300 bg-white text-sanctuary-slate font-bold text-sm"
-          >
-            Change Time
-          </button>
+        <div class="flex flex-col gap-2.5 max-w-md mx-auto pt-1">
+          <div class="flex flex-col sm:flex-row gap-2.5">
+            <button
+              id="btn-enter-chat-now"
+              type="button"
+              hidden
+              class="min-h-[54px] flex-1 px-6 py-3 rounded-2xl bg-sanctuary-teal text-white font-extrabold shadow-md hover:bg-sanctuary-tealDark transition-colors"
+            >
+              Enter Private Chat with Mom
+            </button>
+            <a
+              id="btn-add-google-calendar"
+              href="#"
+              target="_blank"
+              rel="noopener noreferrer"
+              hidden
+              class="min-h-[54px] flex-1 px-5 py-3 rounded-2xl border-2 border-sanctuary-teal bg-sanctuary-tealSoft text-sanctuary-tealDark font-extrabold shadow-sm hover:bg-sanctuary-teal hover:text-white transition-colors inline-flex items-center justify-center gap-1.5"
+            >
+              📅 Add to Google Calendar
+            </a>
+          </div>
+          <div class="flex flex-col sm:flex-row gap-2.5">
+            <button
+              id="btn-check-confirm-status"
+              type="button"
+              class="min-h-[48px] flex-1 px-4 py-2.5 rounded-xl border border-cream-300 bg-cream-50 text-sanctuary-charcoal font-bold text-sm"
+            >
+              Check Again
+            </button>
+            <button
+              id="btn-book-another"
+              type="button"
+              class="min-h-[48px] flex-1 px-4 py-2.5 rounded-xl border border-cream-300 bg-white text-sanctuary-slate font-bold text-sm"
+            >
+              Change Time
+            </button>
+          </div>
         </div>
       </div>
     </section>
@@ -643,30 +673,13 @@
           <h2 id="chat-partner-name" tabindex="-1" class="font-extrabold text-base truncate leading-tight">
             Mom
           </h2>
-          <span id="chat-sync-pill" class="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] font-bold bg-white/15 text-white shrink-0">
-            <span class="w-2 h-2 rounded-full bg-emerald-300" aria-hidden="true"></span>
-            <span>Connected</span>
-          </span>
         </div>
       </div>
 
-      <!-- Compact View Toggle in Chat Bar -->
-      <div class="inline-flex p-0.5 rounded-lg bg-black/20 shrink-0" role="group" aria-label="Switch view">
-        <button
-          id="btn-chat-toggle-elder"
-          type="button"
-          class="min-h-[36px] px-2.5 py-1 rounded-md text-xs font-bold transition-colors"
-        >
-          Elder
-        </button>
-        <button
-          id="btn-chat-toggle-host"
-          type="button"
-          class="min-h-[36px] px-2.5 py-1 rounded-md text-xs font-bold transition-colors"
-        >
-          Mom's Desk
-        </button>
-      </div>
+      <span id="chat-sync-pill" class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-bold bg-white/15 text-white shrink-0">
+        <span class="w-2 h-2 rounded-full bg-emerald-300" aria-hidden="true"></span>
+        <span>Connected</span>
+      </span>
     </header>
 
     <!-- Scrollable Chat Messages (~80%+ of screen height) -->
@@ -737,10 +750,80 @@
 
       const STORAGE_KEY = 'compassionate_listening_sanctuary_v2';
       const ELDER_PROFILE_KEY = 'elder_persistent_profile_v2';
+      const DEVICE_CLIENT_ID_KEY = 'elder_device_client_id_v2';
+      const LIVE_APP_URL = 'https://shahinconsults.github.io/compassionate-listening/';
       const NTFY_BASE_HTTP = 'https://ntfy.sh';
       const NTFY_BASE_WS = 'wss://ntfy.sh';
       const BOOKING_TOPIC = 'compassionate_family_bookings_v2';
       const CHAT_TOPIC_PREFIX = 'compassionate_family_chat_';
+
+      // Clean modular auth/config hook ready for Firebase Auth when project config is provided
+      const CLOUD_AUTH_HOOK = {
+        getConfig: () => window.HEALTH_ORG_FIREBASE_CONFIG || null,
+        isConfigured: () => {
+          const cfg = window.HEALTH_ORG_FIREBASE_CONFIG;
+          return Boolean(cfg && cfg.apiKey && cfg.projectId);
+        },
+        getProviderName: () => (CLOUD_AUTH_HOOK.isConfigured() ? 'firebase' : 'local_persistent_profile')
+      };
+
+      function parseLocalDateTime(dateIso, timeSlot) {
+        const now = new Date();
+        let year = now.getFullYear();
+        let month = now.getMonth();
+        let day = now.getDate();
+
+        if (typeof dateIso === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(dateIso.trim())) {
+          const parts = dateIso.trim().split('-').map(Number);
+          year = parts[0];
+          month = parts[1] - 1;
+          day = parts[2];
+        }
+
+        let hours = 10;
+        let minutes = 0;
+        const match = typeof timeSlot === 'string' && timeSlot.trim().match(/^(\d{1,2}):(\d{2})\s*(AM|PM)$/i);
+        if (match) {
+          hours = parseInt(match[1], 10);
+          minutes = parseInt(match[2], 10);
+          const meridiem = match[3].toUpperCase();
+          if (meridiem === 'PM' && hours !== 12) hours += 12;
+          if (meridiem === 'AM' && hours === 12) hours = 0;
+        }
+
+        return new Date(year, month, day, hours, minutes, 0, 0);
+      }
+
+      function formatGoogleCalendarUtc(date) {
+        const pad = (n) => String(n).padStart(2, '0');
+        return `${date.getUTCFullYear()}${pad(date.getUTCMonth() + 1)}${pad(date.getUTCDate())}T${pad(date.getUTCHours())}${pad(date.getUTCMinutes())}${pad(date.getUTCSeconds())}Z`;
+      }
+
+      function buildGoogleCalendarUrl(session, isHostPerspective = false) {
+        const start = parseLocalDateTime(session.dateIso, session.timeSlot);
+        const end = new Date(start.getTime() + 30 * 60 * 1000);
+        const datesParam = `${formatGoogleCalendarUtc(start)}/${formatGoogleCalendarUtc(end)}`;
+
+        const title = isHostPerspective
+          ? `Compassionate Listening with ${session.elderName || 'Family'}`
+          : 'Compassionate Listening with Mom';
+
+        const detailLines = [
+          `Family Call: ${session.elderName || 'Family Member'} & Mom`,
+          session.city ? `Location: ${session.city}` : null,
+          session.topic ? `Topic: ${session.topic}` : null,
+          session.heartNote ? `Note: ${session.heartNote}` : null,
+          `Open Family Chat: ${LIVE_APP_URL}`
+        ].filter(Boolean);
+
+        return (
+          'https://calendar.google.com/calendar/render?action=TEMPLATE' +
+          `&text=${encodeURIComponent(title)}` +
+          `&dates=${encodeURIComponent(datesParam)}` +
+          `&details=${encodeURIComponent(detailLines.join('\n'))}` +
+          `&location=${encodeURIComponent(LIVE_APP_URL)}`
+        );
+      }
 
       const TIME_SLOTS = ['10:00 AM', '11:30 AM', '4:00 PM', '8:00 PM'];
 
@@ -832,6 +915,34 @@
         }
       }
 
+      function getOrCreateClientId() {
+        const profile = loadElderProfile();
+        if (profile && profile.clientId) {
+          try {
+            localStorage.setItem(DEVICE_CLIENT_ID_KEY, profile.clientId);
+          } catch (_err) {}
+          return profile.clientId;
+        }
+        try {
+          let cid = localStorage.getItem(DEVICE_CLIENT_ID_KEY);
+          if (!cid) {
+            cid = createId('client');
+            localStorage.setItem(DEVICE_CLIENT_ID_KEY, cid);
+          }
+          return cid;
+        } catch (_err) {
+          return createId('client');
+        }
+      }
+
+      function rotateClientId() {
+        const fresh = createId('client');
+        try {
+          localStorage.setItem(DEVICE_CLIENT_ID_KEY, fresh);
+        } catch (_err) {}
+        return fresh;
+      }
+
       function loadElderProfile() {
         try {
           const raw = localStorage.getItem(ELDER_PROFILE_KEY);
@@ -841,6 +952,9 @@
             return null;
           }
           return {
+            clientId: typeof parsed.clientId === 'string' && parsed.clientId.trim()
+              ? parsed.clientId.trim()
+              : '',
             elderName: parsed.elderName.trim(),
             city: typeof parsed.city === 'string' ? parsed.city.trim() : '',
             relationship: typeof parsed.relationship === 'string' && parsed.relationship.trim()
@@ -855,7 +969,9 @@
 
       function saveElderProfile(profile) {
         try {
+          const clientId = profile.clientId || getOrCreateClientId();
           localStorage.setItem(ELDER_PROFILE_KEY, JSON.stringify({
+            clientId,
             elderName: profile.elderName,
             city: profile.city,
             relationship: profile.relationship || 'Family Member',
@@ -1028,29 +1144,37 @@
 
       let state = loadState();
       const urlParams = new URLSearchParams(window.location.search);
-      let currentView =
+      const currentView =
         urlParams.get('role') === 'mom' || window.location.hash === '#host'
           ? 'host'
           : 'elder';
+      let elderClientId = currentView === 'elder' ? getOrCreateClientId() : null;
       let elderScreen = 'booking'; // 'booking' | 'confirmation' | 'chat'
       let chatOpenedFrom = currentView === 'host' ? 'host' : 'elder';
       let activeChatSessionId = state.activeSessionId;
+      if (currentView === 'elder') {
+        const ownActive = state.sessions.find((s) => s.id === activeChatSessionId && s.clientId === elderClientId);
+        if (!ownActive) {
+          activeChatSessionId = null;
+        }
+      }
       let activeHostTab = 'inbox'; // 'inbox' | 'directory'
 
       const confirmedBookingIds = new Set();
       const bookingStatusTimestamps = new Map();
+      const rescheduleProposalTimestamps = new Map();
+      const rescheduleResponseTimestamps = new Map();
       const localActionIds = new Set();
+      let openRescheduleSessionId = null;
       let activeChatSub = null;
       let bookingSub = null;
 
       // DOM Elements
       const appHeader = document.getElementById('app-header');
+      const headerBrandTitle = document.getElementById('header-brand-title');
       const mainContent = document.getElementById('main-content');
       const liveStatus = document.getElementById('live-status');
       const btnTextSize = document.getElementById('text-size-toggle');
-      const btnElderView = document.getElementById('btn-elder-view');
-      const btnHostView = document.getElementById('btn-host-view');
-      const hostCountBadge = document.getElementById('host-count-badge');
 
       const elderViewEl = document.getElementById('elder-view');
       const elderSubnavEl = document.getElementById('elder-subnav');
@@ -1061,6 +1185,7 @@
       const btnResumeChatLabel = document.getElementById('btn-resume-chat-label');
 
       const bookingPanel = document.getElementById('booking-panel');
+      const rescheduleRebookBanner = document.getElementById('reschedule-rebook-banner');
       const bookingForm = document.getElementById('booking-form');
       const formErrorSummary = document.getElementById('form-error-summary');
       const formErrorText = document.getElementById('form-error-text');
@@ -1095,9 +1220,15 @@
       const confirmHeading = document.getElementById('confirm-heading');
       const confirmSubtext = document.getElementById('confirm-subtext');
       const confirmSummaryCard = document.getElementById('confirm-summary-card');
+      const rescheduleProposalBox = document.getElementById('reschedule-proposal-box');
+      const rescheduleMomNoteCard = document.getElementById('reschedule-mom-note-card');
+      const rescheduleElderNote = document.getElementById('reschedule-elder-note');
+      const btnRescheduleAccept = document.getElementById('btn-reschedule-accept');
+      const btnRescheduleDecline = document.getElementById('btn-reschedule-decline');
       const btnCheckConfirmStatus = document.getElementById('btn-check-confirm-status');
       const elderBookingSyncPill = document.getElementById('elder-booking-sync-pill');
       const btnEnterChatNow = document.getElementById('btn-enter-chat-now');
+      const btnAddGoogleCalendar = document.getElementById('btn-add-google-calendar');
       const btnBookAnother = document.getElementById('btn-book-another');
 
       const chatPanel = document.getElementById('chat-panel');
@@ -1105,8 +1236,6 @@
       const chatPartnerName = document.getElementById('chat-partner-name');
       const chatSyncPill = document.getElementById('chat-sync-pill');
       const btnChatBack = document.getElementById('btn-chat-back');
-      const btnChatToggleElder = document.getElementById('btn-chat-toggle-elder');
-      const btnChatToggleHost = document.getElementById('btn-chat-toggle-host');
       const chatMessagesEl = document.getElementById('chat-messages');
       const chatForm = document.getElementById('chat-form');
       const chatInput = document.getElementById('chat-input');
@@ -1551,8 +1680,17 @@
         }
       }
 
+      function isOwnElderSession(session) {
+        if (!session) return false;
+        if (currentView !== 'elder') return true;
+        return Boolean(session.clientId && session.clientId === elderClientId);
+      }
+
       function getSessionById(id) {
-        return state.sessions.find((s) => s.id === id) || null;
+        const found = state.sessions.find((s) => s.id === id) || null;
+        if (!found) return null;
+        if (currentView === 'elder' && !isOwnElderSession(found)) return null;
+        return found;
       }
 
       function updateSyncPill(pillEl, status, isChatHeader = false) {
@@ -1583,9 +1721,10 @@
       }
 
       function updateHostBadge() {
-        const pendingCount = state.sessions.filter((s) => s.status === 'pending').length;
-        const activeCount = state.sessions.filter((s) => s.status !== 'completed').length;
-        hostCountBadge.textContent = String(pendingCount > 0 ? pendingCount : activeCount);
+        if (currentView !== 'host') return;
+        if (hostInboxTabCount) {
+          hostInboxTabCount.textContent = String(state.sessions.length);
+        }
       }
 
       function updateElderSubnav() {
@@ -1598,6 +1737,10 @@
           elderSubnavDot.className = 'w-3 h-3 rounded-full bg-emerald-600 shrink-0';
           elderSubnavText.textContent = `Chat ready with Mom (${activeSession.timeSlot})`;
           btnResumeChatLabel.textContent = 'Open Chat';
+        } else if (activeSession.status === 'reschedule_proposed' && activeSession.rescheduleProposal) {
+          elderSubnavDot.className = 'w-3 h-3 rounded-full bg-amber-500 animate-pulse shrink-0';
+          elderSubnavText.textContent = `Mom suggested ${activeSession.rescheduleProposal.proposedDateLabel} ${activeSession.rescheduleProposal.proposedTime}`;
+          btnResumeChatLabel.textContent = 'Reply';
         } else if (activeSession.status === 'completed') {
           elderSubnavDot.className = 'w-3 h-3 rounded-full bg-stone-400 shrink-0';
           elderSubnavText.textContent = `Past chat (${activeSession.elderName})`;
@@ -1618,40 +1761,24 @@
         document.body.classList.toggle('in-chat-mode', isChatOpen);
         appHeader.hidden = isChatOpen;
         mainContent.hidden = isChatOpen;
-
-        btnElderView.setAttribute('aria-pressed', String(isElder));
-        btnHostView.setAttribute('aria-pressed', String(!isElder));
-
-        btnElderView.className = isElder
-          ? 'min-h-[38px] px-3 py-1 rounded-lg font-bold text-sm transition-all bg-sanctuary-teal text-white shadow-sm'
-          : 'min-h-[38px] px-3 py-1 rounded-lg font-bold text-sm transition-all text-sanctuary-charcoal';
-
-        btnHostView.className = !isElder
-          ? 'min-h-[38px] px-3 py-1 rounded-lg font-bold text-sm transition-all bg-sanctuary-teal text-white shadow-sm inline-flex items-center gap-1.5'
-          : 'min-h-[38px] px-3 py-1 rounded-lg font-bold text-sm transition-all text-sanctuary-charcoal inline-flex items-center gap-1.5';
-
-        // Chat toggle button states inside chat top bar
-        btnChatToggleElder.className = isElder
-          ? 'min-h-[36px] px-2.5 py-1 rounded-md text-xs font-bold bg-white text-sanctuary-tealDark shadow-sm'
-          : 'min-h-[36px] px-2.5 py-1 rounded-md text-xs font-bold text-white/90 hover:bg-white/10';
-        btnChatToggleHost.className = !isElder
-          ? 'min-h-[36px] px-2.5 py-1 rounded-md text-xs font-bold bg-white text-sanctuary-tealDark shadow-sm'
-          : 'min-h-[36px] px-2.5 py-1 rounded-md text-xs font-bold text-white/90 hover:bg-white/10';
+        if (headerBrandTitle) {
+          headerBrandTitle.textContent = isElder ? 'Family Chat' : "Mom's Desk";
+        }
 
         if (isChatOpen) {
-          elderViewEl.hidden = true;
-          hostViewEl.hidden = true;
+          if (elderViewEl) elderViewEl.hidden = true;
+          if (hostViewEl) hostViewEl.hidden = true;
           chatPanel.hidden = false;
         } else if (isElder) {
           chatPanel.hidden = true;
-          hostViewEl.hidden = true;
-          elderViewEl.hidden = false;
+          if (hostViewEl) hostViewEl.hidden = true;
+          if (elderViewEl) elderViewEl.hidden = false;
           bookingPanel.hidden = elderScreen !== 'booking';
           confirmationPanel.hidden = elderScreen !== 'confirmation';
         } else {
           chatPanel.hidden = true;
-          elderViewEl.hidden = true;
-          hostViewEl.hidden = false;
+          if (elderViewEl) elderViewEl.hidden = true;
+          if (hostViewEl) hostViewEl.hidden = false;
         }
 
         updateElderSubnav();
@@ -1666,6 +1793,7 @@
       function renderConfirmationCard(session) {
         confirmSummaryCard.innerHTML = '';
         const isConfirmed = session.status === 'confirmed' || session.status === 'waiting' || session.status === 'completed';
+        const isRescheduleProposed = session.status === 'reschedule_proposed' && Boolean(session.rescheduleProposal);
 
         const p1 = document.createElement('p');
         p1.className = 'font-extrabold text-sanctuary-charcoal text-lg';
@@ -1691,22 +1819,57 @@
           confirmSummaryCard.appendChild(p2);
         }
 
-        if (isConfirmed) {
+        if (isRescheduleProposed) {
+          const prop = session.rescheduleProposal;
+          const pProp = document.createElement('p');
+          pProp.className = 'text-sm font-extrabold text-sanctuary-gold pt-1 border-t border-cream-300 mt-1';
+          pProp.textContent = `📅 Proposed Time: ${prop.proposedDateLabel} at ${prop.proposedTime}`;
+          confirmSummaryCard.appendChild(pProp);
+
+          confirmationPanel.className = 'bg-white border-2 border-sanctuary-gold rounded-3xl p-6 sm:p-8 shadow-sm text-center space-y-5 fade-slide-in';
+          confirmIconBox.className = 'w-16 h-16 mx-auto rounded-full bg-sanctuary-goldSoft text-sanctuary-gold flex items-center justify-center text-3xl';
+          confirmIconBox.textContent = '📅';
+          confirmHeading.textContent = `Mom suggested a new time: ${prop.proposedDateLabel} at ${prop.proposedTime}`;
+          confirmSubtext.textContent = 'Does this new time work for you?';
+
+          if (prop.note) {
+            rescheduleMomNoteCard.textContent = `Mom's note: "${prop.note}"`;
+            rescheduleMomNoteCard.hidden = false;
+          } else {
+            rescheduleMomNoteCard.hidden = true;
+          }
+          rescheduleElderNote.value = '';
+          rescheduleProposalBox.hidden = false;
+
+          btnEnterChatNow.hidden = true;
+          btnAddGoogleCalendar.hidden = true;
+          btnCheckConfirmStatus.hidden = true;
+          btnBookAnother.hidden = true;
+        } else if (isConfirmed) {
           confirmationPanel.className = 'bg-white border-2 border-sanctuary-teal rounded-3xl p-6 sm:p-8 shadow-sm text-center space-y-5 fade-slide-in';
           confirmIconBox.className = 'w-16 h-16 mx-auto rounded-full bg-sanctuary-tealSoft text-sanctuary-teal flex items-center justify-center text-3xl';
           confirmIconBox.textContent = '✅';
-          confirmHeading.textContent = 'Mom is ready to chat!';
-          confirmSubtext.textContent = 'Opening your private room...';
+          confirmHeading.textContent = session.rescheduleOutcome === 'accepted'
+            ? `Confirmed for ${session.dateLabel} at ${session.timeSlot}!`
+            : 'Mom is ready to chat!';
+          confirmSubtext.textContent = 'Your private chat room is ready. You can also save this time to your calendar.';
+          rescheduleProposalBox.hidden = true;
           btnCheckConfirmStatus.hidden = true;
+          btnBookAnother.hidden = false;
           btnEnterChatNow.hidden = false;
+          btnAddGoogleCalendar.href = buildGoogleCalendarUrl(session, false);
+          btnAddGoogleCalendar.hidden = false;
         } else {
           confirmationPanel.className = 'bg-white border-2 border-sanctuary-goldBorder rounded-3xl p-6 sm:p-8 shadow-sm text-center space-y-5 fade-slide-in';
           confirmIconBox.className = 'w-16 h-16 mx-auto rounded-full bg-sanctuary-goldSoft text-sanctuary-gold flex items-center justify-center text-3xl';
           confirmIconBox.textContent = '⏳';
           confirmHeading.textContent = 'Waiting for Mom to confirm... ⏳';
           confirmSubtext.textContent = 'Your chat room will open automatically as soon as Mom accepts.';
+          rescheduleProposalBox.hidden = true;
           btnCheckConfirmStatus.hidden = false;
+          btnBookAnother.hidden = false;
           btnEnterChatNow.hidden = true;
+          btnAddGoogleCalendar.hidden = true;
         }
       }
 
@@ -2022,6 +2185,79 @@
         });
       }
 
+      function startOneShotNoteMic(micBtn, inputEl) {
+        if (!SpeechRecognitionCtor) {
+          micBtn.textContent = 'Type note';
+          micBtn.disabled = true;
+          return;
+        }
+        try {
+          const rec = new SpeechRecognitionCtor();
+          rec.lang = getVoiceLang();
+          rec.continuous = false;
+          rec.interimResults = false;
+          rec.maxAlternatives = 1;
+          micBtn.textContent = '🎙️ Listening...';
+          micBtn.disabled = true;
+          rec.onresult = (event) => {
+            const spoken = event.results?.[0]?.[0]?.transcript || '';
+            if (spoken) {
+              inputEl.value = combineSpeechText(inputEl.value, spoken);
+            }
+          };
+          rec.onerror = () => {
+            micBtn.textContent = '🎙️ Speak';
+            micBtn.disabled = false;
+          };
+          rec.onend = () => {
+            micBtn.textContent = '🎙️ Speak';
+            micBtn.disabled = false;
+            inputEl.focus();
+          };
+          rec.start();
+        } catch (_err) {
+          micBtn.textContent = '🎙️ Speak';
+          micBtn.disabled = false;
+        }
+      }
+
+      async function sendRescheduleProposal(session, proposedDate, proposedDateLabel, proposedTime, note) {
+        if (!session) return;
+        const ts = Date.now();
+        localActionIds.add(`reschedule-${session.id}-${ts}`);
+        rescheduleProposalTimestamps.set(session.id, ts);
+
+        session.status = 'reschedule_proposed';
+        session.rescheduleOutcome = null;
+        session.rescheduleDeclinedNote = '';
+        session.rescheduleProposal = {
+          proposedDate,
+          proposedDateLabel,
+          proposedTime,
+          note: (note || '').trim(),
+          timestamp: ts
+        };
+        openRescheduleSessionId = null;
+        saveState();
+        renderHostDesk();
+        updateElderSubnav();
+        announce(`Suggested ${proposedDateLabel} at ${proposedTime} to ${session.elderName}.`);
+
+        try {
+          await ntfyPublish(BOOKING_TOPIC, {
+            type: 'BOOKING_RESCHEDULED',
+            id: session.id,
+            proposedDate,
+            proposedDateLabel,
+            proposedTime,
+            note: (note || '').trim(),
+            timestamp: ts
+          });
+        } catch (_err) {
+          // Local proposal already saved
+        }
+      }
+
       function renderHostDesk() {
         hostSessionsList.innerHTML = '';
         updateHostBadge();
@@ -2059,7 +2295,15 @@
         });
 
         const sorted = [...state.sessions].sort((a, b) => {
-          const rank = (s) => (s.status === 'pending' ? 0 : s.status === 'completed' ? 2 : 1);
+          const rank = (s) => (
+            s.status === 'pending' || s.status === 'reschedule_declined'
+              ? 0
+              : s.status === 'reschedule_proposed'
+              ? 1
+              : s.status === 'completed'
+              ? 3
+              : 2
+          );
           const diff = rank(a) - rank(b);
           if (diff !== 0) return diff;
           return b.createdAt - a.createdAt;
@@ -2067,7 +2311,10 @@
 
         sorted.forEach((session) => {
           const isPending = session.status === 'pending';
+          const isRescheduleProposed = session.status === 'reschedule_proposed';
+          const isRescheduleDeclined = session.status === 'reschedule_declined';
           const isCompleted = session.status === 'completed';
+          const isConfirmed = session.status === 'confirmed' || session.status === 'waiting';
           const lastMsg = session.messages && session.messages.length > 0
             ? session.messages[session.messages.length - 1]
             : null;
@@ -2078,7 +2325,7 @@
 
           const card = document.createElement('article');
           card.className = `bg-white border-2 rounded-2xl p-4 shadow-sm space-y-3 ${
-            isPending
+            isPending || isRescheduleProposed || isRescheduleDeclined
               ? 'border-sanctuary-gold bg-sanctuary-goldSoft/35'
               : elderNeedsReply
               ? 'border-sanctuary-teal'
@@ -2152,17 +2399,81 @@
 
           card.appendChild(topLine);
 
-          const actions = document.createElement('div');
-          actions.className = 'flex items-center gap-2';
+          // Reschedule status banners for Mom
+          if (isRescheduleProposed && session.rescheduleProposal) {
+            const prop = session.rescheduleProposal;
+            const waitBanner = document.createElement('div');
+            waitBanner.className = 'rounded-xl bg-white border border-sanctuary-goldBorder px-3.5 py-2.5 text-sm font-bold text-sanctuary-charcoal';
+            waitBanner.textContent = `⏳ Waiting for ${session.elderName} to confirm new time: ${prop.proposedDateLabel} • ${prop.proposedTime}`;
+            if (prop.note) {
+              const noteEl = document.createElement('p');
+              noteEl.className = 'text-xs font-medium text-sanctuary-slate mt-0.5';
+              noteEl.textContent = `Your note: "${prop.note}"`;
+              waitBanner.appendChild(noteEl);
+            }
+            card.appendChild(waitBanner);
+          } else if (isConfirmed && session.rescheduleOutcome === 'accepted') {
+            const okBanner = document.createElement('div');
+            okBanner.className = 'rounded-xl bg-emerald-50 border border-emerald-200 px-3.5 py-2 text-sm font-bold text-emerald-900';
+            okBanner.textContent = `✅ ${session.elderName} confirmed new time (${session.timeSlot})!`;
+            card.appendChild(okBanner);
+          } else if (isRescheduleDeclined) {
+            const decBanner = document.createElement('div');
+            decBanner.className = 'rounded-xl bg-red-50 border border-red-200 px-3.5 py-2.5 text-sm font-bold text-red-900';
+            const declinedTime = session.rescheduleDeclinedTime || (session.rescheduleProposal && session.rescheduleProposal.proposedTime) || session.timeSlot;
+            decBanner.textContent = `❌ ${session.elderName} declined ${declinedTime}`;
+            if (session.rescheduleDeclinedNote) {
+              const decNote = document.createElement('p');
+              decNote.className = 'text-xs font-medium text-red-800 mt-0.5';
+              decNote.textContent = `Note: "${session.rescheduleDeclinedNote}"`;
+              decBanner.appendChild(decNote);
+            }
+            card.appendChild(decBanner);
+          }
 
-          if (isPending) {
+          const actions = document.createElement('div');
+          actions.className = 'flex flex-col sm:flex-row flex-wrap items-stretch sm:items-center gap-2';
+
+          if (isPending || isRescheduleDeclined) {
             const acceptBtn = document.createElement('button');
             acceptBtn.type = 'button';
             acceptBtn.className =
-              'w-full min-h-[50px] px-4 py-2.5 rounded-xl bg-emerald-700 text-white font-extrabold text-base hover:bg-emerald-800 transition-colors shadow-sm';
-            acceptBtn.textContent = `✅ Accept & Chat with ${session.elderName}`;
-            acceptBtn.addEventListener('click', () => confirmBookingSlot(session, true));
+              'flex-1 min-h-[48px] px-4 py-2.5 rounded-xl bg-emerald-700 text-white font-extrabold text-sm sm:text-base hover:bg-emerald-800 transition-colors shadow-sm';
+            acceptBtn.textContent = '✅ Confirm & Accept Slot';
+            acceptBtn.addEventListener('click', () => confirmBookingSlot(session, false));
+
+            const suggestBtn = document.createElement('button');
+            suggestBtn.type = 'button';
+            suggestBtn.className =
+              'flex-1 min-h-[48px] px-4 py-2.5 rounded-xl border-2 border-sanctuary-gold bg-white text-sanctuary-charcoal font-extrabold text-sm sm:text-base hover:bg-sanctuary-goldSoft transition-colors';
+            suggestBtn.textContent = '📅 Suggest Another Time';
+            suggestBtn.addEventListener('click', () => {
+              openRescheduleSessionId = openRescheduleSessionId === session.id ? null : session.id;
+              renderHostDesk();
+            });
+
             actions.appendChild(acceptBtn);
+            actions.appendChild(suggestBtn);
+          } else if (isRescheduleProposed) {
+            const editSuggestBtn = document.createElement('button');
+            editSuggestBtn.type = 'button';
+            editSuggestBtn.className =
+              'flex-1 min-h-[46px] px-4 py-2 rounded-xl border border-sanctuary-gold bg-white text-sanctuary-charcoal font-bold text-sm hover:bg-sanctuary-goldSoft transition-colors';
+            editSuggestBtn.textContent = '📅 Suggest Different Time';
+            editSuggestBtn.addEventListener('click', () => {
+              openRescheduleSessionId = openRescheduleSessionId === session.id ? null : session.id;
+              renderHostDesk();
+            });
+
+            const openBtn = document.createElement('button');
+            openBtn.type = 'button';
+            openBtn.className =
+              'min-h-[46px] px-4 py-2 rounded-xl bg-sanctuary-teal text-white font-bold text-sm hover:bg-sanctuary-tealDark transition-colors';
+            openBtn.textContent = `Chat`;
+            openBtn.addEventListener('click', () => openChatRoom(session.id, 'host'));
+
+            actions.appendChild(editSuggestBtn);
+            actions.appendChild(openBtn);
           } else {
             const openBtn = document.createElement('button');
             openBtn.type = 'button';
@@ -2170,6 +2481,14 @@
               'flex-1 min-h-[46px] px-4 py-2 rounded-xl bg-sanctuary-teal text-white font-bold text-sm sm:text-base hover:bg-sanctuary-tealDark transition-colors';
             openBtn.textContent = `Open Chat with ${session.elderName}`;
             openBtn.addEventListener('click', () => openChatRoom(session.id, 'host'));
+
+            const calLink = document.createElement('a');
+            calLink.href = buildGoogleCalendarUrl(session, true);
+            calLink.target = '_blank';
+            calLink.rel = 'noopener noreferrer';
+            calLink.className =
+              'min-h-[46px] px-3.5 py-2 rounded-xl border border-sanctuary-teal bg-sanctuary-tealSoft text-sanctuary-tealDark font-bold text-sm hover:bg-sanctuary-teal hover:text-white transition-colors inline-flex items-center justify-center gap-1';
+            calLink.textContent = '📅 Add to Google Calendar';
 
             const doneBtn = document.createElement('button');
             doneBtn.type = 'button';
@@ -2192,10 +2511,119 @@
             });
 
             actions.appendChild(openBtn);
+            actions.appendChild(calLink);
             actions.appendChild(doneBtn);
           }
 
           card.appendChild(actions);
+
+          // Inline Suggest Another Time Picker
+          if (openRescheduleSessionId === session.id) {
+            const pickerBox = document.createElement('div');
+            pickerBox.className = 'mt-2 pt-3 border-t border-sanctuary-goldBorder space-y-3 bg-white rounded-xl p-3';
+
+            let chosenDay = UPCOMING_DAYS.find((d) => d.iso === session.dateIso) || UPCOMING_DAYS[0];
+            let chosenTime = TIME_SLOTS.find((t) => t !== session.timeSlot) || TIME_SLOTS[0];
+
+            const dayHeading = document.createElement('p');
+            dayHeading.className = 'text-xs font-extrabold uppercase tracking-wide text-sanctuary-slate';
+            dayHeading.textContent = 'Pick a New Day';
+            pickerBox.appendChild(dayHeading);
+
+            const dayGrid = document.createElement('div');
+            dayGrid.className = 'flex flex-wrap gap-1.5';
+            const dayButtons = [];
+            UPCOMING_DAYS.forEach((day) => {
+              const dBtn = document.createElement('button');
+              dBtn.type = 'button';
+              const updateDayCls = () => {
+                const active = chosenDay.iso === day.iso;
+                dBtn.className = active
+                  ? 'min-h-[40px] px-3 py-1.5 rounded-full border-2 border-sanctuary-teal bg-sanctuary-teal text-white font-bold text-xs sm:text-sm'
+                  : 'min-h-[40px] px-3 py-1.5 rounded-full border border-cream-300 bg-cream-50 text-sanctuary-charcoal font-bold text-xs sm:text-sm';
+              };
+              dBtn.textContent = day.shortLabel;
+              updateDayCls();
+              dBtn.addEventListener('click', () => {
+                chosenDay = day;
+                dayButtons.forEach((fn) => fn());
+              });
+              dayButtons.push(updateDayCls);
+              dayGrid.appendChild(dBtn);
+            });
+            pickerBox.appendChild(dayGrid);
+
+            const timeHeading = document.createElement('p');
+            timeHeading.className = 'text-xs font-extrabold uppercase tracking-wide text-sanctuary-slate';
+            timeHeading.textContent = 'Pick a New Time';
+            pickerBox.appendChild(timeHeading);
+
+            const timeGrid = document.createElement('div');
+            timeGrid.className = 'grid grid-cols-2 gap-2';
+            const timeButtons = [];
+            TIME_SLOTS.forEach((slot) => {
+              const tBtn = document.createElement('button');
+              tBtn.type = 'button';
+              const updateTimeCls = () => {
+                const active = chosenTime === slot;
+                tBtn.className = active
+                  ? 'min-h-[44px] px-3 py-2 rounded-xl border-2 border-sanctuary-teal bg-sanctuary-teal text-white font-bold text-sm'
+                  : 'min-h-[44px] px-3 py-2 rounded-xl border border-cream-300 bg-cream-50 text-sanctuary-charcoal font-bold text-sm';
+              };
+              tBtn.textContent = slot;
+              updateTimeCls();
+              tBtn.addEventListener('click', () => {
+                chosenTime = slot;
+                timeButtons.forEach((fn) => fn());
+              });
+              timeButtons.push(updateTimeCls);
+              timeGrid.appendChild(tBtn);
+            });
+            pickerBox.appendChild(timeGrid);
+
+            const noteRow = document.createElement('div');
+            noteRow.className = 'flex items-center gap-2';
+            const noteInput = document.createElement('input');
+            noteInput.type = 'text';
+            noteInput.placeholder = 'Optional note (e.g. Tea time works better)...';
+            noteInput.className = 'flex-1 min-w-0 min-h-[44px] px-3 py-2 rounded-xl border border-cream-300 bg-cream-50 text-sm text-sanctuary-charcoal';
+
+            const noteMicBtn = document.createElement('button');
+            noteMicBtn.type = 'button';
+            noteMicBtn.className = 'min-h-[44px] px-3 py-2 rounded-xl bg-sanctuary-tealSoft border border-sanctuary-teal/30 text-sanctuary-tealDark font-bold text-xs shrink-0';
+            noteMicBtn.textContent = '🎙️ Speak';
+            noteMicBtn.addEventListener('click', () => startOneShotNoteMic(noteMicBtn, noteInput));
+
+            noteRow.appendChild(noteInput);
+            noteRow.appendChild(noteMicBtn);
+            pickerBox.appendChild(noteRow);
+
+            const submitRow = document.createElement('div');
+            submitRow.className = 'flex items-center gap-2';
+            const sendNewTimeBtn = document.createElement('button');
+            sendNewTimeBtn.type = 'button';
+            sendNewTimeBtn.className = 'flex-1 min-h-[46px] px-4 py-2 rounded-xl bg-sanctuary-teal text-white font-extrabold text-sm hover:bg-sanctuary-tealDark';
+            sendNewTimeBtn.textContent = 'Send New Time';
+            sendNewTimeBtn.addEventListener('click', () => {
+              sendRescheduleProposal(session, chosenDay.iso, chosenDay.displayLabel, chosenTime, noteInput.value);
+            });
+
+            const cancelBtn = document.createElement('button');
+            cancelBtn.type = 'button';
+            cancelBtn.className = 'min-h-[46px] px-3.5 py-2 rounded-xl border border-cream-300 bg-white text-sanctuary-slate font-bold text-sm';
+            cancelBtn.textContent = 'Cancel';
+            cancelBtn.addEventListener('click', () => {
+              openRescheduleSessionId = null;
+              renderHostDesk();
+            });
+
+            submitRow.appendChild(sendNewTimeBtn);
+            submitRow.appendChild(cancelBtn);
+            pickerBox.appendChild(submitRow);
+
+            card.appendChild(pickerBox);
+          }
+
           hostSessionsList.appendChild(card);
         });
       }
@@ -2205,11 +2633,20 @@
         if (!payload || !payload.type || !payload.id) return;
 
         if (payload.type === 'BOOKING_REQUEST') {
-          let existing = getSessionById(payload.id);
+          // Strict per-caller isolation: Elder View ignores foreign bookings
+          if (currentView === 'elder') {
+            const matchesOwnClient = Boolean(payload.clientId && payload.clientId === elderClientId);
+            if (!matchesOwnClient && !localActionIds.has(payload.id)) {
+              return;
+            }
+          }
+
+          let existing = state.sessions.find((s) => s.id === payload.id) || null;
           if (!existing) {
             const initialStatus = confirmedBookingIds.has(payload.id) ? 'confirmed' : 'pending';
             existing = {
               id: payload.id,
+              clientId: payload.clientId || '',
               elderName: payload.elderName || 'Family Member',
               city: payload.city || payload.location || '',
               relationship: payload.relationship || 'Family Member',
@@ -2235,6 +2672,10 @@
             }
           } else {
             let changed = false;
+            if (!existing.clientId && payload.clientId) {
+              existing.clientId = payload.clientId;
+              changed = true;
+            }
             if (!existing.city && (payload.city || payload.location)) {
               existing.city = payload.city || payload.location;
               changed = true;
@@ -2258,8 +2699,10 @@
             renderHostDesk();
           }
         } else if (payload.type === 'BOOKING_CONFIRMED') {
-          confirmedBookingIds.add(payload.id);
           const session = getSessionById(payload.id);
+          if (currentView === 'elder' && !session) return;
+
+          confirmedBookingIds.add(payload.id);
           const wasConfirmed = session && session.status === 'confirmed';
           if (session && session.status !== 'completed') {
             session.status = 'confirmed';
@@ -2273,29 +2716,108 @@
             activeChatSessionId === payload.id
           ) {
             playGentleChime('confirmed');
-            announce('Mom has confirmed! Opening your chat room.');
+            announce('Mom has confirmed! Your chat room and calendar link are ready.');
           }
 
-          // Live auto-transition when Elder is waiting on confirmation card
           if (currentView === 'elder' && elderScreen === 'confirmation' && activeChatSessionId === payload.id && session) {
             renderConfirmationCard(session);
-            window.setTimeout(() => {
-              if (currentView === 'elder' && elderScreen === 'confirmation' && activeChatSessionId === session.id) {
-                openChatRoom(session.id, 'elder');
-              }
-            }, 600);
           }
           updateElderSubnav();
           updateHostBadge();
           if (currentView === 'host' && chatPanel.hidden) {
             renderHostDesk();
           }
+        } else if (payload.type === 'BOOKING_RESCHEDULED') {
+          const ts = payload.timestamp || 0;
+          const prevTs = rescheduleProposalTimestamps.get(payload.id) || 0;
+          if (ts >= prevTs) {
+            const session = getSessionById(payload.id);
+            if (currentView === 'elder' && !session) return;
+
+            rescheduleProposalTimestamps.set(payload.id, ts);
+            if (session && session.status !== 'completed') {
+              session.status = 'reschedule_proposed';
+              session.rescheduleOutcome = null;
+              session.rescheduleProposal = {
+                proposedDate: payload.proposedDate || session.dateIso,
+                proposedDateLabel: payload.proposedDateLabel || payload.proposedDate || session.dateLabel,
+                proposedTime: payload.proposedTime || session.timeSlot,
+                note: payload.note || '',
+                timestamp: ts
+              };
+              saveState();
+
+              const actionKey = `reschedule-${payload.id}-${ts}`;
+              if (!meta.isInitialPoll && !localActionIds.has(actionKey) && activeChatSessionId === payload.id) {
+                playGentleChime('booking');
+                announce(`Mom suggested a new time: ${session.rescheduleProposal.proposedDateLabel} at ${session.rescheduleProposal.proposedTime}`);
+              }
+
+              if (currentView === 'elder' && activeChatSessionId === payload.id && elderScreen !== 'chat') {
+                renderConfirmationCard(session);
+                elderScreen = 'confirmation';
+                updateViewVisibility();
+              }
+              updateElderSubnav();
+              updateHostBadge();
+              if (currentView === 'host' && chatPanel.hidden) {
+                renderHostDesk();
+              }
+            }
+          }
+        } else if (payload.type === 'RESCHEDULE_RESPONSE') {
+          const ts = payload.timestamp || 0;
+          const prevTs = rescheduleResponseTimestamps.get(payload.id) || 0;
+          if (ts >= prevTs) {
+            const session = getSessionById(payload.id);
+            if (currentView === 'elder' && !session) return;
+
+            rescheduleResponseTimestamps.set(payload.id, ts);
+            if (session && session.status !== 'completed') {
+              const prop = session.rescheduleProposal || {};
+              if (payload.accepted) {
+                session.status = 'confirmed';
+                session.rescheduleOutcome = 'accepted';
+                session.dateIso = payload.proposedDate || prop.proposedDate || session.dateIso;
+                session.dateLabel = payload.proposedDateLabel || prop.proposedDateLabel || session.dateLabel;
+                session.timeSlot = payload.proposedTime || prop.proposedTime || session.timeSlot;
+                confirmedBookingIds.add(session.id);
+              } else {
+                session.status = 'reschedule_declined';
+                session.rescheduleOutcome = 'declined';
+                session.rescheduleDeclinedTime = payload.proposedTime || prop.proposedTime || session.timeSlot;
+                session.rescheduleDeclinedNote = payload.note || '';
+              }
+              saveState();
+
+              const actionKey = `reschedule-resp-${payload.id}-${ts}`;
+              if (!meta.isInitialPoll && !localActionIds.has(actionKey)) {
+                playGentleChime(payload.accepted ? 'confirmed' : 'booking');
+                announce(
+                  payload.accepted
+                    ? `${session.elderName} confirmed new time ${session.timeSlot}`
+                    : `${session.elderName} declined the suggested time`
+                );
+              }
+
+              if (currentView === 'elder' && elderScreen === 'confirmation' && activeChatSessionId === payload.id) {
+                renderConfirmationCard(session);
+              }
+              updateElderSubnav();
+              updateHostBadge();
+              if (currentView === 'host' && chatPanel.hidden) {
+                renderHostDesk();
+              }
+            }
+          }
         } else if (payload.type === 'BOOKING_STATUS') {
           const ts = payload.timestamp || 0;
           const prevTs = bookingStatusTimestamps.get(payload.id) || 0;
           if (ts >= prevTs) {
-            bookingStatusTimestamps.set(payload.id, ts);
             const session = getSessionById(payload.id);
+            if (currentView === 'elder' && !session) return;
+
+            bookingStatusTimestamps.set(payload.id, ts);
             if (session && (payload.status === 'completed' || payload.status === 'confirmed')) {
               session.status = payload.status;
               saveState();
@@ -2317,51 +2839,8 @@
         announce(state.textExtraLarge ? 'Larger text enabled.' : 'Standard text restored.');
       });
 
-      function switchToElderView() {
-        stopVoiceRecognition(true);
-        currentView = 'elder';
-        chatPanel.hidden = true;
-        if (elderScreen === 'chat' && !getSessionById(activeChatSessionId)) {
-          elderScreen = 'booking';
-        }
-        if (elderScreen === 'chat') {
-          openChatRoom(activeChatSessionId, 'elder');
-        } else {
-          closeActiveChatSubscription();
-          if (elderScreen === 'confirmation') {
-            const activeSession = getSessionById(activeChatSessionId);
-            if (activeSession) renderConfirmationCard(activeSession);
-            else elderScreen = 'booking';
-          }
-          updateViewVisibility();
-        }
-      }
-
-      function switchToHostView() {
-        stopVoiceRecognition(true);
-        closeActiveChatSubscription();
-        currentView = 'host';
-        chatPanel.hidden = true;
-        renderHostDesk();
-        updateViewVisibility();
-        if (bookingSub) bookingSub.refresh().catch(() => {});
-      }
-
-      btnElderView.addEventListener('click', switchToElderView);
-      btnHostView.addEventListener('click', switchToHostView);
-      btnChatToggleElder.addEventListener('click', () => {
-        if (currentView !== 'elder') {
-          elderScreen = getSessionById(activeChatSessionId) ? 'chat' : 'booking';
-          switchToElderView();
-        }
-      });
-      btnChatToggleHost.addEventListener('click', () => {
-        if (currentView !== 'host') {
-          switchToHostView();
-        }
-      });
-
       btnGoBooking.addEventListener('click', () => {
+        if (rescheduleRebookBanner) rescheduleRebookBanner.hidden = true;
         applyIdentityProfileUI();
         elderScreen = 'booking';
         updateViewVisibility();
@@ -2370,7 +2849,7 @@
       btnResumeChat.addEventListener('click', () => {
         const activeSession = getSessionById(activeChatSessionId);
         if (!activeSession) return;
-        if (activeSession.status === 'pending') {
+        if (activeSession.status === 'pending' || activeSession.status === 'reschedule_proposed') {
           renderConfirmationCard(activeSession);
           elderScreen = 'confirmation';
           updateViewVisibility();
@@ -2390,11 +2869,81 @@
               const activeSession = getSessionById(activeChatSessionId);
               if (activeSession) {
                 renderConfirmationCard(activeSession);
-                if (activeSession.status === 'confirmed') {
-                  openChatRoom(activeSession.id, 'elder');
-                }
               }
             });
+        }
+      });
+
+      btnRescheduleAccept.addEventListener('click', async () => {
+        const session = getSessionById(activeChatSessionId);
+        if (!session || !session.rescheduleProposal) return;
+        const prop = session.rescheduleProposal;
+        const ts = Date.now();
+        localActionIds.add(`reschedule-resp-${session.id}-${ts}`);
+        rescheduleResponseTimestamps.set(session.id, ts);
+        confirmedBookingIds.add(session.id);
+
+        session.dateIso = prop.proposedDate || session.dateIso;
+        session.dateLabel = prop.proposedDateLabel || session.dateLabel;
+        session.timeSlot = prop.proposedTime || session.timeSlot;
+        session.status = 'confirmed';
+        session.rescheduleOutcome = 'accepted';
+        saveState();
+
+        renderConfirmationCard(session);
+        updateElderSubnav();
+        playGentleChime('confirmed');
+        announce(`Confirmed new time: ${session.dateLabel} at ${session.timeSlot}.`);
+
+        try {
+          await ntfyPublish(BOOKING_TOPIC, {
+            type: 'RESCHEDULE_RESPONSE',
+            id: session.id,
+            accepted: true,
+            proposedDate: session.dateIso,
+            proposedDateLabel: session.dateLabel,
+            proposedTime: session.timeSlot,
+            timestamp: ts
+          });
+        } catch (_err) {
+          // Local confirmation already saved
+        }
+      });
+
+      btnRescheduleDecline.addEventListener('click', async () => {
+        const session = getSessionById(activeChatSessionId);
+        if (!session) return;
+        const prop = session.rescheduleProposal || {};
+        const note = rescheduleElderNote.value.trim();
+        const ts = Date.now();
+        localActionIds.add(`reschedule-resp-${session.id}-${ts}`);
+        rescheduleResponseTimestamps.set(session.id, ts);
+
+        session.status = 'reschedule_declined';
+        session.rescheduleOutcome = 'declined';
+        session.rescheduleDeclinedTime = prop.proposedTime || session.timeSlot;
+        session.rescheduleDeclinedNote = note;
+        saveState();
+
+        if (rescheduleRebookBanner) rescheduleRebookBanner.hidden = false;
+        applyIdentityProfileUI();
+        elderScreen = 'booking';
+        updateViewVisibility();
+        announce('No problem. Please choose another day and time below.');
+
+        try {
+          await ntfyPublish(BOOKING_TOPIC, {
+            type: 'RESCHEDULE_RESPONSE',
+            id: session.id,
+            accepted: false,
+            proposedDate: prop.proposedDate || session.dateIso,
+            proposedDateLabel: prop.proposedDateLabel || session.dateLabel,
+            proposedTime: prop.proposedTime || session.timeSlot,
+            note,
+            timestamp: ts
+          });
+        } catch (_err) {
+          // Local decline already saved
         }
       });
 
@@ -2464,6 +3013,11 @@
 
       btnSwitchProfile.addEventListener('click', () => {
         clearElderProfile();
+        elderClientId = rotateClientId();
+        activeChatSessionId = null;
+        state.activeSessionId = null;
+        saveState();
+        if (rescheduleRebookBanner) rescheduleRebookBanner.hidden = true;
         elderNameInput.value = '';
         elderLocationInput.value = '';
         elderRelationshipInput.value = 'Family Member';
@@ -2476,6 +3030,7 @@
         elderLocationInput.removeAttribute('aria-invalid');
         formErrorSummary.hidden = true;
         applyIdentityProfileUI();
+        updateElderSubnav();
         elderNameInput.focus();
         announce('Profile cleared. Please enter your name and location.');
       });
@@ -2489,6 +3044,7 @@
         event.preventDefault();
         bookingNetworkError.hidden = true;
         formErrorSummary.hidden = true;
+        if (rescheduleRebookBanner) rescheduleRebookBanner.hidden = true;
 
         const savedProfile = loadElderProfile();
         let elderName = '';
@@ -2496,6 +3052,8 @@
         let relationship = 'Family Member';
         let isReturning = false;
         let sessionCount = 1;
+        const clientId = (savedProfile && savedProfile.clientId) || elderClientId || getOrCreateClientId();
+        elderClientId = clientId;
 
         if (savedProfile) {
           elderName = savedProfile.elderName;
@@ -2545,6 +3103,7 @@
         const bookingPayload = {
           type: 'BOOKING_REQUEST',
           id: bookingId,
+          clientId,
           elderName,
           city,
           relationship,
@@ -2566,6 +3125,7 @@
           await ntfyPublish(BOOKING_TOPIC, bookingPayload);
 
           saveElderProfile({
+            clientId,
             elderName,
             city,
             relationship,
@@ -2575,6 +3135,7 @@
 
           const newSession = {
             id: bookingId,
+            clientId,
             elderName,
             city,
             relationship,
@@ -2616,6 +3177,7 @@
 
       btnBookAnother.addEventListener('click', () => {
         bookingForm.reset();
+        if (rescheduleRebookBanner) rescheduleRebookBanner.hidden = true;
         highlightQuickName('');
         highlightQuickLocation('');
         elderRelationshipInput.value = 'Family Member';
@@ -2636,12 +3198,11 @@
 
         if (chatOpenedFrom === 'host') {
           chatPanel.hidden = true;
-          currentView = 'host';
           renderHostDesk();
           updateViewVisibility();
         } else {
+          applyIdentityProfileUI();
           elderScreen = 'booking';
-          currentView = 'elder';
           updateViewVisibility();
         }
       });
@@ -2738,25 +3299,35 @@
         }
       });
 
-      // Initialize UI & Cloud Sync
+      // Initialize UI & Cloud Sync (Strict Role Isolation)
       applyTextSize();
-      renderCalendarOptions();
-      renderTimeSlots();
-      renderTopics();
-      renderPreferences();
-      initLocationSuggestions();
-      applyIdentityProfileUI();
 
-      renderHostDesk();
-      switchHostTab('inbox');
+      if (currentView === 'host') {
+        if (elderViewEl && elderViewEl.parentNode) {
+          elderViewEl.parentNode.removeChild(elderViewEl);
+        }
+        renderHostDesk();
+        switchHostTab('inbox');
+      } else {
+        if (hostViewEl && hostViewEl.parentNode) {
+          hostViewEl.parentNode.removeChild(hostViewEl);
+        }
+        renderCalendarOptions();
+        renderTimeSlots();
+        renderTopics();
+        renderPreferences();
+        initLocationSuggestions();
+        applyIdentityProfileUI();
+      }
+
       updateViewVisibility();
 
       bookingSub = ntfySubscribe(
         BOOKING_TOPIC,
         handleBookingEvent,
         (status) => {
-          updateSyncPill(hostSyncPill, status, false);
-          updateSyncPill(elderBookingSyncPill, status, false);
+          if (currentView === 'host') updateSyncPill(hostSyncPill, status, false);
+          else updateSyncPill(elderBookingSyncPill, status, false);
         }
       );
     })();
