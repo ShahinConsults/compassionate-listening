@@ -271,7 +271,7 @@
         </div>
       </div>
 
-      <!-- BOOKING SCREEN (3 Simple Cards) -->
+      <!-- BOOKING SCREEN -->
       <div id="booking-panel" class="space-y-4 fade-slide-in">
         <h1 id="elder-view-heading" class="text-xl sm:text-2xl font-extrabold text-sanctuary-charcoal px-1">
           Talk with Mom
@@ -288,46 +288,151 @@
             <span id="form-error-text"></span>
           </div>
 
-          <!-- CARD 1: Who is speaking? -->
-          <div class="bg-white border border-cream-300 rounded-2xl p-4 sm:p-5 shadow-sm space-y-3">
+          <!-- RETURNING ELDER GREETING CARD (Auto-shown when elder_persistent_profile_v2 exists) -->
+          <div
+            id="returning-elder-card"
+            hidden
+            class="bg-white border-2 border-sanctuary-teal/40 rounded-2xl p-4 sm:p-5 shadow-sm space-y-3 fade-slide-in"
+          >
+            <div class="space-y-1">
+              <h2 id="returning-greeting-title" class="text-lg sm:text-xl font-extrabold text-sanctuary-charcoal leading-snug">
+                Welcome back! 🌿
+              </h2>
+              <p id="returning-greeting-sub" class="text-sm sm:text-base font-medium text-sanctuary-slate">
+                Ready to talk with Mom again? Pick a time below:
+              </p>
+            </div>
+
+            <div class="flex flex-wrap items-center justify-between gap-2 pt-2 border-t border-cream-200">
+              <span
+                id="returning-profile-meta"
+                class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-sanctuary-tealSoft text-sanctuary-tealDark"
+              >
+                Family Member
+              </span>
+              <button
+                id="btn-switch-profile"
+                type="button"
+                class="min-h-[44px] px-3 py-1.5 rounded-xl border border-cream-300 bg-cream-50 text-sanctuary-slate font-bold text-xs sm:text-sm hover:border-sanctuary-teal hover:text-sanctuary-charcoal transition-colors"
+              >
+                Not you? Switch Profile
+              </button>
+            </div>
+          </div>
+
+          <!-- CARD 1: First-Time Elder Profile (Hidden for returning elders) -->
+          <div id="first-time-identity-card" class="bg-white border border-cream-300 rounded-2xl p-4 sm:p-5 shadow-sm space-y-4">
             <h2 class="text-lg font-extrabold text-sanctuary-charcoal">
               1. Who is speaking?
             </h2>
 
-            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5" aria-label="Quick family name pills">
-              <button type="button" data-quick-name="Grandfather" class="quick-name-btn min-h-[48px] px-3 py-2.5 rounded-xl border-2 border-cream-300 bg-cream-50 font-bold text-sanctuary-charcoal hover:border-sanctuary-teal transition-colors">
-                Grandfather
-              </button>
-              <button type="button" data-quick-name="Grandmother" class="quick-name-btn min-h-[48px] px-3 py-2.5 rounded-xl border-2 border-cream-300 bg-cream-50 font-bold text-sanctuary-charcoal hover:border-sanctuary-teal transition-colors">
-                Grandmother
-              </button>
-              <button type="button" data-quick-name="Uncle" class="quick-name-btn min-h-[48px] px-3 py-2.5 rounded-xl border-2 border-cream-300 bg-cream-50 font-bold text-sanctuary-charcoal hover:border-sanctuary-teal transition-colors">
-                Uncle
-              </button>
-              <button type="button" data-quick-name="Saim" class="quick-name-btn min-h-[48px] px-3 py-2.5 rounded-xl border-2 border-cream-300 bg-cream-50 font-bold text-sanctuary-charcoal hover:border-sanctuary-teal transition-colors">
-                Saim
-              </button>
+            <!-- Name -->
+            <div class="space-y-2.5">
+              <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5" aria-label="Quick family name pills">
+                <button type="button" data-quick-name="Grandfather" class="quick-name-btn min-h-[48px] px-3 py-2.5 rounded-xl border-2 border-cream-300 bg-cream-50 font-bold text-sanctuary-charcoal hover:border-sanctuary-teal transition-colors">
+                  Grandfather
+                </button>
+                <button type="button" data-quick-name="Grandmother" class="quick-name-btn min-h-[48px] px-3 py-2.5 rounded-xl border-2 border-cream-300 bg-cream-50 font-bold text-sanctuary-charcoal hover:border-sanctuary-teal transition-colors">
+                  Grandmother
+                </button>
+                <button type="button" data-quick-name="Uncle" class="quick-name-btn min-h-[48px] px-3 py-2.5 rounded-xl border-2 border-cream-300 bg-cream-50 font-bold text-sanctuary-charcoal hover:border-sanctuary-teal transition-colors">
+                  Uncle
+                </button>
+                <button type="button" data-quick-name="Saim" class="quick-name-btn min-h-[48px] px-3 py-2.5 rounded-xl border-2 border-cream-300 bg-cream-50 font-bold text-sanctuary-charcoal hover:border-sanctuary-teal transition-colors">
+                  Saim
+                </button>
+              </div>
+
+              <div>
+                <label for="elder-name" class="block text-sm font-bold text-sanctuary-slate mb-1">Your Name</label>
+                <input
+                  id="elder-name"
+                  name="elderName"
+                  type="text"
+                  required
+                  autocomplete="name"
+                  enterkeyhint="next"
+                  placeholder="Type your name (e.g. Saim or Grandfather)..."
+                  class="w-full min-h-[50px] px-4 py-2.5 rounded-xl border-2 border-cream-300 bg-cream-50 text-sanctuary-charcoal placeholder:text-sanctuary-slate/70 focus:bg-white focus:border-sanctuary-teal transition-colors"
+                >
+                <p id="elder-name-error" class="text-red-700 font-semibold text-sm mt-1.5 hidden"></p>
+              </div>
             </div>
 
-            <div>
-              <label for="elder-name" class="visually-hidden">Your Name</label>
+            <!-- Location / City -->
+            <div class="space-y-2 pt-2 border-t border-cream-200">
+              <div class="flex flex-wrap items-center justify-between gap-2">
+                <label for="elder-location" class="block text-sm font-bold text-sanctuary-slate">
+                  Where are you speaking from? (City / Location)
+                </label>
+                <button
+                  id="detected-timezone-hint"
+                  type="button"
+                  hidden
+                  class="min-h-[32px] px-2.5 py-0.5 rounded-full bg-sanctuary-tealSoft text-xs font-bold text-sanctuary-tealDark hover:bg-sanctuary-teal hover:text-white transition-colors"
+                ></button>
+              </div>
+
+              <div id="quick-location-pills" class="flex flex-wrap gap-2" aria-label="Quick location options">
+                <button type="button" data-quick-location="Dallas, Texas" class="quick-location-btn min-h-[44px] px-3.5 py-2 rounded-full border border-cream-300 bg-cream-50 font-bold text-sm text-sanctuary-charcoal hover:border-sanctuary-teal transition-colors">
+                  📍 Dallas, Texas
+                </button>
+                <button type="button" data-quick-location="Hyderabad, India" class="quick-location-btn min-h-[44px] px-3.5 py-2 rounded-full border border-cream-300 bg-cream-50 font-bold text-sm text-sanctuary-charcoal hover:border-sanctuary-teal transition-colors">
+                  📍 Hyderabad, India
+                </button>
+              </div>
+
+              <div>
+                <input
+                  id="elder-location"
+                  name="elderLocation"
+                  type="text"
+                  required
+                  autocomplete="address-level2"
+                  enterkeyhint="done"
+                  placeholder="City & State/Country (e.g. Dallas, Texas)..."
+                  class="w-full min-h-[50px] px-4 py-2.5 rounded-xl border-2 border-cream-300 bg-cream-50 text-sanctuary-charcoal placeholder:text-sanctuary-slate/70 focus:bg-white focus:border-sanctuary-teal transition-colors"
+                >
+                <p id="elder-location-error" class="text-red-700 font-semibold text-sm mt-1.5 hidden"></p>
+              </div>
+            </div>
+
+            <!-- Relationship / Role -->
+            <div class="space-y-2 pt-2 border-t border-cream-200">
+              <label for="elder-relationship" class="block text-sm font-bold text-sanctuary-slate">
+                Relationship / Role
+              </label>
+
+              <div class="flex flex-wrap gap-2" aria-label="Quick relationship options">
+                <button type="button" data-quick-role="Family Member" class="quick-role-btn min-h-[44px] px-3.5 py-2 rounded-full border-2 border-sanctuary-teal bg-sanctuary-teal text-white font-bold text-sm transition-colors">
+                  Family Member
+                </button>
+                <button type="button" data-quick-role="Son" class="quick-role-btn min-h-[44px] px-3.5 py-2 rounded-full border-2 border-cream-300 bg-cream-50 font-bold text-sm text-sanctuary-charcoal hover:border-sanctuary-teal transition-colors">
+                  Son
+                </button>
+                <button type="button" data-quick-role="Grandparent" class="quick-role-btn min-h-[44px] px-3.5 py-2 rounded-full border-2 border-cream-300 bg-cream-50 font-bold text-sm text-sanctuary-charcoal hover:border-sanctuary-teal transition-colors">
+                  Grandparent
+                </button>
+                <button type="button" data-quick-role="Friend" class="quick-role-btn min-h-[44px] px-3.5 py-2 rounded-full border-2 border-cream-300 bg-cream-50 font-bold text-sm text-sanctuary-charcoal hover:border-sanctuary-teal transition-colors">
+                  Friend
+                </button>
+              </div>
+
               <input
-                id="elder-name"
-                name="elderName"
+                id="elder-relationship"
+                name="elderRelationship"
                 type="text"
-                required
-                autocomplete="name"
+                value="Family Member"
                 enterkeyhint="done"
-                placeholder="Or type your name..."
-                class="w-full min-h-[50px] px-4 py-2.5 rounded-xl border-2 border-cream-300 bg-cream-50 text-sanctuary-charcoal placeholder:text-sanctuary-slate/70 focus:bg-white focus:border-sanctuary-teal transition-colors"
+                placeholder="Or type relationship (e.g. Daughter, Cousin)..."
+                class="w-full min-h-[48px] px-4 py-2 rounded-xl border border-cream-300 bg-cream-50 text-sanctuary-charcoal placeholder:text-sanctuary-slate/70 focus:bg-white focus:border-sanctuary-teal transition-colors"
               >
-              <p id="elder-name-error" class="text-red-700 font-semibold text-sm mt-1.5 hidden"></p>
             </div>
           </div>
 
           <!-- CARD 2: Choose a Time -->
           <div class="bg-white border border-cream-300 rounded-2xl p-4 sm:p-5 shadow-sm space-y-4">
-            <h2 class="text-lg font-extrabold text-sanctuary-charcoal">
+            <h2 id="choose-time-heading" class="text-lg font-extrabold text-sanctuary-charcoal">
               2. Choose a Time
             </h2>
 
@@ -347,14 +452,23 @@
               </div>
             </fieldset>
 
-            <!-- Optional Topic Disclosure (keeps screen clean & uncluttered) -->
+            <!-- Optional Topic & Listening Preference Disclosure (keeps screen clean & uncluttered) -->
             <details class="pt-1 border-t border-cream-200">
               <summary class="cursor-pointer py-2 text-sm font-bold text-sanctuary-teal select-none">
-                + Add a topic (optional)
+                + Add a topic or preference (optional)
               </summary>
-              <div class="pt-2 space-y-2.5">
-                <div id="topic-options" class="flex flex-wrap gap-2">
-                  <!-- Populated by JS -->
+              <div class="pt-2 space-y-3">
+                <div>
+                  <p class="text-xs font-bold text-sanctuary-slate uppercase tracking-wide mb-1.5">Topic</p>
+                  <div id="topic-options" class="flex flex-wrap gap-2">
+                    <!-- Populated by JS -->
+                  </div>
+                </div>
+                <div>
+                  <p class="text-xs font-bold text-sanctuary-slate uppercase tracking-wide mb-1.5">Listening Preference</p>
+                  <div id="preference-options" class="flex flex-wrap gap-2">
+                    <!-- Populated by JS -->
+                  </div>
                 </div>
                 <input
                   id="heart-note"
@@ -466,8 +580,39 @@
         </button>
       </div>
 
+      <!-- Host Desk Tabs -->
+      <div role="tablist" aria-label="Mom's Desk sections" class="grid grid-cols-2 gap-1.5 p-1 rounded-2xl bg-cream-200 border border-cream-300">
+        <button
+          id="tab-host-inbox"
+          type="button"
+          role="tab"
+          aria-selected="true"
+          aria-controls="host-sessions-list"
+          class="min-h-[44px] px-3 py-2 rounded-xl font-bold text-sm transition-all bg-white text-sanctuary-tealDark shadow-sm inline-flex items-center justify-center gap-1.5"
+        >
+          <span>Requests & Chats</span>
+          <span id="host-inbox-tab-count" class="inline-flex items-center justify-center min-w-[1.25rem] h-5 px-1.5 rounded-full text-xs font-extrabold bg-sanctuary-tealSoft text-sanctuary-tealDark">0</span>
+        </button>
+        <button
+          id="tab-host-directory"
+          type="button"
+          role="tab"
+          aria-selected="false"
+          aria-controls="host-directory-list"
+          class="min-h-[44px] px-3 py-2 rounded-xl font-bold text-sm transition-all text-sanctuary-slate hover:text-sanctuary-charcoal inline-flex items-center justify-center gap-1.5"
+        >
+          <span>Family Directory</span>
+          <span id="host-directory-tab-count" class="inline-flex items-center justify-center min-w-[1.25rem] h-5 px-1.5 rounded-full text-xs font-extrabold bg-cream-300 text-sanctuary-charcoal">0</span>
+        </button>
+      </div>
+
       <!-- WhatsApp Inbox List -->
-      <div id="host-sessions-list" class="space-y-3">
+      <div id="host-sessions-list" role="tabpanel" aria-labelledby="tab-host-inbox" class="space-y-3">
+        <!-- Populated safely by JS -->
+      </div>
+
+      <!-- Family Directory / Past Conversations List -->
+      <div id="host-directory-list" role="tabpanel" aria-labelledby="tab-host-directory" hidden class="space-y-3">
         <!-- Populated safely by JS -->
       </div>
     </section>
@@ -589,6 +734,7 @@
       'use strict';
 
       const STORAGE_KEY = 'compassionate_listening_sanctuary_v2';
+      const ELDER_PROFILE_KEY = 'elder_persistent_profile_v2';
       const NTFY_BASE_HTTP = 'https://ntfy.sh';
       const NTFY_BASE_WS = 'wss://ntfy.sh';
       const BOOKING_TOPIC = 'compassionate_family_bookings_v2';
@@ -601,6 +747,12 @@
         { id: 'my-day', label: 'Sharing my day' },
         { id: 'family-stories', label: 'Family stories' },
         { id: 'lonely', label: 'Just talking' }
+      ];
+
+      const PREFERENCES = [
+        { id: 'listen-only', label: 'Listen gently' },
+        { id: 'ask-questions', label: 'Ask warm questions' },
+        { id: 'quiet-comfort', label: 'Quiet comfort & prayer' }
       ];
 
       function getUpcomingDays() {
@@ -675,6 +827,48 @@
           localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
         } catch (_err) {
           // Safe fallback if storage is full
+        }
+      }
+
+      function loadElderProfile() {
+        try {
+          const raw = localStorage.getItem(ELDER_PROFILE_KEY);
+          if (!raw) return null;
+          const parsed = JSON.parse(raw);
+          if (!parsed || typeof parsed.elderName !== 'string' || !parsed.elderName.trim()) {
+            return null;
+          }
+          return {
+            elderName: parsed.elderName.trim(),
+            city: typeof parsed.city === 'string' ? parsed.city.trim() : '',
+            relationship: typeof parsed.relationship === 'string' && parsed.relationship.trim()
+              ? parsed.relationship.trim()
+              : 'Family Member',
+            sessionCount: Math.max(1, Number(parsed.sessionCount) || 1)
+          };
+        } catch (_err) {
+          return null;
+        }
+      }
+
+      function saveElderProfile(profile) {
+        try {
+          localStorage.setItem(ELDER_PROFILE_KEY, JSON.stringify({
+            elderName: profile.elderName,
+            city: profile.city,
+            relationship: profile.relationship || 'Family Member',
+            sessionCount: Math.max(1, Number(profile.sessionCount) || 1)
+          }));
+        } catch (_err) {
+          // Safe fallback
+        }
+      }
+
+      function clearElderProfile() {
+        try {
+          localStorage.removeItem(ELDER_PROFILE_KEY);
+        } catch (_err) {
+          // Ignore storage error
         }
       }
 
@@ -839,6 +1033,7 @@
       let elderScreen = 'booking'; // 'booking' | 'confirmation' | 'chat'
       let chatOpenedFrom = currentView === 'host' ? 'host' : 'elder';
       let activeChatSessionId = state.activeSessionId;
+      let activeHostTab = 'inbox'; // 'inbox' | 'directory'
 
       const confirmedBookingIds = new Set();
       const bookingStatusTimestamps = new Map();
@@ -871,11 +1066,26 @@
       const bookingNetworkErrorText = document.getElementById('booking-network-error-text');
       const btnConfirmBooking = document.getElementById('btn-confirm-booking');
       const btnConfirmBookingLabel = document.getElementById('btn-confirm-booking-label');
+
+      const returningElderCard = document.getElementById('returning-elder-card');
+      const returningGreetingTitle = document.getElementById('returning-greeting-title');
+      const returningGreetingSub = document.getElementById('returning-greeting-sub');
+      const returningProfileMeta = document.getElementById('returning-profile-meta');
+      const btnSwitchProfile = document.getElementById('btn-switch-profile');
+      const firstTimeIdentityCard = document.getElementById('first-time-identity-card');
+      const chooseTimeHeading = document.getElementById('choose-time-heading');
+
       const datePickerGrid = document.getElementById('date-picker-grid');
       const timeSlotsContainer = document.getElementById('time-slots-container');
       const elderNameInput = document.getElementById('elder-name');
       const elderNameError = document.getElementById('elder-name-error');
+      const elderLocationInput = document.getElementById('elder-location');
+      const elderLocationError = document.getElementById('elder-location-error');
+      const detectedTimezoneHint = document.getElementById('detected-timezone-hint');
+      const quickLocationPills = document.getElementById('quick-location-pills');
+      const elderRelationshipInput = document.getElementById('elder-relationship');
       const topicOptionsEl = document.getElementById('topic-options');
+      const preferenceOptionsEl = document.getElementById('preference-options');
       const heartNoteInput = document.getElementById('heart-note');
 
       const confirmationPanel = document.getElementById('confirmation-panel');
@@ -907,7 +1117,12 @@
       const hostViewEl = document.getElementById('host-view');
       const hostViewHeading = document.getElementById('host-view-heading');
       const hostSyncPill = document.getElementById('host-sync-pill');
+      const tabHostInbox = document.getElementById('tab-host-inbox');
+      const tabHostDirectory = document.getElementById('tab-host-directory');
+      const hostInboxTabCount = document.getElementById('host-inbox-tab-count');
+      const hostDirectoryTabCount = document.getElementById('host-directory-tab-count');
       const hostSessionsList = document.getElementById('host-sessions-list');
+      const hostDirectoryList = document.getElementById('host-directory-list');
       const btnSyncNow = document.getElementById('btn-sync-now');
 
       function announce(msg) {
@@ -1193,6 +1408,58 @@
         });
       }
 
+      function renderPreferences() {
+        if (!preferenceOptionsEl) return;
+        preferenceOptionsEl.innerHTML = '';
+        PREFERENCES.forEach((pref, idx) => {
+          const id = `pref-opt-${pref.id}`;
+          const item = document.createElement('div');
+
+          const input = document.createElement('input');
+          input.type = 'radio';
+          input.name = 'listeningPref';
+          input.id = id;
+          input.value = pref.id;
+          input.className = 'visually-hidden radio-card-input';
+          if (idx === 0) input.checked = true;
+
+          const label = document.createElement('label');
+          label.htmlFor = id;
+          label.className =
+            'radio-card-label min-h-[44px] inline-flex items-center px-3.5 py-2 rounded-full border border-cream-300 bg-cream-50 font-semibold text-sm cursor-pointer hover:border-sanctuary-teal transition-all';
+          label.textContent = pref.label;
+
+          item.appendChild(input);
+          item.appendChild(label);
+          preferenceOptionsEl.appendChild(item);
+        });
+      }
+
+      function detectTimezoneCity() {
+        try {
+          const tz = Intl.DateTimeFormat().resolvedOptions().timeZone || '';
+          const tzMap = {
+            'America/Chicago': 'Dallas, Texas',
+            'America/New_York': 'New York, NY',
+            'America/Detroit': 'Detroit, MI',
+            'America/Los_Angeles': 'Los Angeles, CA',
+            'America/Denver': 'Denver, CO',
+            'America/Phoenix': 'Phoenix, AZ',
+            'Asia/Kolkata': 'Hyderabad, India',
+            'Asia/Calcutta': 'Hyderabad, India',
+            'Europe/London': 'London, UK',
+            'Asia/Dubai': 'Dubai, UAE',
+            'America/Toronto': 'Toronto, Canada'
+          };
+          if (tzMap[tz]) return { tz, city: tzMap[tz] };
+          if (tz.includes('/')) {
+            const cityPart = tz.split('/').pop().replace(/_/g, ' ');
+            return { tz, city: cityPart };
+          }
+        } catch (_err) {}
+        return { tz: '', city: '' };
+      }
+
       function highlightQuickName(selectedName) {
         document.querySelectorAll('.quick-name-btn').forEach((btn) => {
           const name = btn.getAttribute('data-quick-name');
@@ -1201,6 +1468,85 @@
             ? 'quick-name-btn min-h-[48px] px-3 py-2.5 rounded-xl border-2 border-sanctuary-teal bg-sanctuary-teal text-white font-bold shadow-sm transition-colors'
             : 'quick-name-btn min-h-[48px] px-3 py-2.5 rounded-xl border-2 border-cream-300 bg-cream-50 font-bold text-sanctuary-charcoal hover:border-sanctuary-teal transition-colors';
         });
+      }
+
+      function highlightQuickLocation(selectedLoc) {
+        const clean = (selectedLoc || '').trim().toLowerCase();
+        document.querySelectorAll('.quick-location-btn').forEach((btn) => {
+          const loc = btn.getAttribute('data-quick-location');
+          const active = loc && loc.toLowerCase() === clean;
+          btn.className = active
+            ? 'quick-location-btn min-h-[44px] px-3.5 py-2 rounded-full border-2 border-sanctuary-teal bg-sanctuary-teal text-white font-bold text-sm shadow-sm transition-colors'
+            : 'quick-location-btn min-h-[44px] px-3.5 py-2 rounded-full border border-cream-300 bg-cream-50 font-bold text-sm text-sanctuary-charcoal hover:border-sanctuary-teal transition-colors';
+        });
+      }
+
+      function highlightQuickRole(selectedRole) {
+        const clean = (selectedRole || '').trim().toLowerCase();
+        document.querySelectorAll('.quick-role-btn').forEach((btn) => {
+          const role = btn.getAttribute('data-quick-role');
+          const active = role && role.toLowerCase() === clean;
+          btn.className = active
+            ? 'quick-role-btn min-h-[44px] px-3.5 py-2 rounded-full border-2 border-sanctuary-teal bg-sanctuary-teal text-white font-bold text-sm transition-colors'
+            : 'quick-role-btn min-h-[44px] px-3.5 py-2 rounded-full border-2 border-cream-300 bg-cream-50 font-bold text-sm text-sanctuary-charcoal hover:border-sanctuary-teal transition-colors';
+        });
+      }
+
+      function setLocationInputValue(locValue) {
+        elderLocationInput.value = locValue;
+        highlightQuickLocation(locValue);
+        if (locValue.trim().length > 0) {
+          elderLocationError.classList.add('hidden');
+          elderLocationInput.removeAttribute('aria-invalid');
+          formErrorSummary.hidden = true;
+        }
+      }
+
+      function initLocationSuggestions() {
+        const { city } = detectTimezoneCity();
+        if (!city) return;
+
+        if (detectedTimezoneHint) {
+          detectedTimezoneHint.textContent = `Suggested: ${city}`;
+          detectedTimezoneHint.hidden = false;
+          detectedTimezoneHint.onclick = () => {
+            setLocationInputValue(city);
+          };
+        }
+
+        const existingMatch = Array.from(document.querySelectorAll('.quick-location-btn')).some((btn) => {
+          const val = (btn.getAttribute('data-quick-location') || '').toLowerCase();
+          return val === city.toLowerCase();
+        });
+
+        if (!existingMatch && quickLocationPills) {
+          const btn = document.createElement('button');
+          btn.type = 'button';
+          btn.setAttribute('data-quick-location', city);
+          btn.className = 'quick-location-btn min-h-[44px] px-3.5 py-2 rounded-full border border-cream-300 bg-cream-50 font-bold text-sm text-sanctuary-charcoal hover:border-sanctuary-teal transition-colors';
+          btn.textContent = `📍 ${city}`;
+          btn.addEventListener('click', () => setLocationInputValue(city));
+          quickLocationPills.appendChild(btn);
+        }
+      }
+
+      function applyIdentityProfileUI() {
+        const profile = loadElderProfile();
+        if (profile) {
+          const locationSuffix = profile.city ? ` (${profile.city})` : '';
+          returningGreetingTitle.textContent = `Welcome back, ${profile.elderName}! 🌿${locationSuffix}`;
+          returningGreetingSub.textContent = 'Ready to talk with Mom again? Pick a day and time below.';
+          returningProfileMeta.textContent = `${profile.relationship || 'Family Member'} • ${profile.sessionCount} ${profile.sessionCount === 1 ? 'visit' : 'visits'}`;
+          btnSwitchProfile.textContent = `Not ${profile.elderName}? Switch Profile`;
+
+          returningElderCard.hidden = false;
+          firstTimeIdentityCard.hidden = true;
+          if (chooseTimeHeading) chooseTimeHeading.textContent = 'Choose a Time';
+        } else {
+          returningElderCard.hidden = true;
+          firstTimeIdentityCard.hidden = false;
+          if (chooseTimeHeading) chooseTimeHeading.textContent = '2. Choose a Time';
+        }
       }
 
       function getSessionById(id) {
@@ -1323,6 +1669,16 @@
         p1.className = 'font-extrabold text-sanctuary-charcoal text-lg';
         p1.textContent = `${session.elderName} • ${session.dateLabel} ${session.timeSlot}`;
         confirmSummaryCard.appendChild(p1);
+
+        if (session.city) {
+          const pLoc = document.createElement('p');
+          pLoc.className = 'text-sm text-sanctuary-tealDark font-bold';
+          const roleText = session.relationship && session.relationship !== 'Family Member'
+            ? ` • ${session.relationship}`
+            : '';
+          pLoc.textContent = `📍 ${session.city}${roleText}`;
+          confirmSummaryCard.appendChild(pLoc);
+        }
 
         if (session.topic) {
           const p2 = document.createElement('p');
@@ -1513,9 +1869,164 @@
         }
       }
 
+      function getMemberKey(session) {
+        const nameKey = (session.elderName || 'family').trim().toLowerCase();
+        const cityKey = (session.city || '').trim().toLowerCase();
+        return `${nameKey}::${cityKey}`;
+      }
+
+      function getFamilyDirectoryEntries() {
+        const map = new Map();
+        const chronological = [...state.sessions].sort((a, b) => (a.createdAt || 0) - (b.createdAt || 0));
+
+        chronological.forEach((session) => {
+          const key = getMemberKey(session);
+          const existing = map.get(key);
+          const sessionReportedCount = Number(session.sessionCount) || 1;
+          if (!existing) {
+            map.set(key, {
+              key,
+              elderName: session.elderName || 'Family Member',
+              city: session.city || '',
+              relationship: session.relationship || 'Family Member',
+              totalSessions: sessionReportedCount,
+              lastContactAt: session.createdAt || 0,
+              latestSession: session
+            });
+          } else {
+            existing.totalSessions = Math.max(existing.totalSessions + 1, sessionReportedCount);
+            if (session.city) existing.city = session.city;
+            if (session.relationship) existing.relationship = session.relationship;
+            if ((session.createdAt || 0) >= existing.lastContactAt) {
+              existing.lastContactAt = session.createdAt || 0;
+              existing.latestSession = session;
+            }
+          }
+        });
+
+        return Array.from(map.values()).sort((a, b) => b.lastContactAt - a.lastContactAt);
+      }
+
+      function switchHostTab(tabName) {
+        activeHostTab = tabName === 'directory' ? 'directory' : 'inbox';
+        const isInbox = activeHostTab === 'inbox';
+
+        tabHostInbox.setAttribute('aria-selected', String(isInbox));
+        tabHostDirectory.setAttribute('aria-selected', String(!isInbox));
+
+        tabHostInbox.className = isInbox
+          ? 'min-h-[44px] px-3 py-2 rounded-xl font-bold text-sm transition-all bg-white text-sanctuary-tealDark shadow-sm inline-flex items-center justify-center gap-1.5'
+          : 'min-h-[44px] px-3 py-2 rounded-xl font-bold text-sm transition-all text-sanctuary-slate hover:text-sanctuary-charcoal inline-flex items-center justify-center gap-1.5';
+
+        tabHostDirectory.className = !isInbox
+          ? 'min-h-[44px] px-3 py-2 rounded-xl font-bold text-sm transition-all bg-white text-sanctuary-tealDark shadow-sm inline-flex items-center justify-center gap-1.5'
+          : 'min-h-[44px] px-3 py-2 rounded-xl font-bold text-sm transition-all text-sanctuary-slate hover:text-sanctuary-charcoal inline-flex items-center justify-center gap-1.5';
+
+        hostSessionsList.hidden = !isInbox;
+        hostDirectoryList.hidden = isInbox;
+      }
+
+      function renderHostDirectory() {
+        if (!hostDirectoryList) return;
+        hostDirectoryList.innerHTML = '';
+        const members = getFamilyDirectoryEntries();
+        if (hostDirectoryTabCount) {
+          hostDirectoryTabCount.textContent = String(members.length);
+        }
+
+        if (members.length === 0) {
+          const emptyCard = document.createElement('div');
+          emptyCard.className = 'bg-white border border-cream-300 rounded-2xl p-8 text-center space-y-1.5';
+          const p = document.createElement('p');
+          p.className = 'text-lg font-extrabold text-sanctuary-charcoal';
+          p.textContent = 'No family members yet';
+          const sub = document.createElement('p');
+          sub.className = 'text-sm text-sanctuary-slate';
+          sub.textContent = 'Everyone who contacts you will appear here with their location and visit history.';
+          emptyCard.appendChild(p);
+          emptyCard.appendChild(sub);
+          hostDirectoryList.appendChild(emptyCard);
+          return;
+        }
+
+        members.forEach((member) => {
+          const card = document.createElement('article');
+          card.className = 'bg-white border border-cream-300 rounded-2xl p-4 shadow-sm space-y-3';
+
+          const topLine = document.createElement('div');
+          topLine.className = 'flex items-start gap-3';
+
+          const avatar = document.createElement('div');
+          avatar.className = 'w-11 h-11 rounded-full bg-sanctuary-tealSoft text-sanctuary-tealDark font-extrabold text-lg flex items-center justify-center shrink-0';
+          avatar.setAttribute('aria-hidden', 'true');
+          avatar.textContent = member.elderName.trim().charAt(0).toUpperCase() || 'F';
+
+          const info = document.createElement('div');
+          info.className = 'min-w-0 flex-1 space-y-1';
+
+          const nameRow = document.createElement('div');
+          nameRow.className = 'flex flex-wrap items-center gap-1.5';
+
+          const strongName = document.createElement('strong');
+          strongName.className = 'text-base sm:text-lg text-sanctuary-charcoal';
+          strongName.textContent = member.elderName;
+          nameRow.appendChild(strongName);
+
+          if (member.relationship && member.relationship !== 'Family Member') {
+            const rolePill = document.createElement('span');
+            rolePill.className = 'inline-flex items-center px-2 py-0.5 rounded-full text-xs font-bold bg-cream-200 text-sanctuary-charcoal';
+            rolePill.textContent = member.relationship;
+            nameRow.appendChild(rolePill);
+          }
+
+          const isReturning = member.totalSessions > 1;
+          const badge = document.createElement('span');
+          badge.className = isReturning
+            ? 'inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-sanctuary-tealSoft text-sanctuary-tealDark'
+            : 'inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-sanctuary-goldSoft text-sanctuary-gold border border-sanctuary-goldBorder';
+          badge.textContent = isReturning
+            ? `🌟 Returning Member (${member.totalSessions} sessions)`
+            : '🌱 First-Time Visit';
+          nameRow.appendChild(badge);
+          info.appendChild(nameRow);
+
+          const locLine = document.createElement('p');
+          locLine.className = 'text-sm font-bold text-sanctuary-tealDark break-words';
+          locLine.textContent = member.city ? `📍 ${member.city}` : '📍 Location not shared';
+          info.appendChild(locLine);
+
+          if (member.latestSession) {
+            const lastSeen = document.createElement('p');
+            lastSeen.className = 'text-xs sm:text-sm text-sanctuary-slate';
+            lastSeen.textContent = `Latest: ${member.latestSession.dateLabel} ${member.latestSession.timeSlot} • "${member.latestSession.topic}"`;
+            info.appendChild(lastSeen);
+          }
+
+          topLine.appendChild(avatar);
+          topLine.appendChild(info);
+          card.appendChild(topLine);
+
+          if (member.latestSession) {
+            const openBtn = document.createElement('button');
+            openBtn.type = 'button';
+            openBtn.className =
+              'w-full min-h-[46px] px-4 py-2 rounded-xl bg-sanctuary-tealSoft border border-sanctuary-teal/30 text-sanctuary-tealDark font-bold text-sm hover:bg-sanctuary-teal hover:text-white transition-colors';
+            openBtn.textContent = `Open Latest Chat with ${member.elderName}`;
+            openBtn.addEventListener('click', () => openChatRoom(member.latestSession.id, 'host'));
+            card.appendChild(openBtn);
+          }
+
+          hostDirectoryList.appendChild(card);
+        });
+      }
+
       function renderHostDesk() {
         hostSessionsList.innerHTML = '';
         updateHostBadge();
+        if (hostInboxTabCount) {
+          hostInboxTabCount.textContent = String(state.sessions.length);
+        }
+        renderHostDirectory();
 
         if (state.sessions.length === 0) {
           const emptyCard = document.createElement('div');
@@ -1532,6 +2043,19 @@
           return;
         }
 
+        // Track chronological visit order per family member for accurate badges
+        const memberOrdinal = new Map();
+        const chronological = [...state.sessions].sort((a, b) => (a.createdAt || 0) - (b.createdAt || 0));
+        const seenCounts = new Map();
+        chronological.forEach((s) => {
+          const key = getMemberKey(s);
+          const nextOrd = (seenCounts.get(key) || 0) + 1;
+          const explicitCount = Number(s.sessionCount) || 1;
+          const ordinal = Math.max(nextOrd, explicitCount);
+          seenCounts.set(key, ordinal);
+          memberOrdinal.set(s.id, ordinal);
+        });
+
         const sorted = [...state.sessions].sort((a, b) => {
           const rank = (s) => (s.status === 'pending' ? 0 : s.status === 'completed' ? 2 : 1);
           const diff = rank(a) - rank(b);
@@ -1547,6 +2071,9 @@
             : null;
           const elderNeedsReply = lastMsg && lastMsg.sender === 'elder' && !isCompleted;
 
+          const ordinalCount = memberOrdinal.get(session.id) || Number(session.sessionCount) || 1;
+          const isReturningMember = Boolean(session.isReturning) || ordinalCount > 1;
+
           const card = document.createElement('article');
           card.className = `bg-white border-2 rounded-2xl p-4 shadow-sm space-y-3 ${
             isPending
@@ -1557,7 +2084,7 @@
           } ${isCompleted ? 'opacity-70' : ''}`;
 
           const topLine = document.createElement('div');
-          topLine.className = 'flex items-center gap-3';
+          topLine.className = 'flex items-start gap-3';
 
           const avatar = document.createElement('div');
           avatar.className = 'w-11 h-11 rounded-full bg-sanctuary-tealSoft text-sanctuary-tealDark font-extrabold text-lg flex items-center justify-center shrink-0';
@@ -1565,18 +2092,39 @@
           avatar.textContent = (session.elderName || 'F').trim().charAt(0).toUpperCase();
 
           const info = document.createElement('div');
-          info.className = 'min-w-0 flex-1';
+          info.className = 'min-w-0 flex-1 space-y-1';
 
-          const summary = document.createElement('p');
-          summary.className = 'text-base sm:text-lg text-sanctuary-charcoal leading-snug';
+          const headerRow = document.createElement('div');
+          headerRow.className = 'flex flex-wrap items-center gap-1.5';
+
           const strongName = document.createElement('strong');
+          strongName.className = 'text-base sm:text-lg text-sanctuary-charcoal';
           strongName.textContent = session.elderName;
-          const metaSpan = document.createElement('span');
+          headerRow.appendChild(strongName);
+
+          const statusBadge = document.createElement('span');
+          statusBadge.className = isReturningMember
+            ? 'inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-sanctuary-tealSoft text-sanctuary-tealDark'
+            : 'inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-sanctuary-goldSoft text-sanctuary-gold border border-sanctuary-goldBorder';
+          statusBadge.textContent = isReturningMember
+            ? `🌟 Returning Member (Session #${ordinalCount})`
+            : '🌱 First-Time Visit';
+          headerRow.appendChild(statusBadge);
+          info.appendChild(headerRow);
+
+          const locationRow = document.createElement('p');
+          locationRow.className = 'text-sm font-bold text-sanctuary-tealDark break-words';
+          const roleSuffix = session.relationship && session.relationship !== 'Family Member'
+            ? ` • ${session.relationship}`
+            : '';
+          locationRow.textContent = `${session.city ? `📍 ${session.city}` : '📍 Location not shared'}${roleSuffix}`;
+          info.appendChild(locationRow);
+
+          const scheduleRow = document.createElement('p');
+          scheduleRow.className = 'text-sm text-sanctuary-charcoal font-medium leading-snug';
           const topicSuffix = session.topic ? ` • Topic: "${session.topic}"` : '';
-          metaSpan.textContent = ` • ${session.dateLabel} ${session.timeSlot}${topicSuffix}`;
-          summary.appendChild(strongName);
-          summary.appendChild(metaSpan);
-          info.appendChild(summary);
+          scheduleRow.textContent = `${session.dateLabel} ${session.timeSlot}${topicSuffix}`;
+          info.appendChild(scheduleRow);
 
           if (session.heartNote) {
             const noteLine = document.createElement('p');
@@ -1595,7 +2143,7 @@
 
           if (elderNeedsReply) {
             const dot = document.createElement('span');
-            dot.className = 'w-3 h-3 rounded-full bg-sanctuary-teal shrink-0';
+            dot.className = 'w-3 h-3 rounded-full bg-sanctuary-teal shrink-0 mt-1';
             dot.title = 'New message';
             topLine.appendChild(dot);
           }
@@ -1661,6 +2209,10 @@
             existing = {
               id: payload.id,
               elderName: payload.elderName || 'Family Member',
+              city: payload.city || payload.location || '',
+              relationship: payload.relationship || 'Family Member',
+              isReturning: Boolean(payload.isReturning) || Number(payload.sessionCount) > 1,
+              sessionCount: Number(payload.sessionCount) || 1,
               dateIso: payload.date || '',
               dateLabel: payload.dateLabel || payload.date || 'Today',
               timeSlot: payload.time || '',
@@ -1676,8 +2228,28 @@
 
             if (!meta.isInitialPoll && !localActionIds.has(payload.id)) {
               playGentleChime('booking');
-              announce(`New request from ${existing.elderName} for ${existing.timeSlot}.`);
+              const locNote = existing.city ? ` from ${existing.city}` : '';
+              announce(`New request from ${existing.elderName}${locNote} for ${existing.timeSlot}.`);
             }
+          } else {
+            let changed = false;
+            if (!existing.city && (payload.city || payload.location)) {
+              existing.city = payload.city || payload.location;
+              changed = true;
+            }
+            if (!existing.relationship && payload.relationship) {
+              existing.relationship = payload.relationship;
+              changed = true;
+            }
+            if (!existing.sessionCount && payload.sessionCount) {
+              existing.sessionCount = Number(payload.sessionCount) || 1;
+              changed = true;
+            }
+            if (payload.isReturning && !existing.isReturning) {
+              existing.isReturning = true;
+              changed = true;
+            }
+            if (changed) saveState();
           }
           updateHostBadge();
           if (currentView === 'host' && chatPanel.hidden) {
@@ -1788,6 +2360,7 @@
       });
 
       btnGoBooking.addEventListener('click', () => {
+        applyIdentityProfileUI();
         elderScreen = 'booking';
         updateViewVisibility();
       });
@@ -1844,32 +2417,123 @@
       });
 
       elderNameInput.addEventListener('blur', () => {
-        if (!elderNameInput.value.trim()) {
+        if (!loadElderProfile() && !elderNameInput.value.trim()) {
           elderNameError.textContent = 'Please tap a name above or type your name.';
           elderNameError.classList.remove('hidden');
           elderNameInput.setAttribute('aria-invalid', 'true');
         }
       });
 
+      document.querySelectorAll('.quick-location-btn').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const val = btn.getAttribute('data-quick-location') || '';
+          setLocationInputValue(val);
+        });
+      });
+
+      elderLocationInput.addEventListener('input', () => {
+        highlightQuickLocation(elderLocationInput.value);
+        if (elderLocationInput.value.trim().length > 0) {
+          elderLocationError.classList.add('hidden');
+          elderLocationInput.removeAttribute('aria-invalid');
+          formErrorSummary.hidden = true;
+        }
+      });
+
+      elderLocationInput.addEventListener('blur', () => {
+        if (!loadElderProfile() && !elderLocationInput.value.trim()) {
+          elderLocationError.textContent = 'Please tap a city above or type where you are speaking from.';
+          elderLocationError.classList.remove('hidden');
+          elderLocationInput.setAttribute('aria-invalid', 'true');
+        }
+      });
+
+      document.querySelectorAll('.quick-role-btn').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const val = btn.getAttribute('data-quick-role') || 'Family Member';
+          elderRelationshipInput.value = val;
+          highlightQuickRole(val);
+        });
+      });
+
+      elderRelationshipInput.addEventListener('input', () => {
+        highlightQuickRole(elderRelationshipInput.value);
+      });
+
+      btnSwitchProfile.addEventListener('click', () => {
+        clearElderProfile();
+        elderNameInput.value = '';
+        elderLocationInput.value = '';
+        elderRelationshipInput.value = 'Family Member';
+        highlightQuickName('');
+        highlightQuickLocation('');
+        highlightQuickRole('Family Member');
+        elderNameError.classList.add('hidden');
+        elderLocationError.classList.add('hidden');
+        elderNameInput.removeAttribute('aria-invalid');
+        elderLocationInput.removeAttribute('aria-invalid');
+        formErrorSummary.hidden = true;
+        applyIdentityProfileUI();
+        elderNameInput.focus();
+        announce('Profile cleared. Please enter your name and location.');
+      });
+
+      if (tabHostInbox && tabHostDirectory) {
+        tabHostInbox.addEventListener('click', () => switchHostTab('inbox'));
+        tabHostDirectory.addEventListener('click', () => switchHostTab('directory'));
+      }
+
       bookingForm.addEventListener('submit', async (event) => {
         event.preventDefault();
         bookingNetworkError.hidden = true;
+        formErrorSummary.hidden = true;
 
-        const elderName = elderNameInput.value.trim();
-        if (!elderName) {
-          elderNameError.textContent = 'Please tap a name above or type your name.';
-          elderNameError.classList.remove('hidden');
-          elderNameInput.setAttribute('aria-invalid', 'true');
-          formErrorText.textContent = 'Please choose or type your name first.';
-          formErrorSummary.hidden = false;
-          elderNameInput.focus();
-          return;
+        const savedProfile = loadElderProfile();
+        let elderName = '';
+        let city = '';
+        let relationship = 'Family Member';
+        let isReturning = false;
+        let sessionCount = 1;
+
+        if (savedProfile) {
+          elderName = savedProfile.elderName;
+          city = savedProfile.city;
+          relationship = savedProfile.relationship || 'Family Member';
+          isReturning = true;
+          sessionCount = (Number(savedProfile.sessionCount) || 1) + 1;
+        } else {
+          elderName = elderNameInput.value.trim();
+          if (!elderName) {
+            elderNameError.textContent = 'Please tap a name above or type your name.';
+            elderNameError.classList.remove('hidden');
+            elderNameInput.setAttribute('aria-invalid', 'true');
+            formErrorText.textContent = 'Please choose or type your name first.';
+            formErrorSummary.hidden = false;
+            elderNameInput.focus();
+            return;
+          }
+
+          city = elderLocationInput.value.trim();
+          if (!city) {
+            elderLocationError.textContent = 'Please tap a city above or type where you are speaking from.';
+            elderLocationError.classList.remove('hidden');
+            elderLocationInput.setAttribute('aria-invalid', 'true');
+            formErrorText.textContent = 'Please tell Mom what city you are speaking from.';
+            formErrorSummary.hidden = false;
+            elderLocationInput.focus();
+            return;
+          }
+
+          relationship = elderRelationshipInput.value.trim() || 'Family Member';
+          isReturning = false;
+          sessionCount = 1;
         }
 
         const dateIso = bookingForm.querySelector('input[name="bookingDate"]:checked')?.value || UPCOMING_DAYS[0].iso;
         const dayObj = UPCOMING_DAYS.find((d) => d.iso === dateIso) || UPCOMING_DAYS[0];
         const timeSlot = bookingForm.querySelector('input[name="bookingTime"]:checked')?.value || TIME_SLOTS[0];
         const topic = bookingForm.querySelector('input[name="heartTopic"]:checked')?.value || TOPICS[0].label;
+        const preference = bookingForm.querySelector('input[name="listeningPref"]:checked')?.value || PREFERENCES[0].id;
         const heartNote = heartNoteInput.value.trim();
 
         const bookingId = createId('room');
@@ -1880,11 +2544,15 @@
           type: 'BOOKING_REQUEST',
           id: bookingId,
           elderName,
+          city,
+          relationship,
+          isReturning,
+          sessionCount,
           date: dayObj.iso,
           dateLabel: dayObj.displayLabel,
           time: timeSlot,
           topic,
-          preference: 'listen-only',
+          preference,
           note: heartNote,
           timestamp: createdAt
         };
@@ -1895,15 +2563,27 @@
         try {
           await ntfyPublish(BOOKING_TOPIC, bookingPayload);
 
+          saveElderProfile({
+            elderName,
+            city,
+            relationship,
+            sessionCount
+          });
+          applyIdentityProfileUI();
+
           const newSession = {
             id: bookingId,
             elderName,
+            city,
+            relationship,
+            isReturning,
+            sessionCount,
             dateIso: dayObj.iso,
             dateLabel: dayObj.displayLabel,
             timeSlot,
             topic,
             heartNote,
-            preference: 'listen-only',
+            preference,
             status: 'pending',
             createdAt,
             messages: []
@@ -1935,9 +2615,14 @@
       btnBookAnother.addEventListener('click', () => {
         bookingForm.reset();
         highlightQuickName('');
+        highlightQuickLocation('');
+        elderRelationshipInput.value = 'Family Member';
+        highlightQuickRole('Family Member');
         renderCalendarOptions();
         renderTimeSlots();
         renderTopics();
+        renderPreferences();
+        applyIdentityProfileUI();
         elderScreen = 'booking';
         updateViewVisibility();
       });
@@ -2056,14 +2741,12 @@
       renderCalendarOptions();
       renderTimeSlots();
       renderTopics();
-
-      const initialActive = getSessionById(activeChatSessionId);
-      if (currentView === 'elder' && initialActive && initialActive.status === 'pending') {
-        renderConfirmationCard(initialActive);
-        elderScreen = 'confirmation';
-      }
+      renderPreferences();
+      initLocationSuggestions();
+      applyIdentityProfileUI();
 
       renderHostDesk();
+      switchHostTab('inbox');
       updateViewVisibility();
 
       bookingSub = ntfySubscribe(
