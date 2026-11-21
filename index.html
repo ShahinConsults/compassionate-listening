@@ -1,0 +1,2109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Compassionate Listening — Family &amp; Elder Sanctuary</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%231f6f68'/%3E%3Cpath d='M32 48s-15-9.4-15-20.2C17 21.8 21.6 17 27.2 17c3.1 0 5.9 1.6 4.8 4.2C30.9 18.6 33.7 17 36.8 17 42.4 17 47 21.8 47 27.8 47 38.6 32 48 32 48z' fill='%23fdf4e3'/%3E%3C/svg%3E">
+
+  <!-- Warm, High-Readability Typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Lora:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Lucide Icons via CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'system-ui', '-apple-system', 'sans-serif'],
+            serif: ['"Lora"', 'Georgia', 'serif'],
+          },
+          colors: {
+            cream: {
+              50: '#fdfbf7',
+              100: '#faf8f5',
+              200: '#f3eee6',
+              300: '#e5dfd5',
+            },
+            sanctuary: {
+              teal: '#1f6f68',
+              tealDark: '#16544f',
+              tealSoft: '#e8f3f1',
+              sage: '#4e7d74',
+              gold: '#b4761c',
+              goldSoft: '#fdf4e3',
+              goldBorder: '#ecd6ad',
+              charcoal: '#1e2022',
+              slate: '#4f5559',
+            }
+          }
+        }
+      }
+    };
+  </script>
+
+  <style>
+    :root {
+      --base-font-size: 19px;
+    }
+
+    html {
+      font-size: var(--base-font-size);
+      scroll-behavior: smooth;
+      background-color: #faf8f5;
+      color: #1e2022;
+    }
+
+    html.text-extra-large {
+      --base-font-size: 22px;
+    }
+
+    body {
+      font-family: "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
+      background-color: #faf8f5;
+      color: #1e2022;
+      line-height: 1.65;
+      min-height: 100vh;
+    }
+
+    /* Accessible visually-hidden utility (preserves screen reader & keyboard access) */
+    .visually-hidden:where(:not(:focus-within, :active)) {
+      position: absolute !important;
+      clip-path: inset(50%) !important;
+      overflow: hidden !important;
+      width: 1px !important;
+      height: 1px !important;
+      margin: -1px !important;
+      padding: 0 !important;
+      border: 0 !important;
+      white-space: nowrap !important;
+    }
+
+    /* High-visibility focus ring for seniors and keyboard users */
+    :where(a, button, input, textarea, select, [tabindex]):focus-visible {
+      outline: 3px solid #1f6f68;
+      outline-offset: 3px;
+    }
+
+    /* Skip link */
+    .skip-link {
+      position: fixed;
+      top: 0.75rem;
+      left: 0.75rem;
+      z-index: 100;
+      background: #1f6f68;
+      color: #ffffff;
+      padding: 0.75rem 1.25rem;
+      border-radius: 0.75rem;
+      font-weight: 700;
+      text-decoration: none;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.18);
+    }
+
+    /* Senior-friendly minimum touch targets */
+    .touch-target {
+      min-height: 54px;
+    }
+
+    /* Styled native radio cards */
+    .radio-card-input:checked + .radio-card-label {
+      background-color: #e8f3f1;
+      border-color: #1f6f68;
+      color: #16544f;
+      box-shadow: 0 0 0 2px #1f6f68;
+    }
+
+    .radio-card-input:checked + .radio-card-label-gold {
+      background-color: #fdf4e3;
+      border-color: #b4761c;
+      color: #7c4e0e;
+      box-shadow: 0 0 0 2px #b4761c;
+    }
+
+    .radio-card-input:focus-visible + .radio-card-label,
+    .radio-card-input:focus-visible + .radio-card-label-gold {
+      outline: 3px solid #1f6f68;
+      outline-offset: 3px;
+    }
+
+    /* Calm gentle entrance */
+    @media (prefers-reduced-motion: no-preference) {
+      .fade-slide-in {
+        animation: fadeSlideIn 0.25s ease-out both;
+      }
+      @keyframes fadeSlideIn {
+        from {
+          opacity: 0;
+          transform: translateY(6px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+      .mic-listening-glow {
+        box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.55);
+        animation: micGlowPulse 1.6s ease-out infinite;
+      }
+      @keyframes micGlowPulse {
+        0% {
+          box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.55);
+        }
+        70% {
+          box-shadow: 0 0 0 12px rgba(220, 38, 38, 0);
+        }
+        100% {
+          box-shadow: 0 0 0 0 rgba(220, 38, 38, 0);
+        }
+      }
+    }
+
+    /* Ensure form controls never trigger iOS auto-zoom and remain large */
+    input, textarea, select, button {
+      font: inherit;
+      font-size: max(1rem, 1em);
+    }
+
+    /* Custom calm scrollbar for chat area */
+    .chat-scroll::-webkit-scrollbar {
+      width: 10px;
+    }
+    .chat-scroll::-webkit-scrollbar-track {
+      background: #f3eee6;
+      border-radius: 999px;
+    }
+    .chat-scroll::-webkit-scrollbar-thumb {
+      background: #c8bfb0;
+      border-radius: 999px;
+    }
+  </style>
+</head>
+<body class="antialiased selection:bg-sanctuary-tealSoft selection:text-sanctuary-tealDark">
+  <a href="#main-content" class="skip-link visually-hidden">Skip to main content</a>
+
+  <!-- Gentle Private Family Top Bar -->
+  <div class="bg-sanctuary-teal text-white px-4 py-2.5 text-center text-sm sm:text-base font-medium">
+    <div class="max-w-5xl mx-auto flex flex-wrap items-center justify-center gap-x-3 gap-y-1">
+      <span class="inline-flex items-center gap-1.5">
+        <i data-lucide="shield-heart" class="w-5 h-5" aria-hidden="true"></i>
+        <span>Private Family Sanctuary</span>
+      </span>
+      <span aria-hidden="true" class="opacity-60">•</span>
+      <span class="opacity-95">Just for Our Family • Quiet Text Conversations (No Calling)</span>
+    </div>
+  </div>
+
+  <!-- Main Navigation Header -->
+  <header class="bg-cream-50/95 border-b border-cream-300 sticky top-0 z-30 backdrop-blur-sm">
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 py-4 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+      <div class="flex items-center gap-3.5">
+        <div class="w-14 h-14 rounded-2xl bg-sanctuary-tealSoft border border-sanctuary-teal/25 flex items-center justify-center shrink-0 text-sanctuary-teal">
+          <i data-lucide="heart-handshake" class="w-7 h-7" aria-hidden="true"></i>
+        </div>
+        <div>
+          <h1 class="text-xl sm:text-2xl font-extrabold text-sanctuary-charcoal tracking-tight leading-tight">
+            Compassionate Listening
+          </h1>
+          <p class="text-sm sm:text-base text-sanctuary-slate font-medium">
+            Family &amp; Elder Sanctuary
+          </p>
+        </div>
+      </div>
+
+      <div class="flex flex-wrap items-center gap-3">
+        <!-- Text Size Accessibility Toggle for Elderly Eyes -->
+        <button
+          id="text-size-toggle"
+          type="button"
+          aria-pressed="false"
+          class="touch-target inline-flex items-center gap-2 px-4 py-2.5 rounded-xl border-2 border-cream-300 bg-white text-sanctuary-charcoal font-semibold hover:border-sanctuary-teal hover:bg-sanctuary-tealSoft/40 transition-colors"
+        >
+          <i data-lucide="type" class="w-5 h-5 text-sanctuary-teal" aria-hidden="true"></i>
+          <span id="text-size-label">Larger Text</span>
+        </button>
+
+        <!-- Primary View Switcher: Elder View vs Mom's Host Desk -->
+        <nav aria-label="View Switcher" class="inline-flex p-1.5 rounded-2xl bg-cream-200 border border-cream-300">
+          <button
+            id="btn-elder-view"
+            type="button"
+            aria-pressed="true"
+            class="touch-target inline-flex items-center gap-2 px-4 sm:px-5 py-2.5 rounded-xl font-bold transition-all bg-sanctuary-teal text-white shadow-sm"
+          >
+            <i data-lucide="calendar-heart" class="w-5 h-5" aria-hidden="true"></i>
+            <span>Elder View</span>
+          </button>
+          <button
+            id="btn-host-view"
+            type="button"
+            aria-pressed="false"
+            class="touch-target inline-flex items-center gap-2 px-4 sm:px-5 py-2.5 rounded-xl font-bold transition-all text-sanctuary-charcoal hover:bg-white/70"
+          >
+            <i data-lucide="inbox" class="w-5 h-5" aria-hidden="true"></i>
+            <span>Mom's Host Desk</span>
+            <span
+              id="host-count-badge"
+              class="inline-flex items-center justify-center min-w-[1.75rem] h-7 px-2 rounded-full text-sm font-extrabold bg-sanctuary-gold text-white"
+            >0</span>
+          </button>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <!-- Live Status Region for Screen Readers & Gentle Visual Feedback -->
+  <div id="live-status" class="visually-hidden" role="status" aria-live="polite"></div>
+
+  <main id="main-content" tabindex="-1" class="max-w-5xl mx-auto px-4 sm:px-6 py-6 sm:py-10 space-y-8">
+
+    <!-- ==================== ELDER VIEW ==================== -->
+    <section id="elder-view" aria-labelledby="elder-view-heading">
+      <!-- Sub-navigation inside Elder View when a chat or booking exists -->
+      <div id="elder-subnav" class="hidden mb-6 flex flex-wrap items-center justify-between gap-3 bg-white border border-cream-300 rounded-2xl p-4 shadow-sm">
+        <div class="flex items-center gap-3">
+          <span class="w-3 h-3 rounded-full bg-emerald-600 inline-block" aria-hidden="true"></span>
+          <p class="font-semibold text-sanctuary-charcoal">
+            You have an active family room ready
+          </p>
+        </div>
+        <div class="flex flex-wrap gap-3">
+          <button
+            id="btn-go-booking"
+            type="button"
+            class="touch-target px-5 py-2.5 rounded-xl font-bold border-2 border-cream-300 bg-cream-50 text-sanctuary-charcoal hover:border-sanctuary-teal transition-colors"
+          >
+            Book Another Time
+          </button>
+          <button
+            id="btn-resume-chat"
+            type="button"
+            class="touch-target px-5 py-2.5 rounded-xl font-bold bg-sanctuary-teal text-white hover:bg-sanctuary-tealDark transition-colors inline-flex items-center gap-2"
+          >
+            <i data-lucide="message-circle-heart" class="w-5 h-5" aria-hidden="true"></i>
+            <span>Return to My Chat Room</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- STEP 1: CALENDAR BOOKING & REGISTRATION -->
+      <div id="booking-panel" class="space-y-8 fade-slide-in">
+        <!-- Warm Welcome Banner -->
+        <div class="bg-white border border-cream-300 rounded-3xl p-6 sm:p-8 shadow-sm">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div class="space-y-2 max-w-2xl">
+              <p class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-sanctuary-goldSoft border border-sanctuary-goldBorder text-sanctuary-gold font-bold text-sm">
+                <i data-lucide="sparkles" class="w-4 h-4" aria-hidden="true"></i>
+                <span>Always Free • Just Family • Pure Text Chat</span>
+              </p>
+              <h2 id="elder-view-heading" class="text-2xl sm:text-3xl font-extrabold text-sanctuary-charcoal leading-snug">
+                Whenever you feel like talking, we are here to listen.
+              </h2>
+              <p class="text-sanctuary-slate text-lg">
+                Pick a peaceful day and time below, tell us what is on your heart, and step straight into your quiet family chat room. No phone calls or video — just unhurried written words.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Booking Form -->
+        <form id="booking-form" novalidate class="space-y-8">
+          <!-- Error Summary (shown only on validation failure) -->
+          <div
+            id="form-error-summary"
+            hidden
+            tabindex="-1"
+            role="alert"
+            class="bg-red-50 border-2 border-red-300 text-red-900 rounded-2xl p-5 flex items-start gap-3"
+          >
+            <i data-lucide="alert-circle" class="w-6 h-6 text-red-700 shrink-0 mt-0.5" aria-hidden="true"></i>
+            <div>
+              <p class="font-bold">Please check one small detail before continuing:</p>
+              <p id="form-error-text" class="mt-1"></p>
+            </div>
+          </div>
+
+          <!-- Step 1A: Visual Date Picker -->
+          <div class="bg-white border border-cream-300 rounded-3xl p-6 sm:p-8 shadow-sm">
+            <fieldset>
+              <legend class="text-xl sm:text-2xl font-extrabold text-sanctuary-charcoal flex items-center gap-2.5 mb-2">
+                <span class="w-9 h-9 rounded-full bg-sanctuary-teal text-white text-base font-extrabold inline-flex items-center justify-center shrink-0">1</span>
+                <span>Choose a Day</span>
+              </legend>
+              <p class="text-sanctuary-slate mb-5">Tap the day that feels best for you.</p>
+
+              <div id="date-picker-grid" class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-3">
+                <!-- Populated by JS -->
+              </div>
+            </fieldset>
+          </div>
+
+          <!-- Step 1B: Time Slot Selection -->
+          <div class="bg-white border border-cream-300 rounded-3xl p-6 sm:p-8 shadow-sm">
+            <fieldset>
+              <legend class="text-xl sm:text-2xl font-extrabold text-sanctuary-charcoal flex items-center gap-2.5 mb-2">
+                <span class="w-9 h-9 rounded-full bg-sanctuary-teal text-white text-base font-extrabold inline-flex items-center justify-center shrink-0">2</span>
+                <span>Choose a Peaceful Time</span>
+              </legend>
+              <p class="text-sanctuary-slate mb-5">Select Morning, Afternoon, or Evening.</p>
+
+              <div id="time-slots-container" class="space-y-5">
+                <!-- Populated by JS -->
+              </div>
+            </fieldset>
+          </div>
+
+          <!-- Step 1C: Elder Friendly Details -->
+          <div class="bg-white border border-cream-300 rounded-3xl p-6 sm:p-8 shadow-sm space-y-7">
+            <h3 class="text-xl sm:text-2xl font-extrabold text-sanctuary-charcoal flex items-center gap-2.5">
+              <span class="w-9 h-9 rounded-full bg-sanctuary-teal text-white text-base font-extrabold inline-flex items-center justify-center shrink-0">3</span>
+              <span>Tell Us Who Is Sharing</span>
+            </h3>
+
+            <!-- Your Name -->
+            <div class="space-y-3">
+              <label for="elder-name" class="block font-bold text-sanctuary-charcoal text-lg">
+                Your Name <span class="text-sanctuary-teal font-semibold">(or how the family calls you)</span>
+              </label>
+
+              <!-- Quick Name Taps for Elders -->
+              <div class="flex flex-wrap gap-2.5" aria-label="Quick family name suggestions">
+                <button type="button" data-quick-name="Grandfather" class="quick-name-btn touch-target px-4 py-2 rounded-xl border-2 border-cream-300 bg-cream-50 font-semibold text-sanctuary-charcoal hover:border-sanctuary-teal hover:bg-sanctuary-tealSoft/50 transition-colors">
+                  Grandfather
+                </button>
+                <button type="button" data-quick-name="Grandmother" class="quick-name-btn touch-target px-4 py-2 rounded-xl border-2 border-cream-300 bg-cream-50 font-semibold text-sanctuary-charcoal hover:border-sanctuary-teal hover:bg-sanctuary-tealSoft/50 transition-colors">
+                  Grandmother
+                </button>
+                <button type="button" data-quick-name="Uncle" class="quick-name-btn touch-target px-4 py-2 rounded-xl border-2 border-cream-300 bg-cream-50 font-semibold text-sanctuary-charcoal hover:border-sanctuary-teal hover:bg-sanctuary-tealSoft/50 transition-colors">
+                  Uncle
+                </button>
+                <button type="button" data-quick-name="Auntie" class="quick-name-btn touch-target px-4 py-2 rounded-xl border-2 border-cream-300 bg-cream-50 font-semibold text-sanctuary-charcoal hover:border-sanctuary-teal hover:bg-sanctuary-tealSoft/50 transition-colors">
+                  Auntie
+                </button>
+              </div>
+
+              <input
+                id="elder-name"
+                name="elderName"
+                type="text"
+                required
+                autocomplete="name"
+                enterkeyhint="next"
+                placeholder="Type your name, e.g. Grandfather or Auntie Meera"
+                class="w-full min-h-[56px] px-4 py-3 rounded-2xl border-2 border-cream-300 bg-cream-50/70 text-sanctuary-charcoal placeholder:text-sanctuary-slate/70 focus:bg-white focus:border-sanctuary-teal transition-colors"
+              >
+              <p id="elder-name-error" class="text-red-700 font-semibold hidden"></p>
+            </div>
+
+            <!-- What's on your heart today? -->
+            <fieldset class="space-y-3">
+              <legend class="font-bold text-sanctuary-charcoal text-lg">
+                What is on your heart today?
+              </legend>
+              <p class="text-sanctuary-slate">Tap one topic that feels closest, and add a note below if you wish.</p>
+
+              <div id="topic-options" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 pt-1">
+                <!-- Populated by JS -->
+              </div>
+            </fieldset>
+
+            <div class="space-y-2">
+              <label for="heart-note" class="block font-bold text-sanctuary-charcoal text-lg">
+                Anything else you want to mention before we chat? <span class="font-normal text-sanctuary-slate">(Optional)</span>
+              </label>
+              <textarea
+                id="heart-note"
+                name="heartNote"
+                rows="3"
+                placeholder="You can leave this empty, or write a few words about what you'd like to share..."
+                class="w-full px-4 py-3.5 rounded-2xl border-2 border-cream-300 bg-cream-50/70 text-sanctuary-charcoal placeholder:text-sanctuary-slate/70 focus:bg-white focus:border-sanctuary-teal transition-colors"
+              ></textarea>
+            </div>
+
+            <!-- Listening Preference Toggle -->
+            <fieldset class="space-y-3">
+              <legend class="font-bold text-sanctuary-charcoal text-lg">
+                How would you like us to listen today?
+              </legend>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-1">
+                <div>
+                  <input
+                    class="visually-hidden radio-card-input"
+                    type="radio"
+                    name="listeningPreference"
+                    id="pref-listen-only"
+                    value="listen-only"
+                    checked
+                  >
+                  <label
+                    for="pref-listen-only"
+                    class="radio-card-label touch-target flex items-start gap-3.5 p-5 rounded-2xl border-2 border-cream-300 bg-cream-50/70 cursor-pointer hover:border-sanctuary-teal transition-all h-full"
+                  >
+                    <span class="text-2xl leading-none mt-0.5" aria-hidden="true">👂</span>
+                    <span>
+                      <span class="block font-extrabold text-lg">Just listen to me with love</span>
+                      <span class="block text-sanctuary-slate mt-1">No advice needed — I simply want someone warm to hear me.</span>
+                    </span>
+                  </label>
+                </div>
+
+                <div>
+                  <input
+                    class="visually-hidden radio-card-input"
+                    type="radio"
+                    name="listeningPreference"
+                    id="pref-gentle-thoughts"
+                    value="gentle-thoughts"
+                  >
+                  <label
+                    for="pref-gentle-thoughts"
+                    class="radio-card-label-gold touch-target flex items-start gap-3.5 p-5 rounded-2xl border-2 border-cream-300 bg-cream-50/70 cursor-pointer hover:border-sanctuary-gold transition-all h-full"
+                  >
+                    <span class="text-2xl leading-none mt-0.5" aria-hidden="true">💡</span>
+                    <span>
+                      <span class="block font-extrabold text-lg">I welcome gentle thoughts and perspective</span>
+                      <span class="block text-sanctuary-slate mt-1">Listen with warmth, and feel free to share kind thoughts too.</span>
+                    </span>
+                  </label>
+                </div>
+              </div>
+            </fieldset>
+          </div>
+
+          <!-- Submit Button -->
+          <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4 bg-sanctuary-tealSoft/70 border-2 border-sanctuary-teal/25 rounded-3xl p-6">
+            <div>
+              <p class="font-bold text-sanctuary-tealDark text-lg">Ready whenever you are</p>
+              <p class="text-sanctuary-slate">Your spot will be saved right away for our family.</p>
+            </div>
+            <button
+              id="btn-confirm-booking"
+              type="submit"
+              class="touch-target min-h-[60px] px-8 py-4 rounded-2xl bg-sanctuary-teal text-white font-extrabold text-lg shadow-md hover:bg-sanctuary-tealDark transition-colors inline-flex items-center justify-center gap-3 shrink-0"
+            >
+              <i data-lucide="calendar-check" class="w-6 h-6" aria-hidden="true"></i>
+              <span>Save My Time &amp; Prepare Room</span>
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <!-- STEP 1.5: INSTANT BOOKING CONFIRMATION -->
+      <div id="confirmation-panel" hidden class="bg-white border-2 border-sanctuary-teal/30 rounded-3xl p-6 sm:p-10 shadow-sm space-y-7 fade-slide-in">
+        <div class="flex flex-col sm:flex-row sm:items-center gap-4">
+          <div class="w-16 h-16 rounded-2xl bg-sanctuary-tealSoft text-sanctuary-teal flex items-center justify-center shrink-0">
+            <i data-lucide="check-circle-2" class="w-9 h-9" aria-hidden="true"></i>
+          </div>
+          <div>
+            <p class="text-sanctuary-teal font-bold uppercase tracking-wide text-sm">Booking Confirmed</p>
+            <h2 id="confirm-heading" tabindex="-1" class="text-2xl sm:text-3xl font-extrabold text-sanctuary-charcoal">
+              Your quiet listening time is saved!
+            </h2>
+          </div>
+        </div>
+
+        <div id="confirm-summary-card" class="bg-cream-50 border border-cream-300 rounded-2xl p-5 sm:p-6 grid grid-cols-1 sm:grid-cols-2 gap-5">
+          <!-- Populated safely via DOM methods -->
+        </div>
+
+        <div class="bg-sanctuary-goldSoft/70 border border-sanctuary-goldBorder rounded-2xl p-5 flex items-start gap-3">
+          <i data-lucide="message-square-heart" class="w-6 h-6 text-sanctuary-gold shrink-0 mt-0.5" aria-hidden="true"></i>
+          <p class="text-sanctuary-charcoal">
+            <strong>No waiting needed:</strong> Your private text room is open right now if you want to leave a note or begin sharing right away.
+          </p>
+        </div>
+
+        <div class="flex flex-col sm:flex-row gap-4 pt-2">
+          <button
+            id="btn-enter-chat-now"
+            type="button"
+            class="touch-target min-h-[60px] flex-1 px-8 py-4 rounded-2xl bg-sanctuary-teal text-white font-extrabold text-lg shadow-md hover:bg-sanctuary-tealDark transition-colors inline-flex items-center justify-center gap-3"
+          >
+            <i data-lucide="door-open" class="w-6 h-6" aria-hidden="true"></i>
+            <span>Enter Private Chat Room</span>
+          </button>
+          <button
+            id="btn-book-another"
+            type="button"
+            class="touch-target min-h-[60px] px-6 py-4 rounded-2xl border-2 border-cream-300 bg-white text-sanctuary-charcoal font-bold hover:border-sanctuary-teal transition-colors"
+          >
+            Book Another Time
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==================== PRIVATE TEXT CHAT SANCTUARY ==================== -->
+    <section id="chat-panel" hidden aria-labelledby="chat-room-heading" class="space-y-5 fade-slide-in">
+      <!-- Chat Room Header Bar -->
+      <div class="bg-white border border-cream-300 rounded-3xl p-5 sm:p-6 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div class="space-y-1.5">
+          <div class="flex flex-wrap items-center gap-2.5">
+            <span id="chat-role-pill" class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-sm font-bold bg-sanctuary-tealSoft text-sanctuary-tealDark">
+              <i data-lucide="lock" class="w-4 h-4" aria-hidden="true"></i>
+              <span>Private Family Room • Text Only</span>
+            </span>
+            <span id="chat-pref-badge" class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-sm font-bold bg-sanctuary-goldSoft border border-sanctuary-goldBorder text-sanctuary-gold">
+              <!-- Populated by JS -->
+            </span>
+          </div>
+          <h2 id="chat-room-heading" tabindex="-1" class="text-2xl font-extrabold text-sanctuary-charcoal">
+            <!-- Populated by JS -->
+          </h2>
+          <p id="chat-room-meta" class="text-sanctuary-slate font-medium">
+            <!-- Populated by JS -->
+          </p>
+        </div>
+
+        <div class="flex flex-wrap items-center gap-3">
+          <button
+            id="btn-chat-back"
+            type="button"
+            class="touch-target px-5 py-3 rounded-2xl border-2 border-cream-300 bg-cream-50 text-sanctuary-charcoal font-bold hover:border-sanctuary-teal transition-colors inline-flex items-center gap-2"
+          >
+            <i data-lucide="arrow-left" class="w-5 h-5" aria-hidden="true"></i>
+            <span id="btn-chat-back-label">Back to Calendar</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Distraction-Free Message Thread -->
+      <div class="bg-white border border-cream-300 rounded-3xl shadow-sm overflow-hidden flex flex-col">
+        <!-- Warm Reminder Strip -->
+        <div class="bg-cream-100 border-b border-cream-300 px-5 py-3 flex flex-wrap items-center justify-between gap-2 text-sm sm:text-base text-sanctuary-slate">
+          <span class="inline-flex items-center gap-2">
+            <i data-lucide="coffee" class="w-5 h-5 text-sanctuary-teal" aria-hidden="true"></i>
+            <span>Take all the time you need. Everything here stays privately saved on this family device.</span>
+          </span>
+          <label id="auto-reply-toggle-wrap" class="inline-flex items-center gap-2 cursor-pointer font-semibold text-sanctuary-charcoal">
+            <input id="auto-reply-toggle" type="checkbox" checked class="w-5 h-5 accent-[#1f6f68] rounded">
+            <span>Gentle warm reply helper</span>
+          </label>
+        </div>
+
+        <!-- Messages Log -->
+        <div
+          id="chat-messages"
+          role="log"
+          aria-live="polite"
+          aria-label="Conversation messages"
+          class="chat-scroll p-5 sm:p-7 space-y-5 min-h-[340px] max-h-[520px] overflow-y-auto bg-cream-50/40"
+        >
+          <!-- Populated safely by JS -->
+        </div>
+
+        <!-- Typing / Reading Indicator -->
+        <div id="typing-indicator" hidden class="px-6 py-2.5 bg-cream-50 border-t border-cream-200 text-sanctuary-teal font-semibold flex items-center gap-2">
+          <i data-lucide="heart" class="w-4 h-4 animate-pulse" aria-hidden="true"></i>
+          <span>Mom is reading with care and writing back...</span>
+        </div>
+
+        <!-- Quick-Share / Quick-Response Prompts -->
+        <div class="border-t border-cream-300 bg-cream-100/80 px-5 py-4 space-y-2.5">
+          <p id="quick-prompts-heading" class="text-sm sm:text-base font-bold text-sanctuary-charcoal">
+            One-tap starters (tap any message to fill below):
+          </p>
+          <div id="quick-prompts-list" class="flex flex-wrap gap-2.5">
+            <!-- Populated by JS depending on Elder vs Mom mode -->
+          </div>
+        </div>
+
+        <!-- Message Composer -->
+        <form id="chat-form" class="border-t border-cream-300 bg-white p-4 sm:p-6">
+          <label for="chat-input" class="block font-bold text-sanctuary-charcoal mb-2">
+            <span id="chat-input-label">Write your message below</span>
+          </label>
+
+          <!-- Voice Listening Status Banner -->
+          <div
+            id="voice-listening-banner"
+            hidden
+            role="status"
+            aria-live="polite"
+            class="mb-3 rounded-2xl border-2 border-red-300 bg-red-50 px-4 py-3 text-red-900 flex flex-wrap items-center justify-between gap-3"
+          >
+            <div class="flex items-center gap-3 font-bold">
+              <span class="inline-block w-3.5 h-3.5 rounded-full bg-red-600 animate-pulse shrink-0" aria-hidden="true"></span>
+              <span>🎙️ Listening to your voice... Speak your thoughts or stories naturally (tap mic again to finish)</span>
+            </div>
+            <button
+              id="btn-voice-stop-banner"
+              type="button"
+              class="min-h-[44px] px-4 py-1.5 rounded-xl bg-red-600 text-white font-bold hover:bg-red-700 transition-colors shrink-0"
+            >
+              Finish Speaking
+            </button>
+          </div>
+
+          <!-- Friendly Voice Fallback / Permission Guidance Alert -->
+          <div
+            id="voice-fallback-alert"
+            hidden
+            role="alert"
+            class="mb-3 rounded-2xl border-2 border-sanctuary-goldBorder bg-sanctuary-goldSoft px-4 py-3.5 text-sanctuary-charcoal flex items-start justify-between gap-3"
+          >
+            <div class="flex items-start gap-3">
+              <i data-lucide="info" class="w-6 h-6 text-sanctuary-gold shrink-0 mt-0.5" aria-hidden="true"></i>
+              <div class="space-y-0.5">
+                <p id="voice-fallback-title" class="font-extrabold text-sanctuary-charcoal"></p>
+                <p id="voice-fallback-message" class="text-sm sm:text-base text-sanctuary-slate"></p>
+              </div>
+            </div>
+            <button
+              id="btn-voice-alert-dismiss"
+              type="button"
+              aria-label="Dismiss microphone notice"
+              class="min-h-[44px] px-3.5 py-1.5 rounded-xl border border-sanctuary-goldBorder bg-white text-sanctuary-charcoal font-bold hover:bg-cream-100 transition-colors shrink-0"
+            >
+              Dismiss
+            </button>
+          </div>
+
+          <div class="flex flex-col sm:flex-row gap-3 items-stretch sm:items-end">
+            <textarea
+              id="chat-input"
+              rows="2"
+              enterkeyhint="send"
+              placeholder="Write whatever is on your heart..."
+              class="flex-1 px-4 py-3.5 rounded-2xl border-2 border-cream-300 bg-cream-50/70 text-sanctuary-charcoal placeholder:text-sanctuary-slate/70 focus:bg-white focus:border-sanctuary-teal transition-colors resize-y min-h-[60px]"
+            ></textarea>
+            <div class="flex items-stretch gap-2.5 shrink-0">
+              <button
+                id="btn-voice-mic"
+                type="button"
+                aria-pressed="false"
+                aria-label="Tap to speak your message using your microphone"
+                title="Tap to speak your message"
+                class="touch-target min-w-[56px] min-h-[60px] px-4 py-3.5 rounded-2xl border-2 border-sanctuary-teal bg-sanctuary-tealSoft text-sanctuary-tealDark font-extrabold hover:bg-sanctuary-teal hover:text-white transition-all inline-flex items-center justify-center gap-2 shrink-0 shadow-sm"
+              >
+                <span id="mic-icon-idle" class="inline-flex items-center gap-2">
+                  <i data-lucide="mic" class="w-6 h-6" aria-hidden="true"></i>
+                  <span>Speak</span>
+                </span>
+                <span id="mic-icon-listening" class="hidden inline-flex items-center gap-2">
+                  <i data-lucide="square" class="w-5 h-5 fill-current" aria-hidden="true"></i>
+                  <span>Stop</span>
+                </span>
+              </button>
+              <button
+                id="btn-send-message"
+                type="submit"
+                class="touch-target flex-1 sm:flex-initial min-h-[60px] px-7 py-3.5 rounded-2xl bg-sanctuary-teal text-white font-extrabold hover:bg-sanctuary-tealDark transition-colors inline-flex items-center justify-center gap-2.5 shrink-0 shadow-sm"
+              >
+                <i data-lucide="send" class="w-5 h-5" aria-hidden="true"></i>
+                <span>Send Message</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="mt-2.5 flex flex-wrap items-center justify-between gap-2 text-sm text-sanctuary-slate">
+            <p>
+              Press <strong>Send Message</strong> or press <strong>Enter</strong> to send, or tap <strong>Speak</strong> to talk naturally instead of typing.
+            </p>
+            <button
+              id="btn-voice-lang"
+              type="button"
+              class="min-h-[44px] px-3.5 py-1.5 rounded-xl border border-cream-300 bg-cream-50 hover:border-sanctuary-teal text-sanctuary-charcoal font-semibold text-sm transition-colors"
+              title="Switch voice accent between English (India) and English (US)"
+            >
+              Voice: <span id="voice-lang-label">English (India)</span>
+            </button>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <!-- ==================== MOM'S FAMILY HOST DESK ==================== -->
+    <section id="host-view" hidden aria-labelledby="host-view-heading" class="space-y-6 fade-slide-in">
+      <div class="bg-white border border-cream-300 rounded-3xl p-6 sm:p-8 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div class="space-y-1.5">
+          <p class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-sanctuary-tealSoft text-sanctuary-tealDark font-bold text-sm">
+            <i data-lucide="heart-handshake" class="w-4 h-4" aria-hidden="true"></i>
+            <span>Family Listener Desk</span>
+          </p>
+          <h2 id="host-view-heading" tabindex="-1" class="text-2xl sm:text-3xl font-extrabold text-sanctuary-charcoal">
+            Mom's Family Host Desk
+          </h2>
+          <p class="text-sanctuary-slate text-lg">
+            See everyone in the family who booked time to share, check how they wish to be heard, and step into their chat room to listen.
+          </p>
+        </div>
+
+        <button
+          id="btn-reset-demo"
+          type="button"
+          class="touch-target px-4 py-2.5 rounded-xl border-2 border-cream-300 bg-cream-50 text-sanctuary-slate font-semibold hover:border-sanctuary-teal hover:text-sanctuary-charcoal transition-colors shrink-0 self-start md:self-center"
+        >
+          Restore Sample Family List
+        </button>
+      </div>
+
+      <!-- Sessions List -->
+      <div id="host-sessions-list" class="space-y-4">
+        <!-- Populated safely by JS -->
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="max-w-5xl mx-auto px-4 sm:px-6 py-8 border-t border-cream-300 mt-10 text-center text-sanctuary-slate">
+    <p class="font-medium">
+      Compassionate Listening — Private Family Sanctuary • Crafted with love for unhurried, caring family conversations.
+    </p>
+  </footer>
+
+  <script>
+    (() => {
+      'use strict';
+
+      const STORAGE_KEY = 'compassionate_listening_sanctuary_v1';
+
+      const TIME_GROUPS = [
+        {
+          label: 'Morning',
+          icon: 'sunrise',
+          slots: ['10:00 AM', '11:30 AM']
+        },
+        {
+          label: 'Afternoon',
+          icon: 'sun',
+          slots: ['4:00 PM']
+        },
+        {
+          label: 'Evening',
+          icon: 'moon',
+          slots: ['6:30 PM', '8:00 PM']
+        }
+      ];
+
+      const TOPICS = [
+        { id: 'childhood', label: 'Childhood memories', icon: 'book-open' },
+        { id: 'my-day', label: 'Sharing my day', icon: 'sun' },
+        { id: 'lonely', label: 'Feeling lonely', icon: 'heart' },
+        { id: 'family-stories', label: 'Family stories', icon: 'users' },
+        { id: 'other', label: 'Something else on my mind', icon: 'feather' }
+      ];
+
+      const ELDER_PROMPTS = [
+        'I was just remembering the old days...',
+        'I wanted to share something about my day...',
+        'Thank you for listening to me today...'
+      ];
+
+      const MOM_PROMPTS = [
+        'I am right here listening, please take your time.',
+        'That sounds like such a precious memory.',
+        'Your feelings are completely understood and valued.'
+      ];
+
+      // Build upcoming 7 days relative to today
+      function getUpcomingDays() {
+        const days = [];
+        const base = new Date();
+        base.setHours(12, 0, 0, 0);
+        const dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+        const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+        for (let i = 0; i < 7; i++) {
+          const d = new Date(base);
+          d.setDate(base.getDate() + i);
+          const yyyy = d.getFullYear();
+          const mm = String(d.getMonth() + 1).padStart(2, '0');
+          const dd = String(d.getDate()).padStart(2, '0');
+          const iso = `${yyyy}-${mm}-${dd}`;
+          let badge = '';
+          if (i === 0) badge = 'Today';
+          else if (i === 1) badge = 'Tomorrow';
+
+          days.push({
+            iso,
+            dayName: dayNames[d.getDay()],
+            dateNum: d.getDate(),
+            monthName: monthNames[d.getMonth()],
+            badge,
+            displayLabel: badge
+              ? `${badge} (${dayNames[d.getDay()]}, ${monthNames[d.getMonth()]} ${d.getDate()})`
+              : `${dayNames[d.getDay()]}, ${monthNames[d.getMonth()]} ${d.getDate()}`
+          });
+        }
+        return days;
+      }
+
+      const UPCOMING_DAYS = getUpcomingDays();
+
+      function formatClock(dateObj = new Date()) {
+        return dateObj.toLocaleTimeString([], { hour: 'numeric', minute: '2-digit' });
+      }
+
+      function createDefaultData() {
+        const todayIso = UPCOMING_DAYS[0].iso;
+        const tomorrowIso = UPCOMING_DAYS[1].iso;
+
+        return {
+          activeSessionId: null,
+          textExtraLarge: false,
+          autoReplyHelper: true,
+          sessions: [
+            {
+              id: 'sample-grandfather',
+              elderName: 'Grandfather',
+              dateIso: todayIso,
+              dateLabel: UPCOMING_DAYS[0].displayLabel,
+              timeSlot: '4:00 PM',
+              topic: 'Childhood memories',
+              heartNote: 'Remembering summer evenings on the verandah with everyone.',
+              preference: 'listen-only',
+              status: 'waiting',
+              createdAt: Date.now() - 3600 * 1000,
+              messages: [
+                {
+                  id: 'm-1',
+                  sender: 'mom',
+                  senderLabel: 'Mom (Listening)',
+                  text: 'Welcome to our quiet family room, Grandfather. Take all the time you need—I am right here listening with love.',
+                  time: '3:58 PM'
+                },
+                {
+                  id: 'm-2',
+                  sender: 'elder',
+                  senderLabel: 'Grandfather',
+                  text: 'I was just remembering the old days when we used to sit outside after sunset and tell stories.',
+                  time: '4:01 PM'
+                }
+              ]
+            },
+            {
+              id: 'sample-grandmother',
+              elderName: 'Grandmother',
+              dateIso: tomorrowIso,
+              dateLabel: UPCOMING_DAYS[1].displayLabel,
+              timeSlot: '10:00 AM',
+              topic: 'Family stories',
+              heartNote: 'Wanted to share an old family recipe story and hear your thoughts.',
+              preference: 'gentle-thoughts',
+              status: 'upcoming',
+              createdAt: Date.now() - 1800 * 1000,
+              messages: [
+                {
+                  id: 'm-3',
+                  sender: 'mom',
+                  senderLabel: 'Mom (Listening)',
+                  text: 'Dear Grandmother, I have saved our morning time for tomorrow. Whenever you want to write a thought, I will be happy to read it.',
+                  time: '10:00 AM'
+                }
+              ]
+            }
+          ]
+        };
+      }
+
+      function loadState() {
+        try {
+          const raw = localStorage.getItem(STORAGE_KEY);
+          if (!raw) {
+            const initial = createDefaultData();
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(initial));
+            return initial;
+          }
+          const parsed = JSON.parse(raw);
+          if (!parsed || !Array.isArray(parsed.sessions)) {
+            const initial = createDefaultData();
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(initial));
+            return initial;
+          }
+          return parsed;
+        } catch (_err) {
+          return createDefaultData();
+        }
+      }
+
+      function saveState() {
+        try {
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+        } catch (_err) {
+          // Graceful fallback if storage is full/restricted
+        }
+      }
+
+      let state = loadState();
+      let currentView = 'elder'; // 'elder' | 'host'
+      let elderScreen = 'booking'; // 'booking' | 'confirmation' | 'chat'
+      let chatOpenedFrom = 'elder'; // 'elder' | 'host'
+      let activeChatSessionId = state.activeSessionId;
+      let pendingReplyTimer = null;
+
+      // DOM elements
+      const liveStatus = document.getElementById('live-status');
+      const btnTextSize = document.getElementById('text-size-toggle');
+      const textSizeLabel = document.getElementById('text-size-label');
+      const btnElderView = document.getElementById('btn-elder-view');
+      const btnHostView = document.getElementById('btn-host-view');
+      const hostCountBadge = document.getElementById('host-count-badge');
+
+      const elderViewEl = document.getElementById('elder-view');
+      const elderSubnavEl = document.getElementById('elder-subnav');
+      const btnGoBooking = document.getElementById('btn-go-booking');
+      const btnResumeChat = document.getElementById('btn-resume-chat');
+
+      const bookingPanel = document.getElementById('booking-panel');
+      const bookingForm = document.getElementById('booking-form');
+      const formErrorSummary = document.getElementById('form-error-summary');
+      const formErrorText = document.getElementById('form-error-text');
+      const datePickerGrid = document.getElementById('date-picker-grid');
+      const timeSlotsContainer = document.getElementById('time-slots-container');
+      const elderNameInput = document.getElementById('elder-name');
+      const elderNameError = document.getElementById('elder-name-error');
+      const topicOptionsEl = document.getElementById('topic-options');
+      const heartNoteInput = document.getElementById('heart-note');
+
+      const confirmationPanel = document.getElementById('confirmation-panel');
+      const confirmHeading = document.getElementById('confirm-heading');
+      const confirmSummaryCard = document.getElementById('confirm-summary-card');
+      const btnEnterChatNow = document.getElementById('btn-enter-chat-now');
+      const btnBookAnother = document.getElementById('btn-book-another');
+
+      const chatPanel = document.getElementById('chat-panel');
+      const chatRolePill = document.getElementById('chat-role-pill');
+      const chatPrefBadge = document.getElementById('chat-pref-badge');
+      const chatRoomHeading = document.getElementById('chat-room-heading');
+      const chatRoomMeta = document.getElementById('chat-room-meta');
+      const btnChatBack = document.getElementById('btn-chat-back');
+      const btnChatBackLabel = document.getElementById('btn-chat-back-label');
+      const autoReplyToggleWrap = document.getElementById('auto-reply-toggle-wrap');
+      const autoReplyToggle = document.getElementById('auto-reply-toggle');
+      const chatMessagesEl = document.getElementById('chat-messages');
+      const typingIndicator = document.getElementById('typing-indicator');
+      const quickPromptsHeading = document.getElementById('quick-prompts-heading');
+      const quickPromptsList = document.getElementById('quick-prompts-list');
+      const chatForm = document.getElementById('chat-form');
+      const chatInputLabel = document.getElementById('chat-input-label');
+      const chatInput = document.getElementById('chat-input');
+      const btnVoiceMic = document.getElementById('btn-voice-mic');
+      const micIconIdle = document.getElementById('mic-icon-idle');
+      const micIconListening = document.getElementById('mic-icon-listening');
+      const voiceListeningBanner = document.getElementById('voice-listening-banner');
+      const btnVoiceStopBanner = document.getElementById('btn-voice-stop-banner');
+      const voiceFallbackAlert = document.getElementById('voice-fallback-alert');
+      const voiceFallbackTitle = document.getElementById('voice-fallback-title');
+      const voiceFallbackMessage = document.getElementById('voice-fallback-message');
+      const btnVoiceAlertDismiss = document.getElementById('btn-voice-alert-dismiss');
+      const btnVoiceLang = document.getElementById('btn-voice-lang');
+      const voiceLangLabel = document.getElementById('voice-lang-label');
+
+      const hostViewEl = document.getElementById('host-view');
+      const hostViewHeading = document.getElementById('host-view-heading');
+      const hostSessionsList = document.getElementById('host-sessions-list');
+      const btnResetDemo = document.getElementById('btn-reset-demo');
+
+      function announce(msg) {
+        liveStatus.textContent = '';
+        window.setTimeout(() => {
+          liveStatus.textContent = msg;
+        }, 40);
+      }
+
+      function applyTextSize() {
+        const isXL = Boolean(state.textExtraLarge);
+        document.documentElement.classList.toggle('text-extra-large', isXL);
+        btnTextSize.setAttribute('aria-pressed', String(isXL));
+        textSizeLabel.textContent = isXL ? 'Standard Text' : 'Larger Text';
+      }
+
+      // ==================== WHATSAPP-STYLE VOICE-TO-TEXT ENGINE ====================
+      const SpeechRecognitionCtor = window.SpeechRecognition || window.webkitSpeechRecognition || null;
+      let recognition = null;
+      let isListening = false;
+      let voiceBaseText = '';
+      let manualStopRequested = false;
+
+      function detectDefaultVoiceLang() {
+        try {
+          const navLang = (navigator.language || '').toLowerCase();
+          const tz = Intl.DateTimeFormat().resolvedOptions().timeZone || '';
+          if (
+            navLang.includes('en-in') ||
+            navLang.startsWith('hi') ||
+            navLang.startsWith('te') ||
+            tz === 'Asia/Kolkata' ||
+            tz === 'Asia/Calcutta'
+          ) {
+            return 'en-IN';
+          }
+          if (navLang.includes('en-us')) {
+            return 'en-US';
+          }
+        } catch (_err) {
+          // Safe fallback if Intl or navigator is restricted
+        }
+        return 'en-US';
+      }
+
+      function getVoiceLang() {
+        if (state.voiceLang === 'en-IN' || state.voiceLang === 'en-US') {
+          return state.voiceLang;
+        }
+        return detectDefaultVoiceLang();
+      }
+
+      function applyVoiceLangLabel() {
+        const lang = getVoiceLang();
+        voiceLangLabel.textContent = lang === 'en-IN' ? 'English (India)' : 'English (US)';
+      }
+
+      function combineSpeechText(base, spoken) {
+        const cleanBase = (base || '').trimEnd();
+        const cleanSpoken = (spoken || '').trimStart();
+        if (cleanBase && cleanSpoken) {
+          return `${cleanBase} ${cleanSpoken}`;
+        }
+        return cleanBase || cleanSpoken;
+      }
+
+      function hideVoiceAlert() {
+        voiceFallbackAlert.hidden = true;
+      }
+
+      function showVoiceAlert(title, message) {
+        voiceFallbackTitle.textContent = title;
+        voiceFallbackMessage.textContent = message;
+        voiceFallbackAlert.hidden = false;
+        announce(`${title}. ${message}`);
+      }
+
+      function setListeningUI(active) {
+        isListening = Boolean(active);
+        btnVoiceMic.setAttribute('aria-pressed', String(isListening));
+        btnVoiceMic.setAttribute(
+          'aria-label',
+          isListening
+            ? 'Stop listening and keep your spoken message'
+            : 'Tap to speak your message using your microphone'
+        );
+        btnVoiceMic.title = isListening
+          ? 'Tap to finish speaking'
+          : 'Tap to speak your message';
+
+        if (isListening) {
+          btnVoiceMic.classList.remove(
+            'border-sanctuary-teal',
+            'bg-sanctuary-tealSoft',
+            'text-sanctuary-tealDark',
+            'hover:bg-sanctuary-teal',
+            'hover:text-white'
+          );
+          btnVoiceMic.classList.add(
+            'border-red-700',
+            'bg-red-600',
+            'text-white',
+            'hover:bg-red-700',
+            'animate-pulse',
+            'mic-listening-glow',
+            'ring-4',
+            'ring-red-200'
+          );
+          micIconIdle.classList.add('hidden');
+          micIconListening.classList.remove('hidden');
+          voiceListeningBanner.hidden = false;
+        } else {
+          btnVoiceMic.classList.remove(
+            'border-red-700',
+            'bg-red-600',
+            'text-white',
+            'hover:bg-red-700',
+            'animate-pulse',
+            'mic-listening-glow',
+            'ring-4',
+            'ring-red-200'
+          );
+          btnVoiceMic.classList.add(
+            'border-sanctuary-teal',
+            'bg-sanctuary-tealSoft',
+            'text-sanctuary-tealDark',
+            'hover:bg-sanctuary-teal',
+            'hover:text-white'
+          );
+          micIconIdle.classList.remove('hidden');
+          micIconListening.classList.add('hidden');
+          voiceListeningBanner.hidden = true;
+        }
+      }
+
+      function stopVoiceRecognition(discardPending = false) {
+        if (recognition) {
+          manualStopRequested = true;
+          if (discardPending) {
+            recognition.onresult = null;
+            recognition.onerror = null;
+            recognition.onend = null;
+            try {
+              recognition.abort();
+            } catch (_err) {
+              // Ignore if already stopped
+            }
+            recognition = null;
+          } else {
+            try {
+              recognition.stop();
+            } catch (_err) {
+              // Ignore if already stopped
+            }
+          }
+        }
+        voiceBaseText = '';
+        setListeningUI(false);
+      }
+
+      function startVoiceRecognition() {
+        hideVoiceAlert();
+
+        if (!SpeechRecognitionCtor) {
+          showVoiceAlert(
+            'Voice typing is not supported in this browser',
+            'To speak your stories naturally into the chat, please open this page in Google Chrome, Microsoft Edge, or Safari. You can also type slowly or use the one-tap starters above.'
+          );
+          return;
+        }
+
+        try {
+          const instance = new SpeechRecognitionCtor();
+          instance.lang = getVoiceLang();
+          instance.continuous = true;
+          instance.interimResults = true;
+          instance.maxAlternatives = 1;
+
+          voiceBaseText = chatInput.value;
+          manualStopRequested = false;
+          recognition = instance;
+
+          instance.onstart = () => {
+            setListeningUI(true);
+            announce('Listening to your voice. Speak naturally, and tap the microphone again to finish.');
+          };
+
+          instance.onresult = (event) => {
+            let finalText = '';
+            let interimText = '';
+            for (let i = 0; i < event.results.length; i++) {
+              const transcript = event.results[i][0] ? event.results[i][0].transcript : '';
+              if (event.results[i].isFinal) {
+                finalText += `${transcript} `;
+              } else {
+                interimText += transcript;
+              }
+            }
+            const spoken = `${finalText}${interimText}`.trim();
+            chatInput.value = combineSpeechText(voiceBaseText, spoken);
+            chatInput.scrollTop = chatInput.scrollHeight;
+          };
+
+          instance.onerror = (event) => {
+            const errCode = event && event.error ? event.error : 'unknown';
+            if (errCode === 'aborted' && manualStopRequested) {
+              return;
+            }
+            if (errCode === 'not-allowed' || errCode === 'service-not-allowed') {
+              showVoiceAlert(
+                'Microphone permission is needed',
+                'Your browser blocked microphone access. Please click the small lock or microphone icon near the top address bar, choose "Allow Microphone", and tap Speak again.'
+              );
+            } else if (errCode === 'audio-capture') {
+              showVoiceAlert(
+                'No microphone was detected',
+                'Please check that your device microphone is connected and not muted, then tap Speak again.'
+              );
+            } else if (errCode === 'network') {
+              showVoiceAlert(
+                'Voice connection paused',
+                'Voice-to-text needs an active internet connection in this browser. Please check your Wi-Fi or type your message below.'
+              );
+            } else if (errCode === 'no-speech') {
+              showVoiceAlert(
+                'No speech was heard yet',
+                'Whenever you are ready, tap Speak and talk comfortably close to your device.'
+              );
+            } else {
+              showVoiceAlert(
+                'Microphone could not start',
+                'Something interrupted voice typing. Please tap Speak again, or type your message comfortably below.'
+              );
+            }
+            setListeningUI(false);
+            recognition = null;
+          };
+
+          instance.onend = () => {
+            const wasManual = manualStopRequested;
+            manualStopRequested = false;
+            recognition = null;
+            setListeningUI(false);
+
+            const hasText = chatInput.value.trim().length > 0;
+            if (hasText) {
+              chatInput.focus();
+              chatInput.setSelectionRange(chatInput.value.length, chatInput.value.length);
+              announce('Your spoken message is ready in the box. Review it and tap Send Message whenever you wish.');
+            } else if (wasManual) {
+              announce('Microphone stopped.');
+            }
+          };
+
+          instance.start();
+        } catch (_err) {
+          recognition = null;
+          setListeningUI(false);
+          showVoiceAlert(
+            'Microphone permission or browser support needed',
+            'Please allow microphone access when prompted, or use Google Chrome / Safari to speak your stories directly into the chat.'
+          );
+        }
+      }
+
+      function renderCalendarOptions() {
+        datePickerGrid.innerHTML = '';
+        UPCOMING_DAYS.forEach((day, idx) => {
+          const id = `date-opt-${day.iso}`;
+          const wrapper = document.createElement('div');
+
+          const input = document.createElement('input');
+          input.type = 'radio';
+          input.name = 'bookingDate';
+          input.id = id;
+          input.value = day.iso;
+          input.className = 'visually-hidden radio-card-input';
+          if (idx === 0) input.checked = true;
+
+          const label = document.createElement('label');
+          label.htmlFor = id;
+          label.className =
+            'radio-card-label touch-target flex flex-col items-center justify-center text-center p-3.5 rounded-2xl border-2 border-cream-300 bg-cream-50/70 cursor-pointer hover:border-sanctuary-teal transition-all min-h-[96px]';
+
+          if (day.badge) {
+            const badgeSpan = document.createElement('span');
+            badgeSpan.className =
+              'text-xs font-extrabold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-sanctuary-goldSoft text-sanctuary-gold border border-sanctuary-goldBorder mb-1';
+            badgeSpan.textContent = day.badge;
+            label.appendChild(badgeSpan);
+          }
+
+          const dayNameSpan = document.createElement('span');
+          dayNameSpan.className = 'text-sm font-bold opacity-80';
+          dayNameSpan.textContent = day.dayName;
+          label.appendChild(dayNameSpan);
+
+          const dateNumSpan = document.createElement('span');
+          dateNumSpan.className = 'text-2xl font-extrabold leading-tight';
+          dateNumSpan.textContent = `${day.monthName} ${day.dateNum}`;
+          label.appendChild(dateNumSpan);
+
+          wrapper.appendChild(input);
+          wrapper.appendChild(label);
+          datePickerGrid.appendChild(wrapper);
+        });
+      }
+
+      function renderTimeSlots() {
+        timeSlotsContainer.innerHTML = '';
+        let firstAssigned = false;
+
+        TIME_GROUPS.forEach((group) => {
+          const groupBox = document.createElement('div');
+          groupBox.className = 'space-y-2.5';
+
+          const heading = document.createElement('p');
+          heading.className = 'font-bold text-sanctuary-charcoal flex items-center gap-2';
+
+          const iconEl = document.createElement('i');
+          iconEl.setAttribute('data-lucide', group.icon);
+          iconEl.className = 'w-5 h-5 text-sanctuary-gold';
+          iconEl.setAttribute('aria-hidden', 'true');
+
+          const textNode = document.createElement('span');
+          textNode.textContent = group.label;
+
+          heading.appendChild(iconEl);
+          heading.appendChild(textNode);
+          groupBox.appendChild(heading);
+
+          const slotGrid = document.createElement('div');
+          slotGrid.className = 'flex flex-wrap gap-3';
+
+          group.slots.forEach((slot) => {
+            const safeSlug = slot.replace(/[^a-zA-Z0-9]/g, '-').toLowerCase();
+            const id = `time-opt-${safeSlug}`;
+            const item = document.createElement('div');
+
+            const input = document.createElement('input');
+            input.type = 'radio';
+            input.name = 'bookingTime';
+            input.id = id;
+            input.value = slot;
+            input.className = 'visually-hidden radio-card-input';
+            if (!firstAssigned) {
+              input.checked = true;
+              firstAssigned = true;
+            }
+
+            const label = document.createElement('label');
+            label.htmlFor = id;
+            label.className =
+              'radio-card-label touch-target inline-flex items-center justify-center px-6 py-3 rounded-2xl border-2 border-cream-300 bg-cream-50/70 font-bold cursor-pointer hover:border-sanctuary-teal transition-all min-w-[140px]';
+            label.textContent = slot;
+
+            item.appendChild(input);
+            item.appendChild(label);
+            slotGrid.appendChild(item);
+          });
+
+          groupBox.appendChild(slotGrid);
+          timeSlotsContainer.appendChild(groupBox);
+        });
+      }
+
+      function renderTopics() {
+        topicOptionsEl.innerHTML = '';
+        TOPICS.forEach((topic, idx) => {
+          const id = `topic-opt-${topic.id}`;
+          const item = document.createElement('div');
+
+          const input = document.createElement('input');
+          input.type = 'radio';
+          input.name = 'heartTopic';
+          input.id = id;
+          input.value = topic.label;
+          input.className = 'visually-hidden radio-card-input';
+          if (idx === 0) input.checked = true;
+
+          const label = document.createElement('label');
+          label.htmlFor = id;
+          label.className =
+            'radio-card-label touch-target flex items-center gap-3 px-4 py-3.5 rounded-2xl border-2 border-cream-300 bg-cream-50/70 font-bold cursor-pointer hover:border-sanctuary-teal transition-all';
+
+          const icon = document.createElement('i');
+          icon.setAttribute('data-lucide', topic.icon);
+          icon.className = 'w-5 h-5 shrink-0';
+          icon.setAttribute('aria-hidden', 'true');
+
+          const span = document.createElement('span');
+          span.textContent = topic.label;
+
+          label.appendChild(icon);
+          label.appendChild(span);
+          item.appendChild(input);
+          item.appendChild(label);
+          topicOptionsEl.appendChild(item);
+        });
+      }
+
+      function getPreferenceInfo(prefValue) {
+        if (prefValue === 'gentle-thoughts') {
+          return {
+            emoji: '💡',
+            shortLabel: 'I welcome gentle thoughts and perspective',
+            hostBadge: '💡 Gentle thoughts welcome'
+          };
+        }
+        return {
+          emoji: '👂',
+          shortLabel: 'Just listen to me with love (No advice needed)',
+          hostBadge: '👂 Just listen — No advice'
+        };
+      }
+
+      function getSessionById(id) {
+        return state.sessions.find((s) => s.id === id) || null;
+      }
+
+      function updateHostBadge() {
+        const openCount = state.sessions.filter((s) => s.status !== 'completed').length;
+        hostCountBadge.textContent = String(openCount);
+      }
+
+      function updateElderSubnav() {
+        const activeSession = getSessionById(activeChatSessionId);
+        const showSubnav = Boolean(activeSession) && currentView === 'elder' && elderScreen !== 'chat';
+        elderSubnavEl.classList.toggle('hidden', !showSubnav);
+      }
+
+      function updateViewVisibility() {
+        // Header toggle styling
+        const isElder = currentView === 'elder';
+        btnElderView.setAttribute('aria-pressed', String(isElder));
+        btnHostView.setAttribute('aria-pressed', String(!isElder));
+
+        if (isElder) {
+          btnElderView.className =
+            'touch-target inline-flex items-center gap-2 px-4 sm:px-5 py-2.5 rounded-xl font-bold transition-all bg-sanctuary-teal text-white shadow-sm';
+          btnHostView.className =
+            'touch-target inline-flex items-center gap-2 px-4 sm:px-5 py-2.5 rounded-xl font-bold transition-all text-sanctuary-charcoal hover:bg-white/70';
+        } else {
+          btnHostView.className =
+            'touch-target inline-flex items-center gap-2 px-4 sm:px-5 py-2.5 rounded-xl font-bold transition-all bg-sanctuary-teal text-white shadow-sm';
+          btnElderView.className =
+            'touch-target inline-flex items-center gap-2 px-4 sm:px-5 py-2.5 rounded-xl font-bold transition-all text-sanctuary-charcoal hover:bg-white/70';
+        }
+
+        // Main sections
+        if (currentView === 'elder') {
+          hostViewEl.hidden = true;
+          if (elderScreen === 'chat') {
+            elderViewEl.hidden = true;
+            chatPanel.hidden = false;
+          } else {
+            elderViewEl.hidden = false;
+            chatPanel.hidden = true;
+            bookingPanel.hidden = elderScreen !== 'booking';
+            confirmationPanel.hidden = elderScreen !== 'confirmation';
+          }
+        } else {
+          elderViewEl.hidden = true;
+          if (chatOpenedFrom === 'host' && !chatPanel.hidden && getSessionById(activeChatSessionId)) {
+            hostViewEl.hidden = true;
+          } else {
+            chatPanel.hidden = true;
+            hostViewEl.hidden = false;
+          }
+        }
+
+        updateElderSubnav();
+        updateHostBadge();
+        document.title =
+          currentView === 'host'
+            ? "Mom's Host Desk | Compassionate Listening"
+            : elderScreen === 'chat'
+            ? 'Private Family Chat Room | Compassionate Listening'
+            : 'Compassionate Listening — Family & Elder Sanctuary';
+      }
+
+      function renderConfirmationCard(session) {
+        confirmSummaryCard.innerHTML = '';
+        const pref = getPreferenceInfo(session.preference);
+
+        const rows = [
+          { label: 'Sharing Name', value: session.elderName },
+          { label: 'Reserved Date & Time', value: `${session.dateLabel} at ${session.timeSlot}` },
+          { label: 'What Is on Your Heart', value: session.heartNote ? `${session.topic} — "${session.heartNote}"` : session.topic },
+          { label: 'Listening Preference', value: `${pref.emoji} ${pref.shortLabel}` }
+        ];
+
+        rows.forEach((row) => {
+          const box = document.createElement('div');
+          box.className = 'space-y-1';
+
+          const lbl = document.createElement('p');
+          lbl.className = 'text-sm font-bold uppercase tracking-wide text-sanctuary-slate';
+          lbl.textContent = row.label;
+
+          const val = document.createElement('p');
+          val.className = 'font-extrabold text-sanctuary-charcoal text-lg';
+          val.textContent = row.value;
+
+          box.appendChild(lbl);
+          box.appendChild(val);
+          confirmSummaryCard.appendChild(box);
+        });
+      }
+
+      function openChatRoom(sessionId, openedFrom) {
+        const session = getSessionById(sessionId);
+        if (!session) return;
+
+        stopVoiceRecognition(true);
+        hideVoiceAlert();
+
+        if (pendingReplyTimer) {
+          clearTimeout(pendingReplyTimer);
+          pendingReplyTimer = null;
+        }
+        typingIndicator.hidden = true;
+
+        activeChatSessionId = session.id;
+        state.activeSessionId = session.id;
+        saveState();
+
+        chatOpenedFrom = openedFrom;
+        if (openedFrom === 'elder') {
+          currentView = 'elder';
+          elderScreen = 'chat';
+        } else {
+          currentView = 'host';
+          chatPanel.hidden = false;
+        }
+
+        const isHost = openedFrom === 'host';
+        const pref = getPreferenceInfo(session.preference);
+
+        chatRoomHeading.textContent = isHost
+          ? `Listening to ${session.elderName}`
+          : `${session.elderName}'s Quiet Family Room`;
+
+        chatRoomMeta.textContent = `${session.dateLabel} • ${session.timeSlot} • Topic: ${session.topic}${session.heartNote ? ` ("${session.heartNote}")` : ''}`;
+        chatPrefBadge.textContent = pref.hostBadge;
+
+        chatRolePill.querySelector('span').textContent = isHost
+          ? "Mom's Listener View • Pure Text Only"
+          : 'Private Family Room • Text Only';
+
+        btnChatBackLabel.textContent = isHost ? "Back to Mom's Host Desk" : 'Back to Calendar';
+        autoReplyToggleWrap.classList.toggle('hidden', isHost);
+        autoReplyToggle.checked = Boolean(state.autoReplyHelper);
+
+        chatInputLabel.textContent = isHost
+          ? `Write a warm, listening reply to ${session.elderName}`
+          : 'Write whatever is on your heart';
+        chatInput.placeholder = isHost
+          ? 'Type a caring response...'
+          : 'Write slowly and comfortably — we are listening...';
+
+        renderQuickPrompts(isHost);
+        renderChatMessages(session, isHost);
+        updateViewVisibility();
+        if (window.lucide) lucide.createIcons();
+
+        window.setTimeout(() => {
+          chatRoomHeading.focus();
+          chatMessagesEl.scrollTop = chatMessagesEl.scrollHeight;
+        }, 50);
+      }
+
+      function renderQuickPrompts(isHost) {
+        quickPromptsList.innerHTML = '';
+        const list = isHost ? MOM_PROMPTS : ELDER_PROMPTS;
+        quickPromptsHeading.textContent = isHost
+          ? "Mom's Compassionate Listener Quick-Responses (tap to fill):"
+          : 'Quick-Share starters for easy sharing (tap to fill):';
+
+        list.forEach((text) => {
+          const btn = document.createElement('button');
+          btn.type = 'button';
+          btn.className =
+            'touch-target text-left px-4 py-2.5 rounded-2xl border-2 border-cream-300 bg-white text-sanctuary-charcoal font-semibold hover:border-sanctuary-teal hover:bg-sanctuary-tealSoft/40 transition-colors';
+          btn.textContent = text;
+          btn.addEventListener('click', () => {
+            const currentVal = chatInput.value.trim();
+            chatInput.value = currentVal ? `${currentVal} ${text}` : text;
+            chatInput.focus();
+            chatInput.setSelectionRange(chatInput.value.length, chatInput.value.length);
+          });
+          quickPromptsList.appendChild(btn);
+        });
+      }
+
+      function renderChatMessages(session, isHostPerspective) {
+        chatMessagesEl.innerHTML = '';
+
+        if (!session.messages || session.messages.length === 0) {
+          const empty = document.createElement('p');
+          empty.className = 'text-center text-sanctuary-slate py-8';
+          empty.textContent = 'This quiet room is ready. Write the first message whenever you wish.';
+          chatMessagesEl.appendChild(empty);
+          return;
+        }
+
+        session.messages.forEach((msg) => {
+          const isElderMsg = msg.sender === 'elder';
+          // In Elder view, Elder is "me" (right side). In Host view, Mom is "me" (right side).
+          const alignRight = isHostPerspective ? !isElderMsg : isElderMsg;
+
+          const row = document.createElement('div');
+          row.className = `flex flex-col ${alignRight ? 'items-end' : 'items-start'}`;
+
+          const bubble = document.createElement('div');
+          bubble.className = alignRight
+            ? 'max-w-[88%] sm:max-w-[78%] rounded-3xl rounded-br-md px-5 py-4 bg-sanctuary-teal text-white shadow-sm'
+            : 'max-w-[88%] sm:max-w-[78%] rounded-3xl rounded-bl-md px-5 py-4 bg-white border-2 border-sanctuary-goldBorder text-sanctuary-charcoal shadow-sm';
+
+          const meta = document.createElement('div');
+          meta.className = `flex items-center gap-2 text-sm font-bold mb-1.5 ${alignRight ? 'text-sanctuary-tealSoft' : 'text-sanctuary-gold'}`;
+
+          const senderSpan = document.createElement('span');
+          senderSpan.textContent = msg.senderLabel;
+
+          const dot = document.createElement('span');
+          dot.setAttribute('aria-hidden', 'true');
+          dot.textContent = '•';
+
+          const timeSpan = document.createElement('span');
+          timeSpan.textContent = msg.time;
+
+          meta.appendChild(senderSpan);
+          meta.appendChild(dot);
+          meta.appendChild(timeSpan);
+
+          const body = document.createElement('p');
+          body.className = 'text-lg leading-relaxed whitespace-pre-wrap break-words';
+          body.textContent = msg.text;
+
+          bubble.appendChild(meta);
+          bubble.appendChild(body);
+          row.appendChild(bubble);
+          chatMessagesEl.appendChild(row);
+        });
+
+        chatMessagesEl.scrollTop = chatMessagesEl.scrollHeight;
+      }
+
+      function pickWarmSimulatedReply(session) {
+        const elderMsgCount = session.messages.filter((m) => m.sender === 'elder').length;
+        if (session.preference === 'listen-only') {
+          const pureListeningPool = [
+            `I am right here listening, ${session.elderName}. Please take all the time you want to tell me more.`,
+            'Thank you for trusting me with what is on your heart. Your feelings are completely understood and cherished.',
+            'I hear every word with so much love. Keep sharing whenever the next thought comes to you.'
+          ];
+          return pureListeningPool[(elderMsgCount - 1) % pureListeningPool.length];
+        }
+        const gentleThoughtsPool = [
+          `That sounds like such a precious part of your heart, ${session.elderName}. Looking back on moments like that brings so much warmth to our whole family.`,
+          'Thank you for sharing this so openly. Even on quiet days, remembering how deeply you are loved by our family can bring a gentle comfort.',
+          'What a meaningful story—I would love to keep hearing more about what made that moment special to you.'
+        ];
+        return gentleThoughtsPool[(elderMsgCount - 1) % gentleThoughtsPool.length];
+      }
+
+      function renderHostDesk() {
+        hostSessionsList.innerHTML = '';
+        updateHostBadge();
+
+        if (state.sessions.length === 0) {
+          const emptyCard = document.createElement('div');
+          emptyCard.className = 'bg-white border border-cream-300 rounded-3xl p-8 text-center space-y-3';
+          const p = document.createElement('p');
+          p.className = 'text-xl font-bold text-sanctuary-charcoal';
+          p.textContent = 'No family listening sessions are booked yet.';
+          const sub = document.createElement('p');
+          sub.className = 'text-sanctuary-slate';
+          sub.textContent = 'Switch to Elder View to book a session, or tap "Restore Sample Family List" above.';
+          emptyCard.appendChild(p);
+          emptyCard.appendChild(sub);
+          hostSessionsList.appendChild(emptyCard);
+          return;
+        }
+
+        const sorted = [...state.sessions].sort((a, b) => {
+          if (a.status === 'completed' && b.status !== 'completed') return 1;
+          if (a.status !== 'completed' && b.status === 'completed') return -1;
+          return b.createdAt - a.createdAt;
+        });
+
+        sorted.forEach((session) => {
+          const pref = getPreferenceInfo(session.preference);
+          const lastMsg = session.messages && session.messages.length > 0
+            ? session.messages[session.messages.length - 1]
+            : null;
+          const isCompleted = session.status === 'completed';
+          const elderNeedsReply = lastMsg && lastMsg.sender === 'elder' && !isCompleted;
+
+          const card = document.createElement('article');
+          card.className = `bg-white border-2 rounded-3xl p-6 shadow-sm transition-all ${
+            elderNeedsReply ? 'border-sanctuary-teal' : 'border-cream-300'
+          } ${isCompleted ? 'opacity-80' : ''}`;
+
+          const topRow = document.createElement('div');
+          topRow.className = 'flex flex-col lg:flex-row lg:items-center justify-between gap-5';
+
+          // Left Info
+          const left = document.createElement('div');
+          left.className = 'space-y-3 flex-1';
+
+          const badgeRow = document.createElement('div');
+          badgeRow.className = 'flex flex-wrap items-center gap-2.5';
+
+          const datePill = document.createElement('span');
+          datePill.className = 'inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-cream-200 text-sanctuary-charcoal font-bold text-sm';
+          datePill.textContent = `${session.dateLabel} • ${session.timeSlot}`;
+          badgeRow.appendChild(datePill);
+
+          const prefPill = document.createElement('span');
+          prefPill.className =
+            session.preference === 'gentle-thoughts'
+              ? 'inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-sanctuary-goldSoft border border-sanctuary-goldBorder text-sanctuary-gold font-bold text-sm'
+              : 'inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-sanctuary-tealSoft text-sanctuary-tealDark font-bold text-sm';
+          prefPill.textContent = pref.hostBadge;
+          badgeRow.appendChild(prefPill);
+
+          if (elderNeedsReply) {
+            const waitingPill = document.createElement('span');
+            waitingPill.className = 'inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-emerald-100 text-emerald-900 font-extrabold text-sm';
+            waitingPill.textContent = 'Waiting for your warm reply';
+            badgeRow.appendChild(waitingPill);
+          } else if (isCompleted) {
+            const donePill = document.createElement('span');
+            donePill.className = 'inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-stone-200 text-stone-700 font-bold text-sm';
+            donePill.textContent = 'Held in Heart (Completed)';
+            badgeRow.appendChild(donePill);
+          }
+
+          const titleEl = document.createElement('h3');
+          titleEl.className = 'text-xl sm:text-2xl font-extrabold text-sanctuary-charcoal';
+          titleEl.textContent = `${session.elderName} — ${session.topic}`;
+
+          left.appendChild(badgeRow);
+          left.appendChild(titleEl);
+
+          if (session.heartNote) {
+            const noteEl = document.createElement('p');
+            noteEl.className = 'text-sanctuary-charcoal bg-cream-50 border border-cream-300 rounded-2xl px-4 py-3 italic font-serif';
+            noteEl.textContent = `Note from ${session.elderName}: "${session.heartNote}"`;
+            left.appendChild(noteEl);
+          }
+
+          if (lastMsg) {
+            const previewEl = document.createElement('p');
+            previewEl.className = 'text-sanctuary-slate';
+            const strong = document.createElement('strong');
+            strong.textContent = `Latest (${lastMsg.senderLabel}): `;
+            const msgText = document.createElement('span');
+            msgText.textContent = lastMsg.text;
+            previewEl.appendChild(strong);
+            previewEl.appendChild(msgText);
+            left.appendChild(previewEl);
+          }
+
+          // Right Actions
+          const actions = document.createElement('div');
+          actions.className = 'flex flex-col sm:flex-row lg:flex-col gap-3 shrink-0';
+
+          const enterBtn = document.createElement('button');
+          enterBtn.type = 'button';
+          enterBtn.className =
+            'touch-target px-6 py-3.5 rounded-2xl bg-sanctuary-teal text-white font-extrabold hover:bg-sanctuary-tealDark transition-colors inline-flex items-center justify-center gap-2.5 shadow-sm';
+          enterBtn.innerHTML = '';
+          const icon = document.createElement('i');
+          icon.setAttribute('data-lucide', 'message-circle-heart');
+          icon.className = 'w-5 h-5';
+          icon.setAttribute('aria-hidden', 'true');
+          const btnSpan = document.createElement('span');
+          btnSpan.textContent = 'Open Chat to Listen';
+          enterBtn.appendChild(icon);
+          enterBtn.appendChild(btnSpan);
+          enterBtn.addEventListener('click', () => openChatRoom(session.id, 'host'));
+
+          const toggleCompleteBtn = document.createElement('button');
+          toggleCompleteBtn.type = 'button';
+          toggleCompleteBtn.className =
+            'touch-target px-5 py-2.5 rounded-2xl border-2 border-cream-300 bg-cream-50 text-sanctuary-charcoal font-bold hover:border-sanctuary-teal transition-colors';
+          toggleCompleteBtn.textContent = isCompleted ? 'Reopen Session' : 'Mark Completed';
+          toggleCompleteBtn.addEventListener('click', () => {
+            session.status = isCompleted ? 'waiting' : 'completed';
+            saveState();
+            renderHostDesk();
+            announce(isCompleted ? `${session.elderName}'s room reopened.` : `${session.elderName}'s listening time marked complete.`);
+          });
+
+          actions.appendChild(enterBtn);
+          actions.appendChild(toggleCompleteBtn);
+
+          topRow.appendChild(left);
+          topRow.appendChild(actions);
+          card.appendChild(topRow);
+          hostSessionsList.appendChild(card);
+        });
+
+        if (window.lucide) lucide.createIcons();
+      }
+
+      // Event Listeners
+      btnTextSize.addEventListener('click', () => {
+        state.textExtraLarge = !state.textExtraLarge;
+        saveState();
+        applyTextSize();
+        announce(state.textExtraLarge ? 'Extra large text enabled.' : 'Standard text size restored.');
+      });
+
+      btnElderView.addEventListener('click', () => {
+        currentView = 'elder';
+        if (elderScreen === 'chat' && !getSessionById(activeChatSessionId)) {
+          elderScreen = 'booking';
+        }
+        if (elderScreen === 'chat') {
+          openChatRoom(activeChatSessionId, 'elder');
+        } else {
+          updateViewVisibility();
+        }
+      });
+
+      btnHostView.addEventListener('click', () => {
+        stopVoiceRecognition(true);
+        currentView = 'host';
+        chatPanel.hidden = true;
+        renderHostDesk();
+        updateViewVisibility();
+        window.setTimeout(() => hostViewHeading.focus(), 50);
+      });
+
+      btnGoBooking.addEventListener('click', () => {
+        elderScreen = 'booking';
+        updateViewVisibility();
+      });
+
+      btnResumeChat.addEventListener('click', () => {
+        if (activeChatSessionId) {
+          openChatRoom(activeChatSessionId, 'elder');
+        }
+      });
+
+      document.querySelectorAll('.quick-name-btn').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          elderNameInput.value = btn.getAttribute('data-quick-name') || '';
+          elderNameError.classList.add('hidden');
+          elderNameInput.removeAttribute('aria-invalid');
+          formErrorSummary.hidden = true;
+          elderNameInput.focus();
+        });
+      });
+
+      elderNameInput.addEventListener('input', () => {
+        if (elderNameInput.value.trim().length > 0) {
+          elderNameError.classList.add('hidden');
+          elderNameInput.removeAttribute('aria-invalid');
+          formErrorSummary.hidden = true;
+        }
+      });
+
+      elderNameInput.addEventListener('blur', () => {
+        if (!elderNameInput.value.trim()) {
+          elderNameError.textContent = 'Please type your name or tap one of the family buttons above.';
+          elderNameError.classList.remove('hidden');
+          elderNameInput.setAttribute('aria-invalid', 'true');
+        }
+      });
+
+      bookingForm.addEventListener('submit', (event) => {
+        event.preventDefault();
+
+        const elderName = elderNameInput.value.trim();
+        if (!elderName) {
+          elderNameError.textContent = 'Please type your name or tap one of the family buttons above.';
+          elderNameError.classList.remove('hidden');
+          elderNameInput.setAttribute('aria-invalid', 'true');
+          formErrorText.textContent = 'Please share your name so Mom knows who is coming to chat.';
+          formErrorSummary.hidden = false;
+          elderNameInput.focus();
+          return;
+        }
+
+        const dateIso = bookingForm.querySelector('input[name="bookingDate"]:checked')?.value || UPCOMING_DAYS[0].iso;
+        const dayObj = UPCOMING_DAYS.find((d) => d.iso === dateIso) || UPCOMING_DAYS[0];
+        const timeSlot = bookingForm.querySelector('input[name="bookingTime"]:checked')?.value || '10:00 AM';
+        const topic = bookingForm.querySelector('input[name="heartTopic"]:checked')?.value || 'Sharing my day';
+        const heartNote = heartNoteInput.value.trim();
+        const preference =
+          bookingForm.querySelector('input[name="listeningPreference"]:checked')?.value || 'listen-only';
+
+        const newSession = {
+          id: `session-${Date.now()}`,
+          elderName,
+          dateIso: dayObj.iso,
+          dateLabel: dayObj.displayLabel,
+          timeSlot,
+          topic,
+          heartNote,
+          preference,
+          status: 'waiting',
+          createdAt: Date.now(),
+          messages: [
+            {
+              id: `msg-${Date.now()}-welcome`,
+              sender: 'mom',
+              senderLabel: 'Mom (Listening)',
+              text: `Welcome to our quiet family sanctuary, ${elderName}. Whenever you are ready, take a peaceful breath and share whatever is on your heart. I am listening.`,
+              time: formatClock()
+            }
+          ]
+        };
+
+        if (heartNote) {
+          newSession.messages.push({
+            id: `msg-${Date.now()}-note`,
+            sender: 'elder',
+            senderLabel: elderName,
+            text: `What is on my mind (${topic}): ${heartNote}`,
+            time: formatClock()
+          });
+        }
+
+        state.sessions.unshift(newSession);
+        state.activeSessionId = newSession.id;
+        activeChatSessionId = newSession.id;
+        saveState();
+
+        renderConfirmationCard(newSession);
+        elderScreen = 'confirmation';
+        updateViewVisibility();
+        announce(`Your listening time on ${newSession.dateLabel} at ${newSession.timeSlot} is confirmed.`);
+        window.setTimeout(() => confirmHeading.focus(), 50);
+      });
+
+      btnEnterChatNow.addEventListener('click', () => {
+        if (activeChatSessionId) {
+          openChatRoom(activeChatSessionId, 'elder');
+        }
+      });
+
+      btnBookAnother.addEventListener('click', () => {
+        bookingForm.reset();
+        renderCalendarOptions();
+        renderTimeSlots();
+        renderTopics();
+        if (window.lucide) lucide.createIcons();
+        elderScreen = 'booking';
+        updateViewVisibility();
+      });
+
+      btnChatBack.addEventListener('click', () => {
+        stopVoiceRecognition(true);
+        hideVoiceAlert();
+        if (pendingReplyTimer) {
+          clearTimeout(pendingReplyTimer);
+          pendingReplyTimer = null;
+        }
+        typingIndicator.hidden = true;
+
+        if (chatOpenedFrom === 'host') {
+          chatPanel.hidden = true;
+          currentView = 'host';
+          renderHostDesk();
+          updateViewVisibility();
+        } else {
+          elderScreen = 'booking';
+          currentView = 'elder';
+          updateViewVisibility();
+        }
+      });
+
+      autoReplyToggle.addEventListener('change', () => {
+        state.autoReplyHelper = autoReplyToggle.checked;
+        saveState();
+      });
+
+      // IME-safe Enter-to-submit for chat textarea (Safari keyCode 229 fallback included)
+      chatInput.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter' && !event.shiftKey) {
+          event.preventDefault();
+          if (event.isComposing || event.keyCode === 229) {
+            return;
+          }
+          chatForm.requestSubmit();
+        }
+      });
+
+      btnVoiceMic.addEventListener('click', () => {
+        if (isListening) {
+          stopVoiceRecognition(false);
+        } else {
+          startVoiceRecognition();
+        }
+      });
+
+      btnVoiceStopBanner.addEventListener('click', () => {
+        stopVoiceRecognition(false);
+      });
+
+      btnVoiceAlertDismiss.addEventListener('click', () => {
+        hideVoiceAlert();
+        chatInput.focus();
+      });
+
+      btnVoiceLang.addEventListener('click', () => {
+        const nextLang = getVoiceLang() === 'en-IN' ? 'en-US' : 'en-IN';
+        state.voiceLang = nextLang;
+        saveState();
+        applyVoiceLangLabel();
+        const label = nextLang === 'en-IN' ? 'English (India)' : 'English (US)';
+        announce(`Voice accent switched to ${label}.`);
+        if (isListening) {
+          stopVoiceRecognition(true);
+          window.setTimeout(() => startVoiceRecognition(), 120);
+        }
+      });
+
+      chatForm.addEventListener('submit', (event) => {
+        event.preventDefault();
+        stopVoiceRecognition(true);
+        const text = chatInput.value.trim();
+        if (!text) {
+          chatInput.focus();
+          return;
+        }
+
+        const session = getSessionById(activeChatSessionId);
+        if (!session) return;
+
+        const isHost = chatOpenedFrom === 'host';
+        const newMsg = {
+          id: `msg-${Date.now()}`,
+          sender: isHost ? 'mom' : 'elder',
+          senderLabel: isHost ? 'Mom (Listening)' : session.elderName,
+          text,
+          time: formatClock()
+        };
+
+        session.messages.push(newMsg);
+        if (session.status === 'completed') {
+          session.status = 'waiting';
+        }
+        saveState();
+
+        chatInput.value = '';
+        renderChatMessages(session, isHost);
+        announce('Message sent.');
+
+        // Simulated gentle listener reply when in Elder View & helper toggle is enabled
+        if (!isHost && state.autoReplyHelper) {
+          if (pendingReplyTimer) clearTimeout(pendingReplyTimer);
+          typingIndicator.hidden = false;
+          pendingReplyTimer = window.setTimeout(() => {
+            const currentSession = getSessionById(session.id);
+            if (!currentSession) return;
+            const replyText = pickWarmSimulatedReply(currentSession);
+            currentSession.messages.push({
+              id: `msg-${Date.now()}-reply`,
+              sender: 'mom',
+              senderLabel: 'Mom (Listening)',
+              text: replyText,
+              time: formatClock()
+            });
+            saveState();
+            typingIndicator.hidden = true;
+            if (!chatPanel.hidden && activeChatSessionId === currentSession.id && chatOpenedFrom === 'elder') {
+              renderChatMessages(currentSession, false);
+              announce('Mom replied in the chat room.');
+            }
+          }, 1150);
+        }
+      });
+
+      btnResetDemo.addEventListener('click', () => {
+        const fresh = createDefaultData();
+        state.sessions = fresh.sessions;
+        state.activeSessionId = null;
+        activeChatSessionId = null;
+        saveState();
+        renderHostDesk();
+        updateHostBadge();
+        announce('Sample family list restored.');
+      });
+
+      // Initialize UI
+      applyTextSize();
+      applyVoiceLangLabel();
+      renderCalendarOptions();
+      renderTimeSlots();
+      renderTopics();
+      renderHostDesk();
+      updateViewVisibility();
+
+      if (window.lucide) {
+        lucide.createIcons();
+      }
+    })();
+  </script>
+</body>
+</html>
