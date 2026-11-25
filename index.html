@@ -87,6 +87,19 @@
       white-space: nowrap !important;
     }
 
+    .radio-card-input {
+      position: absolute !important;
+      clip-path: inset(50%) !important;
+      overflow: hidden !important;
+      width: 1px !important;
+      height: 1px !important;
+      margin: -1px !important;
+      padding: 0 !important;
+      border: 0 !important;
+      white-space: nowrap !important;
+      pointer-events: none !important;
+    }
+
     :where(a, button, input, textarea, select, [tabindex]):focus-visible {
       outline: 3px solid #1f6f68;
       outline-offset: 2px;
@@ -2314,6 +2327,27 @@
         }, 40);
       }
 
+      function getCalendarDayKey(ts) {
+        const d = new Date(ts);
+        if (Number.isNaN(d.getTime())) return null;
+        return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+      }
+
+      function formatDateDividerLabel(ts) {
+        const d = new Date(ts);
+        if (Number.isNaN(d.getTime())) return '';
+        const targetMid = new Date(d.getFullYear(), d.getMonth(), d.getDate()).getTime();
+        const now = new Date();
+        const todayMid = new Date(now.getFullYear(), now.getMonth(), now.getDate()).getTime();
+        const diffDays = Math.round((todayMid - targetMid) / 86400000);
+        if (diffDays === 0) return 'Today';
+        if (diffDays === 1) return 'Yesterday';
+        const dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+        const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+        const baseLabel = `${dayNames[d.getDay()]}, ${monthNames[d.getMonth()]} ${d.getDate()}`;
+        return d.getFullYear() === now.getFullYear() ? baseLabel : `${baseLabel}, ${d.getFullYear()}`;
+      }
+
       function renderChatMessages(session, isHostPerspective) {
         chatMessagesEl.innerHTML = '';
 
@@ -2330,7 +2364,22 @@
           return;
         }
 
+        let lastDayKey = null;
+
         session.messages.forEach((msg) => {
+          const msgTs = Number(msg.timestamp) || Number(session.createdAt) || null;
+          const dayKey = msgTs ? getCalendarDayKey(msgTs) : null;
+          if (dayKey && dayKey !== lastDayKey) {
+            const dividerWrap = document.createElement('div');
+            dividerWrap.className = 'flex justify-center my-2';
+            const pill = document.createElement('span');
+            pill.className = 'px-3 py-1 rounded-full bg-white/90 border border-cream-300 text-[11px] font-bold text-sanctuary-slate shadow-sm';
+            pill.textContent = formatDateDividerLabel(msgTs);
+            dividerWrap.appendChild(pill);
+            chatMessagesEl.appendChild(dividerWrap);
+            lastDayKey = dayKey;
+          }
+
           const isElderMsg = msg.sender === 'elder';
           const alignRight = isHostPerspective ? !isElderMsg : isElderMsg;
 
@@ -2361,11 +2410,18 @@
             bubble.appendChild(origFooter);
           }
 
+          const displayTime = msg.time || (msgTs ? formatClock(msgTs) : '');
           const meta = document.createElement('div');
-          meta.className = `flex items-center justify-end gap-1.5 text-[11px] font-semibold mt-1 ${
-            alignRight ? 'text-white/80' : 'text-sanctuary-slate'
+          meta.className = `flex items-center justify-between gap-3 text-[11px] font-semibold mt-1 ${
+            alignRight ? 'text-white/85' : 'text-sanctuary-slate'
           }`;
-          meta.textContent = `${msg.senderLabel || (isElderMsg ? session.elderName : 'Mom')} • ${msg.time}`;
+          const senderSpan = document.createElement('span');
+          senderSpan.textContent = msg.senderLabel || (isElderMsg ? session.elderName : 'Mom');
+          const timeSpan = document.createElement('span');
+          timeSpan.className = 'ml-auto tabular-nums shrink-0';
+          timeSpan.textContent = displayTime;
+          meta.appendChild(senderSpan);
+          meta.appendChild(timeSpan);
 
           bubble.appendChild(meta);
           row.appendChild(bubble);
