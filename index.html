@@ -166,6 +166,18 @@
       max-width: calc(100vw - 24px);
     }
 
+    .translation-preview-card {
+      position: fixed;
+      left: 50%;
+      transform: translateX(-50%);
+      bottom: calc(64px + env(safe-area-inset-bottom, 0px));
+      width: calc(100vw - 16px);
+      max-width: 48rem;
+      max-height: 58dvh;
+      overflow-y: auto;
+      z-index: 54;
+    }
+
     @media (prefers-reduced-motion: no-preference) {
       .fade-slide-in {
         animation: fadeSlideIn 0.2s ease-out both;
@@ -292,12 +304,24 @@
             </div>
 
             <div class="flex flex-wrap items-center justify-between gap-2 pt-2 border-t border-cream-200">
-              <span
-                id="returning-profile-meta"
-                class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-sanctuary-tealSoft text-sanctuary-tealDark"
-              >
-                Family Member
-              </span>
+              <div class="flex flex-wrap items-center gap-2">
+                <span
+                  id="returning-profile-meta"
+                  class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-sanctuary-tealSoft text-sanctuary-tealDark"
+                >
+                  Family Member
+                </span>
+                <label for="returning-lang-select" class="visually-hidden">Preferred Language</label>
+                <select
+                  id="returning-lang-select"
+                  class="min-h-[38px] px-2.5 py-1 rounded-full border border-cream-300 bg-cream-50 text-xs font-bold text-sanctuary-charcoal focus:border-sanctuary-teal"
+                >
+                  <option value="en">🗣️ English</option>
+                  <option value="te">🗣️ Telugu (తెలుగు)</option>
+                  <option value="hi">🗣️ Hindi (हिन्दी)</option>
+                  <option value="es">🗣️ Spanish (Español)</option>
+                </select>
+              </div>
               <button
                 id="btn-switch-profile"
                 type="button"
@@ -416,6 +440,16 @@
                 class="w-full min-h-[48px] px-4 py-2 rounded-xl border border-cream-300 bg-cream-50 text-sanctuary-charcoal placeholder:text-sanctuary-slate/70 focus:bg-white focus:border-sanctuary-teal transition-colors"
               >
             </div>
+
+            <!-- Preferred Language -->
+            <fieldset class="space-y-2 pt-2 border-t border-cream-200">
+              <legend class="block text-sm font-bold text-sanctuary-slate">
+                Preferred Language
+              </legend>
+              <div id="preferred-lang-options" class="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                <!-- Populated by JS -->
+              </div>
+            </fieldset>
           </div>
 
           <!-- CARD 2: Choose a Time -->
@@ -682,6 +716,50 @@
       </span>
     </header>
 
+    <!-- Slim Language & Translation Status Strip -->
+    <div id="chat-lang-bar" class="bg-sanctuary-tealSoft/95 border-b border-cream-300 px-3 py-1.5 shrink-0">
+      <div class="max-w-3xl mx-auto flex flex-wrap items-center justify-between gap-2 text-xs font-bold text-sanctuary-tealDark">
+        <div id="host-lang-controls" hidden class="flex items-center gap-1.5 min-w-0">
+          <label for="host-speak-lang" class="shrink-0">Speak in:</label>
+          <select
+            id="host-speak-lang"
+            class="min-h-[34px] px-2.5 py-1 rounded-lg border border-sanctuary-teal/30 bg-white text-sanctuary-charcoal text-xs font-bold focus:border-sanctuary-teal"
+          >
+            <option value="en">English</option>
+            <option value="te">Telugu (తెలుగు)</option>
+            <option value="hi">Hindi (हिन्दी)</option>
+            <option value="es">Spanish (Español)</option>
+          </select>
+        </div>
+
+        <div id="elder-lang-controls" hidden class="flex items-center gap-1.5 min-w-0">
+          <label for="elder-chat-lang" class="shrink-0">Speaking in:</label>
+          <select
+            id="elder-chat-lang"
+            class="min-h-[34px] px-2.5 py-1 rounded-lg border border-sanctuary-teal/30 bg-white text-sanctuary-charcoal text-xs font-bold focus:border-sanctuary-teal"
+          >
+            <option value="en">English</option>
+            <option value="te">Telugu (తెలుగు)</option>
+            <option value="hi">Hindi (हिन्दी)</option>
+            <option value="es">Spanish (Español)</option>
+          </select>
+        </div>
+
+        <span id="chat-lang-target-badge" class="text-[11px] font-semibold text-sanctuary-slate truncate">
+          Reads in English
+        </span>
+      </div>
+
+      <p
+        id="ios-voice-helper-banner"
+        hidden
+        role="status"
+        class="max-w-3xl mx-auto mt-1.5 px-3 py-1.5 rounded-xl bg-amber-50 border border-amber-300 text-amber-950 text-xs font-semibold leading-snug"
+      >
+        On iPhone, tap the mic key on your keyboard to dictate Telugu, or type your message below.
+      </p>
+    </div>
+
     <!-- Scrollable Chat Messages (~80%+ of screen height) -->
     <div
       id="chat-messages"
@@ -694,6 +772,67 @@
     </div>
 
     <div class="chat-thread-spacer" aria-hidden="true"></div>
+
+    <!-- Preview Before Send Gate (Shown when sourceLang !== targetLang) -->
+    <div
+      id="translation-preview-card"
+      hidden
+      role="dialog"
+      aria-labelledby="preview-gate-heading"
+      class="translation-preview-card bg-white border-2 border-sanctuary-teal rounded-2xl p-3.5 shadow-xl space-y-2.5 fade-slide-in"
+    >
+      <div class="flex items-center justify-between gap-2">
+        <h3 id="preview-gate-heading" class="text-sm font-extrabold text-sanctuary-charcoal">
+          Preview Before Send
+        </h3>
+        <span id="preview-mode-badge" class="px-2 py-0.5 rounded-full text-[11px] font-bold bg-sanctuary-tealSoft text-sanctuary-tealDark">
+          Strict Translation
+        </span>
+      </div>
+
+      <div class="bg-cream-50 border border-cream-300 rounded-xl px-3 py-2 space-y-0.5">
+        <p id="preview-original-label" class="text-[11px] font-extrabold uppercase tracking-wide text-sanctuary-slate">
+          Original
+        </p>
+        <p id="preview-original-text" class="text-sm font-medium text-sanctuary-charcoal break-words"></p>
+      </div>
+
+      <p
+        id="preview-cloud-pending-note"
+        hidden
+        class="text-xs font-semibold text-amber-900 bg-amber-50 border border-amber-300 rounded-xl px-3 py-2"
+      >
+        Live cloud translation awaits Firebase setup on this device. You can review or edit your message below before sending.
+      </p>
+
+      <div class="space-y-1">
+        <label id="preview-translated-label" for="preview-translated-input" class="block text-[11px] font-extrabold uppercase tracking-wide text-sanctuary-tealDark">
+          Translated
+        </label>
+        <textarea
+          id="preview-translated-input"
+          rows="2"
+          class="w-full px-3 py-2 rounded-xl border border-cream-300 bg-white text-sm font-medium text-sanctuary-charcoal focus:border-sanctuary-teal"
+        ></textarea>
+      </div>
+
+      <div class="flex items-center gap-2 pt-0.5">
+        <button
+          id="btn-preview-confirm-send"
+          type="button"
+          class="flex-1 min-h-[46px] px-4 py-2 rounded-xl bg-emerald-700 text-white font-extrabold text-sm hover:bg-emerald-800 transition-colors shadow-sm"
+        >
+          ✅ Send Message
+        </button>
+        <button
+          id="btn-preview-edit"
+          type="button"
+          class="min-h-[46px] px-4 py-2 rounded-xl border border-cream-300 bg-cream-50 text-sanctuary-charcoal font-bold text-sm hover:border-sanctuary-teal transition-colors"
+        >
+          ✏️ Edit
+        </button>
+      </div>
+    </div>
 
     <!-- Unobtrusive Floating Pill Above Input Bar (Listening or brief error notice) -->
     <button
@@ -766,6 +905,89 @@
         },
         getProviderName: () => (CLOUD_AUTH_HOOK.isConfigured() ? 'firebase' : 'local_persistent_profile')
       };
+
+      const LANGUAGES = {
+        en: { code: 'en', label: 'English', shortLabel: 'English', bcp47: 'en-US' },
+        te: { code: 'te', label: 'Telugu (తెలుగు)', shortLabel: 'Telugu', bcp47: 'te-IN' },
+        hi: { code: 'hi', label: 'Hindi (हिन्दी)', shortLabel: 'Hindi', bcp47: 'hi-IN' },
+        es: { code: 'es', label: 'Spanish (Español)', shortLabel: 'Spanish', bcp47: 'es-US' }
+      };
+
+      function normalizeLangCode(code) {
+        return code && LANGUAGES[code] ? code : 'en';
+      }
+
+      // Clean modular hook for future Firebase Cloud Translation proxy (never exposes API keys)
+      const CLOUD_TRANSLATE_HOOK = {
+        getEndpoint: () => window.HEALTH_ORG_TRANSLATE_PROXY_URL || null,
+        isConfigured: () => Boolean(window.HEALTH_ORG_TRANSLATE_PROXY_URL)
+      };
+
+      async function translateTextStrict(text, sourceLang, targetLang) {
+        const cleanText = typeof text === 'string' ? text.trim() : '';
+        const src = normalizeLangCode(sourceLang);
+        const tgt = normalizeLangCode(targetLang);
+
+        if (!cleanText || src === tgt) {
+          return { translatedText: cleanText, mode: 'same_language', unavailable: false };
+        }
+
+        // 1. On-Device Private Chrome Translator API (Desktop Chrome 138+)
+        if ('Translator' in self && self.Translator && typeof self.Translator.availability === 'function') {
+          try {
+            const availability = await self.Translator.availability({
+              sourceLanguage: src,
+              targetLanguage: tgt
+            });
+            if (availability === 'available' || availability === 'downloadable' || availability === 'downloading') {
+              const translator = await self.Translator.create({
+                sourceLanguage: src,
+                targetLanguage: tgt
+              });
+              const translated = await translator.translate(cleanText);
+              if (typeof translated === 'string' && translated.trim()) {
+                return {
+                  translatedText: translated.trim(),
+                  mode: 'chrome_on_device',
+                  unavailable: false
+                };
+              }
+            }
+          } catch (_err) {
+            // Fall through to Firebase Cloud Proxy check
+          }
+        }
+
+        // 2. Firebase Cloud Translation Proxy (when configured)
+        if (CLOUD_TRANSLATE_HOOK.isConfigured()) {
+          try {
+            const res = await fetch(CLOUD_TRANSLATE_HOOK.getEndpoint(), {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ text: cleanText, sourceLang: src, targetLang: tgt })
+            });
+            if (res.ok) {
+              const data = await res.json();
+              if (data && typeof data.translatedText === 'string' && data.translatedText.trim()) {
+                return {
+                  translatedText: data.translatedText.trim(),
+                  mode: 'cloud_proxy',
+                  unavailable: false
+                };
+              }
+            }
+          } catch (_err) {
+            // Fall through to honest unavailable response
+          }
+        }
+
+        // 3. Honest fallback (never calls unvetted free public translation endpoints)
+        return {
+          translatedText: cleanText,
+          unavailable: true,
+          reason: 'cloud_pending'
+        };
+      }
 
       function parseLocalDateTime(dateIso, timeSlot) {
         const now = new Date();
@@ -883,6 +1105,7 @@
           activeSessionId: null,
           textExtraLarge: false,
           voiceLang: null,
+          hostSpeakLang: 'en',
           sessions: []
         };
       }
@@ -960,6 +1183,7 @@
             relationship: typeof parsed.relationship === 'string' && parsed.relationship.trim()
               ? parsed.relationship.trim()
               : 'Family Member',
+            preferredLang: normalizeLangCode(parsed.preferredLang),
             sessionCount: Math.max(1, Number(parsed.sessionCount) || 1)
           };
         } catch (_err) {
@@ -975,6 +1199,7 @@
             elderName: profile.elderName,
             city: profile.city,
             relationship: profile.relationship || 'Family Member',
+            preferredLang: normalizeLangCode(profile.preferredLang),
             sessionCount: Math.max(1, Number(profile.sessionCount) || 1)
           }));
         } catch (_err) {
@@ -1198,6 +1423,7 @@
       const returningGreetingTitle = document.getElementById('returning-greeting-title');
       const returningGreetingSub = document.getElementById('returning-greeting-sub');
       const returningProfileMeta = document.getElementById('returning-profile-meta');
+      const returningLangSelect = document.getElementById('returning-lang-select');
       const btnSwitchProfile = document.getElementById('btn-switch-profile');
       const firstTimeIdentityCard = document.getElementById('first-time-identity-card');
       const chooseTimeHeading = document.getElementById('choose-time-heading');
@@ -1211,6 +1437,7 @@
       const detectedTimezoneHint = document.getElementById('detected-timezone-hint');
       const quickLocationPills = document.getElementById('quick-location-pills');
       const elderRelationshipInput = document.getElementById('elder-relationship');
+      const preferredLangOptionsEl = document.getElementById('preferred-lang-options');
       const topicOptionsEl = document.getElementById('topic-options');
       const preferenceOptionsEl = document.getElementById('preference-options');
       const heartNoteInput = document.getElementById('heart-note');
@@ -1236,7 +1463,23 @@
       const chatPartnerName = document.getElementById('chat-partner-name');
       const chatSyncPill = document.getElementById('chat-sync-pill');
       const btnChatBack = document.getElementById('btn-chat-back');
+      const hostLangControls = document.getElementById('host-lang-controls');
+      const hostSpeakLangSelect = document.getElementById('host-speak-lang');
+      const elderLangControls = document.getElementById('elder-lang-controls');
+      const elderChatLangSelect = document.getElementById('elder-chat-lang');
+      const chatLangTargetBadge = document.getElementById('chat-lang-target-badge');
+      const iosVoiceHelperBanner = document.getElementById('ios-voice-helper-banner');
+      const translationPreviewCard = document.getElementById('translation-preview-card');
+      const previewModeBadge = document.getElementById('preview-mode-badge');
+      const previewOriginalLabel = document.getElementById('preview-original-label');
+      const previewOriginalText = document.getElementById('preview-original-text');
+      const previewCloudPendingNote = document.getElementById('preview-cloud-pending-note');
+      const previewTranslatedLabel = document.getElementById('preview-translated-label');
+      const previewTranslatedInput = document.getElementById('preview-translated-input');
+      const btnPreviewConfirmSend = document.getElementById('btn-preview-confirm-send');
+      const btnPreviewEdit = document.getElementById('btn-preview-edit');
       const chatMessagesEl = document.getElementById('chat-messages');
+      let pendingPreviewPayload = null;
       const chatForm = document.getElementById('chat-form');
       const chatInput = document.getElementById('chat-input');
       const btnVoiceMic = document.getElementById('btn-voice-mic');
@@ -1278,28 +1521,84 @@
       let sendAfterStop = false;
       let pillTimer = null;
 
-      function detectDefaultVoiceLang() {
+      function isIOSDevice() {
         try {
-          const navLang = (navigator.language || '').toLowerCase();
-          const tz = Intl.DateTimeFormat().resolvedOptions().timeZone || '';
-          if (
-            navLang.includes('en-in') ||
-            navLang.startsWith('hi') ||
-            navLang.startsWith('te') ||
-            tz === 'Asia/Kolkata' ||
-            tz === 'Asia/Calcutta'
-          ) {
-            return 'en-IN';
-          }
-        } catch (_err) {}
-        return 'en-US';
+          const ua = navigator.userAgent || '';
+          const platform = navigator.platform || '';
+          const maxTouch = navigator.maxTouchPoints || 0;
+          return /iPhone|iPad|iPod/i.test(ua) || (platform === 'MacIntel' && maxTouch > 1);
+        } catch (_err) {
+          return false;
+        }
+      }
+
+      function getActiveSpeakerLang() {
+        if (currentView === 'host') {
+          return normalizeLangCode(state.hostSpeakLang || 'en');
+        }
+        const session = getSessionById(activeChatSessionId);
+        if (session && session.preferredLang) {
+          return normalizeLangCode(session.preferredLang);
+        }
+        const profile = loadElderProfile();
+        return normalizeLangCode(profile && profile.preferredLang);
+      }
+
+      function getTargetLangForMessage(session, isHost) {
+        if (isHost) {
+          return normalizeLangCode(session && session.preferredLang);
+        }
+        return 'en';
       }
 
       function getVoiceLang() {
-        if (state.voiceLang === 'en-IN' || state.voiceLang === 'en-US') {
-          return state.voiceLang;
+        const activeCode = getActiveSpeakerLang();
+        return (LANGUAGES[activeCode] && LANGUAGES[activeCode].bcp47) || 'en-US';
+      }
+
+      function updateChatLanguageBar(session) {
+        const isHost = currentView === 'host';
+        const activeSpeakerLang = getActiveSpeakerLang();
+
+        if (hostLangControls) hostLangControls.hidden = !isHost;
+        if (elderLangControls) elderLangControls.hidden = isHost;
+
+        if (isHost && hostSpeakLangSelect) {
+          hostSpeakLangSelect.value = activeSpeakerLang;
         }
-        return detectDefaultVoiceLang();
+        if (!isHost && elderChatLangSelect) {
+          elderChatLangSelect.value = activeSpeakerLang;
+        }
+
+        if (chatLangTargetBadge) {
+          if (isHost) {
+            const callerLang = normalizeLangCode(session && session.preferredLang);
+            const callerLangLabel = LANGUAGES[callerLang].shortLabel;
+            chatLangTargetBadge.textContent = callerLang === 'en'
+              ? 'Caller reads English'
+              : `Sending to ${callerLangLabel} • You read English`;
+          } else {
+            chatLangTargetBadge.textContent = activeSpeakerLang === 'en'
+              ? 'English'
+              : 'Mom reads in English';
+          }
+        }
+
+        if (iosVoiceHelperBanner) {
+          const isIosTe = isIOSDevice() && activeSpeakerLang === 'te';
+          const noSpeechApi = !SpeechRecognitionCtor;
+          if (isIosTe || (noSpeechApi && activeSpeakerLang === 'te')) {
+            iosVoiceHelperBanner.textContent =
+              'On iPhone, tap the mic key on your keyboard to dictate Telugu, or type your message below.';
+            iosVoiceHelperBanner.hidden = false;
+          } else if (noSpeechApi) {
+            iosVoiceHelperBanner.textContent =
+              `On iPhone or unsupported browsers, tap the mic key on your keyboard to dictate ${LANGUAGES[activeSpeakerLang].shortLabel}, or type below.`;
+            iosVoiceHelperBanner.hidden = false;
+          } else {
+            iosVoiceHelperBanner.hidden = true;
+          }
+        }
       }
 
       function combineSpeechText(base, spoken) {
@@ -1385,8 +1684,18 @@
 
       function startVoiceRecognition() {
         hideVoicePill();
-        if (!SpeechRecognitionCtor) {
-          showVoicePillNotice('Voice typing works in Chrome, Safari, or Edge', false);
+        const speakerLang = getActiveSpeakerLang();
+
+        if ((isIOSDevice() && speakerLang === 'te') || !SpeechRecognitionCtor) {
+          const msg = speakerLang === 'te' || isIOSDevice()
+            ? 'On iPhone, tap the mic key on your keyboard to dictate Telugu, or type your message below.'
+            : 'Voice typing works in Chrome, Safari, or Edge — or type below.';
+          if (iosVoiceHelperBanner) {
+            iosVoiceHelperBanner.textContent = msg;
+            iosVoiceHelperBanner.hidden = false;
+          }
+          showVoicePillNotice(msg, false);
+          chatInput.focus();
           return;
         }
 
@@ -1661,13 +1970,45 @@
         }
       }
 
+      function renderPreferredLangOptions(selectedCode = 'en') {
+        if (!preferredLangOptionsEl) return;
+        const activeCode = normalizeLangCode(selectedCode);
+        preferredLangOptionsEl.innerHTML = '';
+        Object.values(LANGUAGES).forEach((lang) => {
+          const id = `lang-opt-${lang.code}`;
+          const item = document.createElement('div');
+
+          const input = document.createElement('input');
+          input.type = 'radio';
+          input.name = 'preferredLang';
+          input.id = id;
+          input.value = lang.code;
+          input.className = 'visually-hidden radio-card-input';
+          if (lang.code === activeCode) input.checked = true;
+
+          const label = document.createElement('label');
+          label.htmlFor = id;
+          label.className =
+            'radio-card-label min-h-[46px] w-full flex items-center justify-center px-2.5 py-2 rounded-xl border-2 border-cream-300 bg-cream-50 font-bold text-xs sm:text-sm text-center cursor-pointer hover:border-sanctuary-teal transition-all';
+          label.textContent = lang.label;
+
+          item.appendChild(input);
+          item.appendChild(label);
+          preferredLangOptionsEl.appendChild(item);
+        });
+      }
+
       function applyIdentityProfileUI() {
         const profile = loadElderProfile();
         if (profile) {
           const locationSuffix = profile.city ? ` (${profile.city})` : '';
+          const langCode = normalizeLangCode(profile.preferredLang);
           returningGreetingTitle.textContent = `Welcome back, ${profile.elderName}! 🌿${locationSuffix}`;
           returningGreetingSub.textContent = 'Ready to talk with Mom again? Pick a day and time below.';
           returningProfileMeta.textContent = `${profile.relationship || 'Family Member'} • ${profile.sessionCount} ${profile.sessionCount === 1 ? 'visit' : 'visits'}`;
+          if (returningLangSelect) {
+            returningLangSelect.value = langCode;
+          }
           btnSwitchProfile.textContent = `Not ${profile.elderName}? Switch Profile`;
 
           returningElderCard.hidden = false;
@@ -1895,6 +2236,9 @@
           sender: payload.sender,
           senderLabel: payload.sender === 'mom' ? 'Mom' : (payload.elderName || session.elderName),
           text: payload.text,
+          originalText: typeof payload.originalText === 'string' ? payload.originalText : '',
+          sourceLang: payload.sourceLang ? normalizeLangCode(payload.sourceLang) : '',
+          targetLang: payload.targetLang ? normalizeLangCode(payload.targetLang) : '',
           timestamp: msgTs,
           time: formatClock(msgTs)
         };
@@ -1920,12 +2264,21 @@
         }
       }
 
+      function hideTranslationPreview(restoreInput = false) {
+        if (restoreInput && pendingPreviewPayload && pendingPreviewPayload.originalText) {
+          chatInput.value = pendingPreviewPayload.originalText;
+        }
+        pendingPreviewPayload = null;
+        if (translationPreviewCard) translationPreviewCard.hidden = true;
+      }
+
       function openChatRoom(sessionId, openedFrom) {
         const session = getSessionById(sessionId);
         if (!session) return;
 
         stopVoiceRecognition(true);
         hideVoicePill();
+        hideTranslationPreview(false);
 
         activeChatSessionId = session.id;
         state.activeSessionId = session.id;
@@ -1933,10 +2286,8 @@
 
         chatOpenedFrom = openedFrom;
         if (openedFrom === 'elder') {
-          currentView = 'elder';
           elderScreen = 'chat';
         } else {
-          currentView = 'host';
           chatPanel.hidden = false;
         }
 
@@ -1946,6 +2297,7 @@
         chatAvatar.textContent = partnerLabel.trim().charAt(0).toUpperCase() || 'M';
         chatInput.placeholder = 'Speak or type your message...';
 
+        updateChatLanguageBar(session);
         renderChatMessages(session, isHost);
         updateViewVisibility();
 
@@ -1993,6 +2345,21 @@
           const body = document.createElement('p');
           body.className = 'text-base sm:text-lg leading-snug whitespace-pre-wrap break-words';
           body.textContent = msg.text;
+          bubble.appendChild(body);
+
+          if (msg.originalText && msg.originalText !== msg.text) {
+            const origLangLabel = msg.sourceLang && LANGUAGES[msg.sourceLang]
+              ? LANGUAGES[msg.sourceLang].shortLabel
+              : 'Original';
+            const origFooter = document.createElement('p');
+            origFooter.className = `text-xs mt-1 pt-1 border-t break-words ${
+              alignRight
+                ? 'border-white/20 text-white/85'
+                : 'border-cream-200 text-sanctuary-slate'
+            }`;
+            origFooter.textContent = `Original (${origLangLabel}): "${msg.originalText}"`;
+            bubble.appendChild(origFooter);
+          }
 
           const meta = document.createElement('div');
           meta.className = `flex items-center justify-end gap-1.5 text-[11px] font-semibold mt-1 ${
@@ -2000,7 +2367,6 @@
           }`;
           meta.textContent = `${msg.senderLabel || (isElderMsg ? session.elderName : 'Mom')} • ${msg.time}`;
 
-          bubble.appendChild(body);
           bubble.appendChild(meta);
           row.appendChild(bubble);
           chatMessagesEl.appendChild(row);
@@ -2153,6 +2519,12 @@
             ? `🌟 Returning Member (${member.totalSessions} sessions)`
             : '🌱 First-Time Visit';
           nameRow.appendChild(badge);
+
+          const dirLangCode = normalizeLangCode(member.latestSession && member.latestSession.preferredLang);
+          const dirLangBadge = document.createElement('span');
+          dirLangBadge.className = 'inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-cream-200 text-sanctuary-charcoal';
+          dirLangBadge.textContent = `🗣️ Language: ${LANGUAGES[dirLangCode].shortLabel}`;
+          nameRow.appendChild(dirLangBadge);
           info.appendChild(nameRow);
 
           const locLine = document.createElement('p');
@@ -2359,6 +2731,12 @@
             ? `🌟 Returning Member (Session #${ordinalCount})`
             : '🌱 First-Time Visit';
           headerRow.appendChild(statusBadge);
+
+          const langCode = normalizeLangCode(session.preferredLang);
+          const langBadge = document.createElement('span');
+          langBadge.className = 'inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-cream-200 text-sanctuary-charcoal';
+          langBadge.textContent = `🗣️ Language: ${LANGUAGES[langCode].shortLabel}`;
+          headerRow.appendChild(langBadge);
           info.appendChild(headerRow);
 
           const locationRow = document.createElement('p');
@@ -2650,6 +3028,7 @@
               elderName: payload.elderName || 'Family Member',
               city: payload.city || payload.location || '',
               relationship: payload.relationship || 'Family Member',
+              preferredLang: normalizeLangCode(payload.preferredLang),
               isReturning: Boolean(payload.isReturning) || Number(payload.sessionCount) > 1,
               sessionCount: Number(payload.sessionCount) || 1,
               dateIso: payload.date || '',
@@ -2674,6 +3053,10 @@
             let changed = false;
             if (!existing.clientId && payload.clientId) {
               existing.clientId = payload.clientId;
+              changed = true;
+            }
+            if (!existing.preferredLang && payload.preferredLang) {
+              existing.preferredLang = normalizeLangCode(payload.preferredLang);
               changed = true;
             }
             if (!existing.city && (payload.city || payload.location)) {
@@ -3024,6 +3407,7 @@
         highlightQuickName('');
         highlightQuickLocation('');
         highlightQuickRole('Family Member');
+        renderPreferredLangOptions('en');
         elderNameError.classList.add('hidden');
         elderLocationError.classList.add('hidden');
         elderNameInput.removeAttribute('aria-invalid');
@@ -3040,6 +3424,48 @@
         tabHostDirectory.addEventListener('click', () => switchHostTab('directory'));
       }
 
+      if (returningLangSelect) {
+        returningLangSelect.addEventListener('change', () => {
+          const profile = loadElderProfile();
+          if (!profile) return;
+          const nextLang = normalizeLangCode(returningLangSelect.value);
+          profile.preferredLang = nextLang;
+          saveElderProfile(profile);
+          const activeSession = getSessionById(activeChatSessionId);
+          if (activeSession) {
+            activeSession.preferredLang = nextLang;
+            saveState();
+          }
+          announce(`Preferred language set to ${LANGUAGES[nextLang].shortLabel}.`);
+        });
+      }
+
+      if (hostSpeakLangSelect) {
+        hostSpeakLangSelect.addEventListener('change', () => {
+          state.hostSpeakLang = normalizeLangCode(hostSpeakLangSelect.value);
+          saveState();
+          const session = getSessionById(activeChatSessionId);
+          updateChatLanguageBar(session);
+        });
+      }
+
+      if (elderChatLangSelect) {
+        elderChatLangSelect.addEventListener('change', () => {
+          const nextLang = normalizeLangCode(elderChatLangSelect.value);
+          const profile = loadElderProfile();
+          if (profile) {
+            profile.preferredLang = nextLang;
+            saveElderProfile(profile);
+          }
+          const session = getSessionById(activeChatSessionId);
+          if (session) {
+            session.preferredLang = nextLang;
+            saveState();
+          }
+          updateChatLanguageBar(session);
+        });
+      }
+
       bookingForm.addEventListener('submit', async (event) => {
         event.preventDefault();
         bookingNetworkError.hidden = true;
@@ -3050,6 +3476,7 @@
         let elderName = '';
         let city = '';
         let relationship = 'Family Member';
+        let preferredLang = 'en';
         let isReturning = false;
         let sessionCount = 1;
         const clientId = (savedProfile && savedProfile.clientId) || elderClientId || getOrCreateClientId();
@@ -3059,6 +3486,9 @@
           elderName = savedProfile.elderName;
           city = savedProfile.city;
           relationship = savedProfile.relationship || 'Family Member';
+          preferredLang = normalizeLangCode(
+            (returningLangSelect && returningLangSelect.value) || savedProfile.preferredLang
+          );
           isReturning = true;
           sessionCount = (Number(savedProfile.sessionCount) || 1) + 1;
         } else {
@@ -3085,6 +3515,9 @@
           }
 
           relationship = elderRelationshipInput.value.trim() || 'Family Member';
+          preferredLang = normalizeLangCode(
+            bookingForm.querySelector('input[name="preferredLang"]:checked')?.value || 'en'
+          );
           isReturning = false;
           sessionCount = 1;
         }
@@ -3107,6 +3540,7 @@
           elderName,
           city,
           relationship,
+          preferredLang,
           isReturning,
           sessionCount,
           date: dayObj.iso,
@@ -3129,6 +3563,7 @@
             elderName,
             city,
             relationship,
+            preferredLang,
             sessionCount
           });
           applyIdentityProfileUI();
@@ -3139,6 +3574,7 @@
             elderName,
             city,
             relationship,
+            preferredLang,
             isReturning,
             sessionCount,
             dateIso: dayObj.iso,
@@ -3186,6 +3622,7 @@
         renderTimeSlots();
         renderTopics();
         renderPreferences();
+        renderPreferredLangOptions(loadElderProfile()?.preferredLang || 'en');
         applyIdentityProfileUI();
         elderScreen = 'booking';
         updateViewVisibility();
@@ -3194,6 +3631,7 @@
       btnChatBack.addEventListener('click', () => {
         stopVoiceRecognition(true);
         hideVoicePill();
+        hideTranslationPreview(false);
         closeActiveChatSubscription();
 
         if (chatOpenedFrom === 'host') {
@@ -3233,20 +3671,7 @@
         }
       });
 
-      chatForm.addEventListener('submit', async (event) => {
-        event.preventDefault();
-        stopVoiceRecognition(true, false);
-
-        const text = chatInput.value.trim();
-        if (!text) {
-          chatInput.focus();
-          return;
-        }
-
-        const session = getSessionById(activeChatSessionId);
-        if (!session) return;
-
-        const isHost = chatOpenedFrom === 'host';
+      async function deliverChatMessage({ session, isHost, text, originalText, sourceLang, targetLang }) {
         const msgId = createId('msg');
         const ts = Date.now();
         localActionIds.add(msgId);
@@ -3256,6 +3681,9 @@
           sender: isHost ? 'mom' : 'elder',
           senderLabel: isHost ? 'Mom' : session.elderName,
           text,
+          originalText: originalText || '',
+          sourceLang: sourceLang || '',
+          targetLang: targetLang || '',
           timestamp: ts,
           time: formatClock(ts)
         };
@@ -3270,14 +3698,106 @@
         renderChatMessages(session, isHost);
 
         const cloudPayload = isHost
-          ? { msgId, sender: 'mom', text, timestamp: ts }
-          : { msgId, sender: 'elder', elderName: session.elderName, text, timestamp: ts };
+          ? { msgId, sender: 'mom', text, originalText, sourceLang, targetLang, timestamp: ts }
+          : { msgId, sender: 'elder', elderName: session.elderName, text, originalText, sourceLang, targetLang, timestamp: ts };
 
         try {
           await ntfyPublish(`${CHAT_TOPIC_PREFIX}${session.id}`, cloudPayload);
         } catch (_err) {
           showVoicePillNotice('Could not send right now — check internet', false);
         }
+      }
+
+      if (btnPreviewConfirmSend) {
+        btnPreviewConfirmSend.addEventListener('click', async () => {
+          if (!pendingPreviewPayload) return;
+          const { session, isHost, originalText, sourceLang, targetLang } = pendingPreviewPayload;
+          const finalText = (previewTranslatedInput && previewTranslatedInput.value.trim()) || originalText;
+          hideTranslationPreview(false);
+          await deliverChatMessage({
+            session,
+            isHost,
+            text: finalText,
+            originalText,
+            sourceLang,
+            targetLang
+          });
+        });
+      }
+
+      if (btnPreviewEdit) {
+        btnPreviewEdit.addEventListener('click', () => {
+          hideTranslationPreview(true);
+          chatInput.focus();
+        });
+      }
+
+      chatForm.addEventListener('submit', async (event) => {
+        event.preventDefault();
+        stopVoiceRecognition(true, false);
+
+        const rawText = chatInput.value.trim();
+        if (!rawText) {
+          chatInput.focus();
+          return;
+        }
+
+        const session = getSessionById(activeChatSessionId);
+        if (!session) return;
+
+        const isHost = chatOpenedFrom === 'host';
+        const sourceLang = getActiveSpeakerLang();
+        const targetLang = getTargetLangForMessage(session, isHost);
+
+        if (sourceLang === targetLang) {
+          hideTranslationPreview(false);
+          await deliverChatMessage({
+            session,
+            isHost,
+            text: rawText,
+            originalText: rawText,
+            sourceLang,
+            targetLang
+          });
+          return;
+        }
+
+        // Different languages: run strict privacy-first translation & show Preview Before Send gate
+        const result = await translateTextStrict(rawText, sourceLang, targetLang);
+        pendingPreviewPayload = {
+          session,
+          isHost,
+          originalText: rawText,
+          sourceLang,
+          targetLang
+        };
+
+        if (previewOriginalLabel) {
+          previewOriginalLabel.textContent = `Original (${LANGUAGES[sourceLang].shortLabel})`;
+        }
+        if (previewOriginalText) {
+          previewOriginalText.textContent = rawText;
+        }
+        if (previewTranslatedLabel) {
+          previewTranslatedLabel.textContent = `Translated (${LANGUAGES[targetLang].shortLabel})`;
+        }
+        if (previewTranslatedInput) {
+          previewTranslatedInput.value = result.translatedText || rawText;
+        }
+        if (previewCloudPendingNote) {
+          previewCloudPendingNote.hidden = !result.unavailable;
+        }
+        if (previewModeBadge) {
+          previewModeBadge.textContent = result.unavailable
+            ? 'Cloud Setup Pending'
+            : result.mode === 'chrome_on_device'
+            ? 'On-Device Private'
+            : 'Strict Translation';
+        }
+        if (translationPreviewCard) {
+          translationPreviewCard.hidden = false;
+        }
+        chatInput.value = '';
       });
 
       btnSyncNow.addEventListener('click', () => {
@@ -3316,6 +3836,7 @@
         renderTimeSlots();
         renderTopics();
         renderPreferences();
+        renderPreferredLangOptions(loadElderProfile()?.preferredLang || 'en');
         initLocationSuggestions();
         applyIdentityProfileUI();
       }
